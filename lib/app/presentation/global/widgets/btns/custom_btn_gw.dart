@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../text/custom_text_gw.dart';
 
 abstract class CustomBtnGW {
@@ -27,7 +28,7 @@ abstract class CustomBtnGW {
         style: style,
         child: CustomTextGW.text(
           label,
-          color: Colors.white,
+          color: AppColors.white,
           adaptativeScreen: adaptativeScreen,
           fontSize: fontSizeResponsive,
           fontWeight: FontWeight.bold,

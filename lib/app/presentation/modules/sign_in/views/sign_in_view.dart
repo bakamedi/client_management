@@ -1,11 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../extensions/widgets_ext.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
 import '../../../global/widgets/text/custom_text_gw.dart';
+import '../../../router/app_routes/sign_up_route.dart';
 
 class SignInView extends StatelessWidget {
   final AdaptativeScreen adaptativeScreen;
@@ -19,19 +22,7 @@ class SignInView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextGW.text(
-          'Bienvenido',
-          adaptativeScreen: adaptativeScreen,
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(10),
-          ),
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
         InputTextFieldGW(
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(2),
-          ),
           labelTxt: 'Correo',
           backgroundLabel: 'Escriba su correo',
           onChanged: (value) {},
@@ -54,16 +45,14 @@ class SignInView extends StatelessWidget {
           label: 'Ingresar',
           onPressed: () {},
         ),
-        1.h.expanded,
         CustomTextGW.richText(
           padding: EdgeInsets.only(
-            bottom: adaptativeScreen.bhp(
-              5,
-            ),
+            top: adaptativeScreen.bhp(40),
+            bottom: adaptativeScreen.bhp(5),
           ),
           adaptativeScreen: adaptativeScreen,
           firstText: 'Si no posee una cuenta ',
-          color: Colors.black,
+          color: AppColors.black100,
           children: [
             TextSpan(
               text: 'registrate aquí',
@@ -71,7 +60,8 @@ class SignInView extends StatelessWidget {
                 color: Colors.blue,
                 decoration: TextDecoration.underline,
               ),
-              recognizer: TapGestureRecognizer()..onTap = () {},
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => context.pushNamed(SignUpRoute.path),
             ),
           ],
         ),

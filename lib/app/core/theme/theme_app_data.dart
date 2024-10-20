@@ -38,8 +38,8 @@ abstract class ThemeAppData {
       style: ButtonStyle(
         textStyle: WidgetStateProperty.resolveWith<TextStyle>(
           (Set<WidgetState> states) {
-            return const TextStyle(
-              color: Colors.white,
+            return TextStyle(
+              color: AppColors.white,
             );
           },
         ),
@@ -50,13 +50,13 @@ abstract class ThemeAppData {
         ),
         shadowColor: WidgetStateProperty.resolveWith<Color?>(
           (Set<WidgetState> states) {
-            return Colors.transparent; // Defer to the widget's default.
+            return AppColors.transparent; // Defer to the widget's default.
           },
         ),
         backgroundColor: WidgetStateProperty.resolveWith<Color>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.disabled)) {
-              return Colors.grey;
+              return AppColors.grey400;
             }
             return AppColors.primary; // Use the component's default.
           },
@@ -81,9 +81,9 @@ abstract class ThemeAppData {
         backgroundColor: WidgetStateProperty.resolveWith<Color>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.disabled)) {
-              return Colors.grey.withOpacity(0.8);
+              return AppColors.grey300.withOpacity(0.8);
             }
-            return Colors.white; // Use the component's default.
+            return AppColors.white; // Use the component's default.
           },
         ),
       ),
