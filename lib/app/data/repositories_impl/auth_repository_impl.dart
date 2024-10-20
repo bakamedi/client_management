@@ -9,8 +9,9 @@ import '../data_source/providers/auth_provider.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final AuthProvider _authProvider;
 
-  AuthRepositoryImpl({required AuthProvider authProvider})
-      : _authProvider = authProvider;
+  AuthRepositoryImpl({
+    required AuthProvider authProvider,
+  }) : _authProvider = authProvider;
 
   @override
   FutureEither<SignInFailure, SignInSuccess> signIn(
