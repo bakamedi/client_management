@@ -17,7 +17,7 @@ const httpTimeout = Duration(
 /// Crea instancia de [Dio]
 final _dio = Dio(
   BaseOptions(
-    baseUrl: '',
+    baseUrl: const String.fromEnvironment('API_BASE_URL'),
     connectTimeout: httpTimeout,
     receiveTimeout: httpTimeout,
     sendTimeout: httpTimeout,
