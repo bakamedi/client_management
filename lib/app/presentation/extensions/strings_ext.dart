@@ -14,7 +14,7 @@ extension StringExt on String {
   }
 
   bool get isValidPassword {
-    return length > 6;
+    return length >= 6;
   }
 
   String get getInitials {

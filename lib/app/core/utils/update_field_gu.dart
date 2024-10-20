@@ -1,0 +1,4 @@
+enum UpdateFieldGU {
+  email,
+  password,
+}

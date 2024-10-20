@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../extensions/widgets_ext.dart';
-import '../../utils/custom_utils_gw.dart';
+import '../../utils/custom_utils_gu.dart';
 import '../text/custom_text_gw.dart';
 
 abstract class ScaffoldSimpleBodyGW {
@@ -14,7 +14,7 @@ abstract class ScaffoldSimpleBodyGW {
     double? top,
   }) {
     return GestureDetector(
-      onTap: () => CustomUtilsGW.unFocusKeyboard(),
+      onTap: () => CustomUtilsGU.unFocusKeyboard(),
       child: Scaffold(
         appBar: appBar,
         body: Column(
@@ -49,7 +49,7 @@ abstract class ScaffoldSimpleBodyGW {
     double? top,
   }) {
     return GestureDetector(
-      onTap: () => CustomUtilsGW.unFocusKeyboard(),
+      onTap: () => CustomUtilsGU.unFocusKeyboard(),
       child: Scaffold(
         appBar: appBar,
         body: body,

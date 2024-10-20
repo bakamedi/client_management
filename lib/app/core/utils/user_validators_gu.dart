@@ -1,20 +1,25 @@
 // ignore_for_file: constant_identifier_names
 
-import '../../extensions/strings_ext.dart';
+import '../../presentation/extensions/strings_ext.dart';
 
 const int MAX_PHONE_LENGTH = 9;
 const int MAX_CALENDAR_LENGTH = 10;
 const int MIN_PASSWORD_LENGTH = 6;
+const int LEGAL_AGE = 18;
 const String EMAIL_REGEX = r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$';
 
 class PhoneValidator {
   static String? validate(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'El teléfono no puede estar vacío';
-    } else if (value.length != MAX_PHONE_LENGTH) {
+    }
+
+    if (value.length != MAX_PHONE_LENGTH) {
       return 'El telefono tiene que tener 10 números';
-    } else if (!RegExp(r'^\d+$').hasMatch(value)) {
-      return 'El teléfono solo puede contener letras';
+    }
+
+    if (!RegExp(r'^\d+$').hasMatch(value)) {
+      return 'El teléfono solo puede contener caracteres alfanuméricos';
     }
 
     return null;

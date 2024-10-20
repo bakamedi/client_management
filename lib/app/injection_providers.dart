@@ -1,6 +1,7 @@
 //import 'package:sembast/sembast.dart';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -17,7 +18,7 @@ const httpTimeout = Duration(
 /// Crea instancia de [Dio]
 final _dio = Dio(
   BaseOptions(
-    baseUrl: const String.fromEnvironment('API_BASE_URL'),
+    baseUrl: dotenv.env['API_BASE_URL'] ?? '',
     connectTimeout: httpTimeout,
     receiveTimeout: httpTimeout,
     sendTimeout: httpTimeout,
