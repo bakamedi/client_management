@@ -7,6 +7,7 @@ import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
 import '../../../global/widgets/text/custom_text_gw.dart';
+import '../../../router/app_routes/contacts_route.dart';
 import '../../../router/app_routes/sign_up_route.dart';
 
 class SignInView extends StatelessWidget {
@@ -42,7 +43,9 @@ class SignInView extends StatelessWidget {
           ),
           adaptativeScreen: adaptativeScreen,
           label: 'Ingresar',
-          onPressed: () {},
+          onPressed: () => context.pushReplacement(
+            ContactsRoute.path,
+          ),
         ),
         CustomTextGW.richText(
           padding: EdgeInsets.only(

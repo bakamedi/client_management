@@ -41,4 +41,19 @@ abstract class ScaffoldSimpleBodyGW {
       ),
     );
   }
+
+  static Widget home({
+    PreferredSizeWidget? appBar,
+    required AdaptativeScreen adaptativeScreen,
+    required Widget body,
+    double? top,
+  }) {
+    return GestureDetector(
+      onTap: () => CustomUtilsGW.unFocusKeyboard(),
+      child: Scaffold(
+        appBar: appBar,
+        body: body,
+      ),
+    );
+  }
 }

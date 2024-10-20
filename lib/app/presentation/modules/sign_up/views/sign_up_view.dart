@@ -1,8 +1,10 @@
-import 'package:client_management/app/presentation/global/widgets/btns/custom_btn_gw.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
+import '../../../router/app_routes/contacts_route.dart';
 
 class SignUpView extends StatelessWidget {
   final AdaptativeScreen adaptativeScreen;
@@ -59,7 +61,9 @@ class SignUpView extends StatelessWidget {
           ),
           adaptativeScreen: adaptativeScreen,
           label: 'Registrar',
-          onPressed: () {},
+          onPressed: () => context.pushReplacement(
+            ContactsRoute.path,
+          ),
         ),
       ],
     );
