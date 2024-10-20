@@ -13,7 +13,7 @@ class SignInRoute {
       builder: (context, __) {
         final adaptativeScreen = AdaptativeScreen(context);
 
-        return ScaffoldSimpleBodyGW(
+        return ScaffoldSimpleBodyGW.simple(
           adaptativeScreen: adaptativeScreen,
           title: 'Bienvenido',
           body: SignInView(

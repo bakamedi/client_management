@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../extensions/widgets_ext.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';

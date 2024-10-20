@@ -13,9 +13,9 @@ class SignUpRoute {
       builder: (context, __) {
         final adaptativeScreen = AdaptativeScreen(context);
 
-        return ScaffoldSimpleBodyGW(
+        return ScaffoldSimpleBodyGW.simple(
           adaptativeScreen: adaptativeScreen,
-          title: 'Bienvenido',
+          title: 'Registrate',
           body: SignUpView(
             adaptativeScreen: adaptativeScreen,
           ),
