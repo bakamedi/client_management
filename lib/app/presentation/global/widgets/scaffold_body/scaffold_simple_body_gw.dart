@@ -11,6 +11,7 @@ abstract class ScaffoldSimpleBodyGW {
     required AdaptativeScreen adaptativeScreen,
     required String title,
     required Widget body,
+    double? top,
   }) {
     return GestureDetector(
       onTap: () => CustomUtilsGW.unFocusKeyboard(),
@@ -23,7 +24,7 @@ abstract class ScaffoldSimpleBodyGW {
               title,
               adaptativeScreen: adaptativeScreen,
               padding: EdgeInsets.only(
-                top: adaptativeScreen.bhp(25),
+                top: adaptativeScreen.bhp(top ?? 25),
                 bottom: adaptativeScreen.bhp(2),
               ),
               fontSize: 30,
