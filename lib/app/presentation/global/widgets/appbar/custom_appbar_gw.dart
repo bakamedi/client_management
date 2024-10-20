@@ -76,7 +76,7 @@ abstract class CustomAppbarGW {
                   '$contactsLength contactos',
                   adaptativeScreen: adaptativeScreen,
                   fontSize: adaptativeScreen.dp(1.4),
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   color: AppColors.grey300,
                 ),
               ],

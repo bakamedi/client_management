@@ -8,7 +8,7 @@ abstract class CustomTextGW {
   static Widget text(
     String data, {
     required AdaptativeScreen adaptativeScreen,
-    required double fontSize,
+    double fontSize = 0,
     Color? color,
     TextAlign? textAlign,
     FontWeight? fontWeight,
