@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/adaptative_screen/adaptative_screen.dart';
@@ -21,42 +22,65 @@ class ContactsW extends StatelessWidget {
     final AdaptativeScreen adaptativeScreen = AdaptativeScreen(context);
     return CustomScrollView(
       slivers: <Widget>[
-        SliverList.builder(
-          itemCount: contacts.length,
-          itemBuilder: (BuildContext context, int index) {
-            final ContactResponse contact = contacts[index];
-            return ListTile(
-              onTap: () => openEditContact(context, contact),
-              leading: CircleAvatar(
-                child: CustomTextGW.text(
-                  contact.initials,
-                  adaptativeScreen: adaptativeScreen,
-                ),
-              ),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        contacts.isEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    EvaIcons.peopleOutline,
+                    size: adaptativeScreen.dp(20),
+                    color: AppColors.grey400.withOpacity(0.4),
+                  ),
                   CustomTextGW.text(
-                    contact.fullName,
+                    'No hay contactos ',
                     adaptativeScreen: adaptativeScreen,
                     fontSize: adaptativeScreen.dp(1.5),
                     fontWeight: FontWeight.bold,
-                  ),
-                  CustomTextGW.text(
-                    contact.cellPhoneNumber,
-                    adaptativeScreen: adaptativeScreen,
-                    fontSize: adaptativeScreen.dp(1.3),
-                    color: AppColors.grey400,
+                    color: AppColors.grey400.withOpacity(0.4),
                   ),
                 ],
+              ).center.sliverBox.sliverPadding(
+                  EdgeInsets.only(
+                    top: adaptativeScreen.bhp(20),
+                  ),
+                )
+            : SliverList.builder(
+                itemCount: contacts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ContactResponse contact = contacts[index];
+                  return ListTile(
+                    onTap: () => openEditContact(context, contact),
+                    leading: CircleAvatar(
+                      child: CustomTextGW.text(
+                        contact.initials,
+                        adaptativeScreen: adaptativeScreen,
+                      ),
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomTextGW.text(
+                          contact.fullName,
+                          adaptativeScreen: adaptativeScreen,
+                          fontSize: adaptativeScreen.dp(1.5),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        CustomTextGW.text(
+                          contact.cellPhoneNumber,
+                          adaptativeScreen: adaptativeScreen,
+                          fontSize: adaptativeScreen.dp(1.3),
+                          color: AppColors.grey400,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).sliverPadding(
+                EdgeInsets.symmetric(
+                  horizontal: adaptativeScreen.bwh(2),
+                ),
               ),
-            );
-          },
-        ).sliverPadding(
-          EdgeInsets.symmetric(
-            horizontal: adaptativeScreen.bwh(2),
-          ),
-        ),
       ],
     );
   }

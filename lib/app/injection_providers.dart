@@ -39,6 +39,7 @@ const httpTimeout = Duration(
 );
 
 /// Crea instancia de [Dio]
+///
 final _dio = Dio(
   BaseOptions(
     baseUrl: dotenv.env['API_BASE_URL'] ?? '',

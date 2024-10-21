@@ -28,6 +28,21 @@ class HttpHelper {
         if (bearerToken != null) 'Authorization': 'Bearer $bearerToken',
       };
 
+      // final retryDio = Dio(
+      //   BaseOptions(
+      //     baseUrl: dotenv.env['API_BASE_URL'] ?? '',
+      //     connectTimeout: const Duration(seconds: 30),
+      //     receiveTimeout: const Duration(seconds: 30),
+      //     sendTimeout: const Duration(seconds: 30),
+      //   ),
+      // );
+      // _dio.interceptors.add(
+      //   TokenInterceptor(
+      //     retryDio,
+      //     const FlutterSecureStorage(),
+      //   ),
+      // );
+
       final response = await _dio.request(
         pathOrUrl,
         options: Options(
