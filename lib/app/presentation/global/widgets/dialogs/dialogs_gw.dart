@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
@@ -23,6 +24,8 @@ enum DialogType {
   custom,
   none,
   internet,
+  timeout,
+  network
 }
 
 /// clase [Dialogs] para los dialogos personalizados
@@ -120,22 +123,27 @@ abstract class DialogsGW {
       case DialogType.success:
         return _icon(
           adaptativeScreen,
-          Icons.done_rounded,
+          EvaIcons.checkmarkCircle2Outline,
         );
       case DialogType.info:
         return _icon(
           adaptativeScreen,
-          Icons.info_outline,
+          EvaIcons.infoOutline,
         );
       case DialogType.internet:
         return _icon(
           adaptativeScreen,
-          Icons.wifi_off_sharp,
+          EvaIcons.wifiOffOutline,
         );
       case DialogType.error:
         return _icon(
           adaptativeScreen,
-          Icons.error,
+          EvaIcons.closeCircleOutline,
+        );
+      case DialogType.timeout:
+        return _icon(
+          adaptativeScreen,
+          EvaIcons.clockOutline,
         );
       case DialogType.none:
         return const SizedBox(

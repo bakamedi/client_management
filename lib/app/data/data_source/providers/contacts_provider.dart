@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../domain/either.dart';
 import '../../../domain/models/contacts/failure/contacts_failure.dart';
 import '../../../domain/responses/contacts/contacts_response.dart';

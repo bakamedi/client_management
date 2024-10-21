@@ -7,7 +7,6 @@ import '../../../../domain/models/contacts/failure/contacts_failure.dart';
 import '../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../domain/respositories/contacts_repository.dart';
 import '../../../../injection_providers.dart';
-import '../../../global/utils/state_gu.dart';
 import '../utils/contact_mode.dart';
 import 'contact_state.dart';
 
@@ -82,13 +81,5 @@ class ContactController extends StateNotifier<ContactState> {
     );
 
     return await _contactsRepository.update(updatedContact);
-  }
-
-  void _changeStateGU(StateGU stateGU) {
-    onlyUpdate(
-      state = state.copyWith(
-        stategu: stateGU,
-      ),
-    );
   }
 }
