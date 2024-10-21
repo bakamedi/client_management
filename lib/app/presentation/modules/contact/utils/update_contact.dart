@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../global/controllers/loader/loader_gc.dart';
 import '../../../global/widgets/dialogs/dialogs_gw.dart';
+import '../../contacts/utils/get_contacts.dart';
 import '../controller/contact_controller.dart';
 
 void updateContact(BuildContext context) async {
@@ -47,12 +48,14 @@ void updateContact(BuildContext context) async {
           type: DialogType.success,
           title: 'Acutalizado',
           content: 'El usuario se actualizo con exito',
-          onFunctionAfterOk: () => context.pop(),
+          onFunctionAfterOk: () {
+            getContacts();
+            context.pop();
+          },
         );
       },
     );
-  } catch (e) {
-    print(e);
+  } catch (_) {
     loaderGC.showLoader(
       loading: false,
     );

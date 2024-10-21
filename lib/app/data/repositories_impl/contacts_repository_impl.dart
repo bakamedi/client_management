@@ -1,3 +1,4 @@
+import 'package:client_management/app/domain/models/contacts/success/contacts_success.dart';
 import 'package:client_management/app/domain/typedefs.dart';
 import 'package:sembast/sembast.dart';
 
@@ -51,6 +52,27 @@ class ContactsRepositoryImpl extends ContactsRepository {
         );
         await _storeProvider.updateRecord(
           value: contactResp.toJson(),
+          finder: finder,
+        );
+        return Either.right(
+          contactResp,
+        );
+      },
+    );
+  }
+
+  @override
+  FutureEither<ContactsFailure, ContactsSuccess> delete(
+    String id,
+  ) async {
+    final result = await _contactsProvider.delete(id);
+    return result.when(
+      left: (ContactsFailure value) => Either.left(value),
+      right: (ContactsSuccess contactResp) async {
+        final Finder finder = Finder(
+          filter: Filter.equals('id', id),
+        );
+        await _storeProvider.removeRecord(
           finder: finder,
         );
         return Either.right(

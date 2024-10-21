@@ -1,5 +1,6 @@
 import '../../../domain/either.dart';
 import '../../../domain/models/contacts/failure/contacts_failure.dart';
+import '../../../domain/models/contacts/success/contacts_success.dart';
 import '../../../domain/responses/contacts/contacts_response.dart';
 import '../../../domain/typedefs.dart';
 import '../../helpers/http/http_helper.dart';
@@ -76,6 +77,48 @@ class ContactsProvider {
       success: (statusCode, data) {
         final user = contactSimpleResponseFromJson(data);
         return Either.right(user.data);
+      },
+      networkError: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+      timeOut: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.timeOut(),
+        );
+      },
+      unhandledError: (statusCode, stackTrace) {
+        return const Either.left(
+          ContactsFailure.unhandledException(),
+        );
+      },
+      internetConnection: () {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+    );
+  }
+
+  FutureEither<ContactsFailure, ContactsSuccess> delete(
+    String id,
+  ) async {
+    final accessToken = await _deviceUtilProvider.accessToken;
+
+    final result = await _http.request(
+      'user/$id',
+      method: HttpMethod.DELETE,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    return result.when(
+      success: (statusCode, data) {
+        return const Either.right(ContactsSuccess.ok());
       },
       networkError: (stackTrace) {
         return const Either.left(

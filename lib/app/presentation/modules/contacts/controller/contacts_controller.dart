@@ -26,7 +26,14 @@ class ContactsController extends StateNotifier<ContactsState> {
   StateGU get stategu => state.stategu;
   List<ContactResponse> get contacts => state.contacts;
 
-  void init() async {
+  void init({bool retry = false}) async {
+    if (retry) {
+      onlyUpdate(
+        state = state.copyWith(
+          stategu: StateGU.fetching,
+        ),
+      );
+    }
     final result = await _contactsRepository.getAll();
     result.when(
       left: (value) {

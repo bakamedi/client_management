@@ -6,10 +6,12 @@ import 'package:flutter_meedu/consumer/consumer_widget.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../extensions/widgets_ext.dart';
+import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
 import '../../../global/widgets/text/custom_text_gw.dart';
 import '../controller/contact_controller.dart';
 import '../utils/contact_mode.dart';
+import '../utils/delete_contact.dart';
 import '../utils/update_contact.dart';
 
 class ContactView extends ConsumerWidget {
@@ -76,6 +78,18 @@ class ContactView extends ConsumerWidget {
             keyboardType: TextInputType.phone,
             controller: contactController.textCellPhoneEditingController,
           ),
+          contactController.contactMode == ContactMode.edit
+              ? CustomBtnGW.secondary(
+                  onPressed: () => deleteContact(context),
+                  margin: EdgeInsets.only(
+                    top: adaptativeScreen.bhp(26),
+                    left: adaptativeScreen.bwh(10),
+                    right: adaptativeScreen.bwh(10),
+                  ),
+                  adaptativeScreen: adaptativeScreen,
+                  label: 'Eliminar',
+                ).sliverBox
+              : 1.h.sliverBox,
         ],
       ),
     );

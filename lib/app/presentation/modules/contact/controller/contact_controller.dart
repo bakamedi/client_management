@@ -4,6 +4,7 @@ import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
 
 import '../../../../domain/models/contacts/failure/contacts_failure.dart';
+import '../../../../domain/models/contacts/success/contacts_success.dart';
 import '../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../domain/respositories/contacts_repository.dart';
 import '../../../../injection_providers.dart';
@@ -81,5 +82,9 @@ class ContactController extends StateNotifier<ContactState> {
     );
 
     return await _contactsRepository.update(updatedContact);
+  }
+
+  FutureEither<ContactsFailure, ContactsSuccess> deleteContact() async {
+    return await _contactsRepository.delete(state.contact!.id);
   }
 }
