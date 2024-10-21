@@ -4,6 +4,7 @@ import 'package:flutter_meedu/consumer.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../global/widgets/appbar/custom_appbar_gw.dart';
 import '../../../global/widgets/scaffold_body/scaffold_simple_body_gw.dart';
+import '../../../global/widgets/state/state_body_gw.dart';
 import '../controller/contacts_controller.dart';
 import 'widgets/contacts_w.dart';
 
@@ -26,7 +27,12 @@ class ContactsView extends ConsumerWidget {
         url: 'https://i.postimg.cc/htsKyKNB/temp-Imagex-FMg-Y3.avif',
         contactsLength: 10,
       ),
-      body: ContactsW(),
+      body: StateBodyGW(
+        stateGU: controller.stategu,
+        child: ContactsW(
+          contacts: controller.contacts,
+        ),
+      ),
     );
   }
 }
