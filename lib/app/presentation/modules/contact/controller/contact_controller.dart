@@ -1,19 +1,29 @@
+import 'package:client_management/app/domain/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
 
+import '../../../../domain/models/contacts/failure/contacts_failure.dart';
 import '../../../../domain/responses/contacts/contacts_response.dart';
+import '../../../../domain/respositories/contacts_repository.dart';
+import '../../../../injection_providers.dart';
+import '../../../global/utils/state_gu.dart';
 import '../utils/contact_mode.dart';
 import 'contact_state.dart';
 
 final contactProvider = Provider.state<ContactController, ContactState>(
   (_) => ContactController(
     ContactState.initialState,
+    contactsRepository: Repositories.contactsRep.read(),
   ),
 );
 
 class ContactController extends StateNotifier<ContactState> {
-  ContactController(super.initialState) {
+  final ContactsRepository _contactsRepository;
+  ContactController(
+    super.initialState, {
+    required ContactsRepository contactsRepository,
+  }) : _contactsRepository = contactsRepository {
     initForm();
   }
 
@@ -59,6 +69,25 @@ class ContactController extends StateNotifier<ContactState> {
     onlyUpdate(
       state = state.copyWith(
         contact: contact,
+      ),
+    );
+  }
+
+  FutureEither<ContactsFailure, ContactResponse> updateContact() async {
+    final updatedContact = state.contact!.copyWith(
+      names: textNamesEditingController?.text ?? '',
+      lastName: textLastNameEditingController?.text ?? '',
+      phoneNumber: textPhoneNumberEditingController?.text ?? '',
+      cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+    );
+
+    return await _contactsRepository.update(updatedContact);
+  }
+
+  void _changeStateGU(StateGU stateGU) {
+    onlyUpdate(
+      state = state.copyWith(
+        stategu: stateGU,
       ),
     );
   }

@@ -10,6 +10,7 @@ import '../../../global/widgets/inputs/input_text_field_gw.dart';
 import '../../../global/widgets/text/custom_text_gw.dart';
 import '../controller/contact_controller.dart';
 import '../utils/contact_mode.dart';
+import '../utils/update_contact.dart';
 
 class ContactView extends ConsumerWidget {
   final AdaptativeScreen adaptativeScreen;
@@ -33,8 +34,8 @@ class ContactView extends ConsumerWidget {
           fontWeight: FontWeight.w500,
         ),
         actions: [
-          InkWell(
-            onTap: () {},
+          GestureDetector(
+            onTap: () => updateContact(context),
             child: CustomTextGW.text(
               'Guardar',
               adaptativeScreen: adaptativeScreen,

@@ -4,4 +4,7 @@ import '../typedefs.dart';
 
 abstract class ContactsRepository {
   FutureEither<ContactsFailure, List<ContactResponse>> getAll();
+  FutureEither<ContactsFailure, ContactResponse> update(
+    ContactResponse contact,
+  );
 }

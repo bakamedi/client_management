@@ -1,4 +1,5 @@
 import 'package:client_management/app/domain/typedefs.dart';
+import 'package:sembast/sembast.dart';
 
 import '../../domain/either.dart';
 import '../../domain/models/contacts/failure/contacts_failure.dart';
@@ -32,6 +33,28 @@ class ContactsRepositoryImpl extends ContactsRepository {
 
         return Either.right(
           contactsResponse.data,
+        );
+      },
+    );
+  }
+
+  @override
+  FutureEither<ContactsFailure, ContactResponse> update(
+    ContactResponse contact,
+  ) async {
+    final result = await _contactsProvider.update(contact);
+    return result.when(
+      left: (ContactsFailure value) => Either.left(value),
+      right: (ContactResponse contactResp) async {
+        final Finder finder = Finder(
+          filter: Filter.equals('id', contactResp.id),
+        );
+        await _storeProvider.updateRecord(
+          value: contactResp.toJson(),
+          finder: finder,
+        );
+        return Either.right(
+          contactResp,
         );
       },
     );

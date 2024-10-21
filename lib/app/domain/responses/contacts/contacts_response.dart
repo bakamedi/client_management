@@ -26,6 +26,28 @@ class ContactsResponse with _$ContactsResponse {
       _$ContactsResponseFromJson(json);
 }
 
+ContactsSingleResponse contactSimpleResponseFromJson(String str) =>
+    ContactsSingleResponse.fromJson(json.decode(str));
+
+String contactSimpleResponseToJson(ContactsSingleResponse data) =>
+    json.encode(data.toJson());
+
+@freezed
+class ContactsSingleResponse with _$ContactsSingleResponse {
+  const factory ContactsSingleResponse({
+    @JsonKey(name: "data") required ContactResponse data,
+  }) = _ContactsSingleResponse;
+
+  factory ContactsSingleResponse.fromJson(Map<String, dynamic> json) =>
+      _$ContactsSingleResponseFromJson(json);
+}
+
+ContactResponse contactResponseFromJson(String str) =>
+    ContactResponse.fromJson(json.decode(str));
+
+String contactResponseToJson(ContactResponse data) =>
+    json.encode(data.toJson());
+
 @freezed
 class ContactResponse with _$ContactResponse {
   const factory ContactResponse({
