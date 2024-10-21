@@ -6,13 +6,17 @@ import '../../domain/models/contacts/success/contacts_success.dart';
 import '../../domain/responses/contacts/contacts_response.dart';
 import '../../domain/respositories/contacts_repository.dart';
 import '../data_source/providers/contacts_provider.dart';
+import '../data_source/providers/store_provider.dart';
 
 class ContactsRepositoryImpl extends ContactsRepository {
   final ContactsProvider _contactsProvider;
+  final StoreProvider _storeProvider;
 
   ContactsRepositoryImpl({
     required ContactsProvider contactsProvider,
-  }) : _contactsProvider = contactsProvider;
+    required StoreProvider storeProvider,
+  })  : _contactsProvider = contactsProvider,
+        _storeProvider = storeProvider;
 
   @override
   FutureEither<ContactsFailure, ContactsSuccess> getAll() async {
@@ -20,7 +24,12 @@ class ContactsRepositoryImpl extends ContactsRepository {
 
     return result.when(
       left: (ContactsFailure value) => Either.left(value),
-      right: (ContactsResponse token) {
+      right: (ContactsResponse contactsResponse) async {
+        if (contactsResponse.data.isNotEmpty) {
+          for (final contact in contactsResponse.data) {
+            await _storeProvider.createRecord(contact.toJson());
+          }
+        }
         return const Either.right(
           ContactsSuccess.ok(),
         );

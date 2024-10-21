@@ -33,8 +33,9 @@ class SplashController extends StateNotifier<SplashState> {
   void init() async {
     await _dbRepository.connect();
     final accessToken = await _deviceUtilsRepository.accessToken;
-    final route =
-        accessToken.isJwtToken ? ContactsRoute.path : SignInRoute.path;
+    final validToken = accessToken.isJwtToken && !accessToken.isJwtExpired;
+    final route = validToken ? ContactsRoute.path : SignInRoute.path;
+
     Future.delayed(
       const Duration(seconds: 2),
       () {

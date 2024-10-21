@@ -44,7 +44,7 @@ class DeviceUtilProvider {
         GlobalNameStorageKeyUtils.INITIAL_ROUTE_NAME,
       );
 
-  Future<String> get accesToken async => await _readValue(
+  Future<String> get accessToken async => await _readValue(
         GlobalNameStorageKeyUtils.ACCESS_TOKEN,
       );
 

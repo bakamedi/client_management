@@ -5,4 +5,5 @@ class GlobalNameStorageKeyUtils {
   static String INITIAL_ROUTE_NAME = 'INITIAL_ROUTE_NAME';
   static String ACCESS_TOKEN = 'ACCESS_TOKEN';
   static String REFRESH_TOKEN = 'REFRESH_TOKEN';
+  static String FIRST_LOAD = 'FIRST_LOAD';
 }

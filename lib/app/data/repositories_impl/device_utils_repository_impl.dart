@@ -11,7 +11,7 @@ class DeviceUtilsRepositoryImpl implements DeviceUtilsRepository {
   }) : _deviceUtilHelper = deviceUtilHelper;
 
   @override
-  Future<String> get accessToken async => await _deviceUtilHelper.accesToken;
+  Future<String> get accessToken async => await _deviceUtilHelper.accessToken;
 
   @override
   Future<void> setAccessToken(String token) async {

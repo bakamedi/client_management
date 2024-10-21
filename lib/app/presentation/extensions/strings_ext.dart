@@ -54,14 +54,35 @@ extension StringExt on String {
 
     // Intentar decodificar el payload para asegurarse de que es un JSON válido
     try {
-      String payload =
-          utf8.decode(base64Url.decode(base64Url.normalize(parts[1])));
+      String payload = utf8.decode(
+        base64Url.decode(base64Url.normalize(parts[1])),
+      );
       Map<String, dynamic> decodedPayload = jsonDecode(payload);
 
       // Opcional: Verificar que el payload contiene campos típicos de un JWT
 
       return decodedPayload.containsKey('iat');
     } catch (e) {
+      return false;
+    }
+  }
+
+  bool get isJwtExpired {
+    if (isEmpty) {
+      return isEmpty;
+    }
+    List<String> parts = split('.');
+    base64Url.decode(base64Url.normalize(parts[1]));
+    String payload =
+        utf8.decode(base64Url.decode(base64Url.normalize(parts[1])));
+    Map<String, dynamic> decodedPayload = jsonDecode(payload);
+    if (decodedPayload.containsKey('exp')) {
+      int exp = decodedPayload['exp'];
+
+      // Comparar con el tiempo actual (en segundos)
+      final currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      return exp < currentTime;
+    } else {
       return false;
     }
   }

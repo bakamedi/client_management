@@ -19,10 +19,14 @@ class StoreProvider {
   Future<void> createRecord(
     Json value,
   ) async {
-    await _store.add(
-      _dbProvider.db,
-      value,
-    );
+    try {
+      await _store.add(
+        _dbProvider.db,
+        value,
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<List<RecordSnapshotJson>> getAllRecords({

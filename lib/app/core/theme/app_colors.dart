@@ -14,7 +14,7 @@ abstract class AppColors {
   /// GETS
   static Color get error50 => _error50;
 
-  static final Color _primary = _HexColor('#5DB6B2');
+  static final Color _primary = _HexColor('#4A63D0');
 
   static final Color _secondary = _HexColor('#EE825A');
 
@@ -29,6 +29,8 @@ abstract class AppColors {
   static Color get grey400 => _grey400;
   static Color get grey500 => _grey500;
   static Color get grey800 => _grey800;
+  static Color shimmerOneGreyColor = Colors.grey.shade300;
+  static Color shimmerTwoGreyColor = Colors.grey.shade100;
 
   static final Color _grey100 = _HexColor('#F2F4F3');
   static final Color _grey200 = _HexColor('#F2F4F3');
