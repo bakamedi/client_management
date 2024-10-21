@@ -26,6 +26,7 @@ class ContactController extends StateNotifier<ContactState> {
   TextEditingController? get textCellPhoneEditingController =>
       state.textCellPhoneEditingController;
   ContactMode get contactMode => state.contactMode;
+  String get urlProfile => state.contact?.profileImage ?? '';
 
   void initForm() {
     onlyUpdate(

@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_meedu/consumer/consumer_widget.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
@@ -82,15 +82,15 @@ class ContactView extends ConsumerWidget {
 
   Widget _buildTitle(ContactController contactController) {
     return contactController.contactMode == ContactMode.edit
-        ? _buildHeading()
+        ? _buildHeading(contactController)
         : _buildAvatar(contactController);
   }
 
-  Widget _buildHeading() {
+  Widget _buildHeading(ContactController contactController) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        false
+        contactController.urlProfile.isNotEmpty
             ? ExtendedImage.network(
                 'url',
                 width: adaptativeScreen.bwh(10),
@@ -143,15 +143,19 @@ class ContactView extends ConsumerWidget {
       onTap: () {
         // Acción al presionar el botón de editar
       },
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.primary, // Color del fondo del icono
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          EvaIcons.edit, // Icono de lápiz
-          color: AppColors.white, // Color del icono
-          size: adaptativeScreen.dp(1.5),
+      child: SizedBox(
+        height: adaptativeScreen.bhp(10),
+        width: adaptativeScreen.bwh(10),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: AppColors.primary, // Color del fondo del icono
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            EvaIcons.imageOutline, // Icono de lápiz
+            color: AppColors.white, // Color del icono
+            size: adaptativeScreen.dp(5),
+          ),
         ),
       ),
     ).sliverBox.sliverPadding(

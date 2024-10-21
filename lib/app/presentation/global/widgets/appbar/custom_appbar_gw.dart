@@ -48,6 +48,7 @@ abstract class CustomAppbarGW {
     required String url,
     required String names,
     required int contactsLength,
+    required void Function()? onPressed,
   }) {
     final adaptativeScreen = AdaptativeScreen(context);
 
@@ -67,7 +68,7 @@ abstract class CustomAppbarGW {
               ),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: onPressed,
               icon: Icon(
                 EvaIcons.personAddOutline,
                 size: adaptativeScreen.dp(2),

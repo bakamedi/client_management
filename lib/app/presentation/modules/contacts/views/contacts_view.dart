@@ -6,6 +6,7 @@ import '../../../global/widgets/appbar/custom_appbar_gw.dart';
 import '../../../global/widgets/scaffold_body/scaffold_simple_body_gw.dart';
 import '../../../global/widgets/state/state_body_gw.dart';
 import '../controller/contacts_controller.dart';
+import '../utils/open_create_contact.dart';
 import 'widgets/contacts_w.dart';
 
 class ContactsView extends ConsumerWidget {
@@ -26,6 +27,7 @@ class ContactsView extends ConsumerWidget {
         names: 'Bakke Medina',
         url: 'https://i.postimg.cc/htsKyKNB/temp-Imagex-FMg-Y3.avif',
         contactsLength: 10,
+        onPressed: () => openCreateContact(context),
       ),
       body: StateBodyGW(
         stateGU: controller.stategu,
