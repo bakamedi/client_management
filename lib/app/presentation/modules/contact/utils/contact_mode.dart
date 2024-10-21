@@ -1,0 +1,4 @@
+enum ContactMode {
+  create,
+  edit,
+}

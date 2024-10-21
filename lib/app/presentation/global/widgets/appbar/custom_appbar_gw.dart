@@ -1,4 +1,5 @@
 import 'package:client_management/app/presentation/extensions/widgets_ext.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -53,6 +54,30 @@ abstract class CustomAppbarGW {
     return AppBar(
       toolbarHeight: adaptativeScreen.bhp(7),
       leadingWidth: adaptativeScreen.bwh(100),
+      actions: [
+        GestureDetector(
+          onTap: () {},
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                adaptativeScreen.dp(10),
+              ),
+              border: Border.all(
+                color: AppColors.grey300.withOpacity(0.3),
+              ),
+            ),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                EvaIcons.personAddOutline,
+                size: adaptativeScreen.dp(2),
+              ),
+            ),
+          ).padding(
+            EdgeInsets.only(right: adaptativeScreen.dp(1)),
+          ),
+        ),
+      ],
       leading: IconButton(
         icon: Row(
           children: [
@@ -86,6 +111,10 @@ abstract class CustomAppbarGW {
               ),
             ),
           ],
+        ).padding(
+          EdgeInsets.only(
+            left: adaptativeScreen.bwh(3),
+          ),
         ),
         onPressed: () => context.pop(),
       ),

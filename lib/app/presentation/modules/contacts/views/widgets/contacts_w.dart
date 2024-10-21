@@ -1,13 +1,12 @@
-import 'package:client_management/app/presentation/global/widgets/appbar/custom_appbar_gw.dart';
-import 'package:client_management/app/presentation/router/app_routes/contact_route.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../extensions/contacts_ext.dart';
+import '../../../../extensions/widgets_ext.dart';
 import '../../../../global/widgets/text/custom_text_gw.dart';
+import '../../utils/open_edit_contact.dart';
 
 class ContactsW extends StatelessWidget {
   final List<ContactResponse> contacts;
@@ -27,9 +26,12 @@ class ContactsW extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final ContactResponse contact = contacts[index];
             return ListTile(
-              onTap: () => context.pushNamed(ContactRoute.path),
+              onTap: () => openEditContact(context, contact),
               leading: CircleAvatar(
-                child: Text(contact.initials),
+                child: CustomTextGW.text(
+                  contact.initials,
+                  adaptativeScreen: adaptativeScreen,
+                ),
               ),
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +52,10 @@ class ContactsW extends StatelessWidget {
               ),
             );
           },
+        ).sliverPadding(
+          EdgeInsets.symmetric(
+            horizontal: adaptativeScreen.bwh(2),
+          ),
         ),
       ],
     );
