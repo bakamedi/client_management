@@ -5,11 +5,17 @@ import '../../../domain/models/auth/token_model.dart';
 import '../../../domain/typedefs.dart';
 import '../../helpers/http/http_helper.dart';
 import '../../helpers/http/http_method.dart';
+import 'device_provider.dart';
 
 class AuthProvider {
   final HttpHelper _http;
+  final DeviceUtilProvider _deviceUtilProvider;
 
-  AuthProvider({required HttpHelper http}) : _http = http;
+  AuthProvider({
+    required HttpHelper http,
+    required DeviceUtilProvider deviceUtilProvider,
+  })  : _http = http,
+        _deviceUtilProvider = deviceUtilProvider;
 
   FutureEither<SignInFailure, TokenModel> signIn({
     required String email,
@@ -25,9 +31,15 @@ class AuthProvider {
     );
 
     return result.when(
-      success: (statusCode, data) {
-        final user = tokenModelFromJson(data);
-        return Either.right(user);
+      success: (statusCode, data) async {
+        final response = tokenModelFromJson(data);
+        await _deviceUtilProvider.setAccessToken(
+          response.data.accessToken,
+        );
+        await _deviceUtilProvider.setRefreshToken(
+          response.data.refreshToken,
+        );
+        return Either.right(response);
       },
       networkError: (stackTrace) {
         return const Either.left(
