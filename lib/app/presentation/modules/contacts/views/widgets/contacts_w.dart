@@ -1,4 +1,7 @@
+import 'package:client_management/app/presentation/global/widgets/appbar/custom_appbar_gw.dart';
+import 'package:client_management/app/presentation/router/app_routes/contact_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -24,6 +27,7 @@ class ContactsW extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final ContactResponse contact = contacts[index];
             return ListTile(
+              onTap: () => context.pushNamed(ContactRoute.path),
               leading: CircleAvatar(
                 child: Text(contact.initials),
               ),
