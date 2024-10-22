@@ -87,6 +87,13 @@ Este proyecto está organizado en las siguientes carpetas y archivos:
 - **my_app.dart**: Archivo principal de configuración de la aplicación.
 - **main.dart**: Punto de entrada de la aplicación.
 
+### Como se podria mejorar
+- ¿Cómo decidió las opciones técnicas y arquitectónicas utilizadas como parte de su solución?
+    - Se decicio arquitectura limpia con pequeña modificaciones en el core para que se entendible y mantenible
+- ¿Qué haría de manera diferente si se le asignara más tiempo?
+    - Un mejor diseño y mejor manejo de los datos, codigo mas estructurado al manejo de dialogos y expecciones
+- ¿Para casos donde se deben guardar grandes cantidades de datos como por ejemplo varias fotos de alta calidad, que lógica manejaría para que la aplicación funcione de la forma más óptima?
+    - Se requiere bajarle la resolucion al descargarlas dentro de la aplicacion y asi poder mostrarla otro seria tener una cache de las imagenes previamente vistas
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE]
