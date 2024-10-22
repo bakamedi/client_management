@@ -48,6 +48,21 @@ class PasswordValidator {
       return null;
     }
   }
+
+  static String? validateConfirmPassword(
+    String? password,
+    String? confirmPassword,
+  ) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return 'La confirmación de contraseña no puede estar vacía';
+    }
+
+    if (password != confirmPassword) {
+      return 'Las contraseñas no coinciden';
+    }
+
+    return null;
+  }
 }
 
 abstract class UserValidator {
@@ -61,5 +76,9 @@ abstract class UserValidator {
 
   static String? validatePassword(String? value) {
     return PasswordValidator.validate(value);
+  }
+
+  static String? confirmPassword(String? value1, String? value2) {
+    return PasswordValidator.validateConfirmPassword(value1, value2);
   }
 }

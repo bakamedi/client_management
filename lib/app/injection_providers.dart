@@ -91,6 +91,10 @@ final _contactsProvider = Provider(
   ),
 );
 
+final _permissionLocal = Provider(
+  (ref) => PermissionLocal(),
+);
+
 class Repositories {
   Repositories._();
 
@@ -116,6 +120,12 @@ class Repositories {
   static final dbRep = Provider<DbRepository>(
     (ref) => DbRepositoryImpl(
       dbProvider: _dbProvider.read(),
+    ),
+  );
+
+  static final permissionRep = Provider<PermissionRepository>(
+    (ref) => PermissionRepositoryImpl(
+      permissionLocal: _permissionLocal.read(),
     ),
   );
 }

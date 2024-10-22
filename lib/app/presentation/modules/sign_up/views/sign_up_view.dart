@@ -1,12 +1,16 @@
 import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_meedu/consumer/consumer_widget.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/utils/create_field_gu.dart';
+import '../../../../core/utils/user_validators_gu.dart';
+import '../../../../core/utils/widget_gu.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
-import '../../../router/app_routes/contacts_route.dart';
+import '../controller/sign_up_controller.dart';
+import '../utils/register.dart';
 
-class SignUpView extends StatelessWidget {
+class SignUpView extends ConsumerWidget {
   final AdaptativeScreen adaptativeScreen;
   const SignUpView({
     super.key,
@@ -14,46 +18,81 @@ class SignUpView extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, BuilderRef ref) {
+    final signUpController = ref.watch(signUpProvider);
     return Column(
       children: [
         InputTextFieldGW(
+          onChanged: (value) => signUpController.onChangeField(
+            CreateFieldGU.names,
+            value: value,
+          ),
           padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
           labelTxt: 'Nombres',
-          backgroundLabel: 'Escriba su correo',
-          onChanged: (value) {},
+          backgroundLabel: 'Escriba su nombre',
         ),
         InputTextFieldGW(
+          onChanged: (value) => signUpController.onChangeField(
+            CreateFieldGU.lastName,
+            value: value,
+          ),
           padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
           labelTxt: 'Apellidos',
-          backgroundLabel: 'Escriba su correo',
-          onChanged: (value) {},
+          backgroundLabel: 'Escriba su apellido',
         ),
         InputTextFieldGW(
+          onChanged: (value) => signUpController.onChangeField(
+            CreateFieldGU.email,
+            value: value,
+          ),
           padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
           labelTxt: 'Correo',
           backgroundLabel: 'Escriba su correo',
-          onChanged: (value) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: UserValidator.validateEmail,
         ),
         InputTextFieldGW(
+          onChanged: (value) => signUpController.onChangeField(
+            CreateFieldGU.password,
+            value: value,
+          ),
           padding: EdgeInsets.only(
             top: adaptativeScreen.bhp(2),
           ),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
-          obscureText: true,
+          validator: UserValidator.validatePassword,
           keyboardType: TextInputType.visiblePassword,
-          onChanged: (value) {},
+          obscureText: !signUpController.showPassword,
+          suffixInput: GestureDetector(
+            onTap: signUpController.togglePasswordVisibility,
+            child: WidgetGU.showEyeIcon(
+              show: signUpController.showPassword,
+            ),
+          ),
         ),
         InputTextFieldGW(
+          onChanged: (value) => signUpController.onChangeField(
+            CreateFieldGU.confirmPassword,
+            value: value,
+          ),
           padding: EdgeInsets.only(
             top: adaptativeScreen.bhp(2),
           ),
           labelTxt: 'Confirme su Contraseña',
           backgroundLabel: 'Vuelva a escribir su contraseña',
-          obscureText: true,
+          validator: (value) => UserValidator.confirmPassword(
+            signUpController.password,
+            signUpController.confirmPassword,
+          ),
           keyboardType: TextInputType.visiblePassword,
-          onChanged: (value) {},
+          obscureText: !signUpController.showPassword,
+          suffixInput: GestureDetector(
+            onTap: signUpController.togglePasswordVisibility,
+            child: WidgetGU.showEyeIcon(
+              show: signUpController.showPassword,
+            ),
+          ),
         ),
         CustomBtnGW.primary(
           padding: EdgeInsets.only(
@@ -61,9 +100,11 @@ class SignUpView extends StatelessWidget {
           ),
           adaptativeScreen: adaptativeScreen,
           label: 'Registrar',
-          onPressed: () => context.pushReplacement(
-            ContactsRoute.path,
-          ),
+          onPressed: signUpController.isFormValid
+              ? () => register(
+                    context,
+                  )
+              : null,
         ),
       ],
     );

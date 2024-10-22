@@ -57,24 +57,32 @@ abstract class CustomAppbarGW {
       actions: [
         GestureDetector(
           onTap: () {},
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                adaptativeScreen.dp(10),
+          child: SizedBox(
+            height: 50,
+            width: 50,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  adaptativeScreen.dp(10),
+                ),
+                border: Border.all(
+                  color: AppColors.grey300.withOpacity(0.3),
+                ),
               ),
-              border: Border.all(
-                color: AppColors.grey300.withOpacity(0.3),
+              child: IconButton(
+                onPressed: onPressed,
+                icon: Icon(
+                  EvaIcons.personAddOutline,
+                  size: adaptativeScreen.dp(2),
+                ),
+              ),
+            ).padding(
+              EdgeInsets.only(
+                top: 1,
+                bottom: 10,
+                right: adaptativeScreen.dp(1),
               ),
             ),
-            child: IconButton(
-              onPressed: onPressed,
-              icon: Icon(
-                EvaIcons.personAddOutline,
-                size: adaptativeScreen.dp(2),
-              ),
-            ),
-          ).padding(
-            EdgeInsets.only(right: adaptativeScreen.dp(1)),
           ),
         ),
       ],
@@ -137,7 +145,7 @@ abstract class CustomAppbarGW {
             left: adaptativeScreen.bwh(3),
           ),
         ),
-        onPressed: () => context.pop(),
+        onPressed: () {},
       ),
     );
   }

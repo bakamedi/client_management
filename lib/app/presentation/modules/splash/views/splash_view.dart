@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +13,27 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../global/controllers/session/session_gc.dart';
 import '../controller/splash_controller.dart';
 
-class SplashView extends ConsumerWidget {
+class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
 
   @override
-  Widget build(BuildContext context, BuilderRef ref) {
+  _SplashViewState createState() => _SplashViewState();
+}
+
+class _SplashViewState extends ConsumerState<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    _initializeSession(); // Método separado para la operación asíncrona
+  }
+
+  Future<void> _initializeSession() async {
+    final SessionGC sessionGC = sessionGP.read();
+    await sessionGC.init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final adaptativeScreen = AdaptativeScreen(context);
 
     ref.listen(
@@ -30,12 +48,6 @@ class SplashView extends ConsumerWidget {
       },
     );
 
-    ref.listen(
-      sessionGP,
-      callback: (notifier) async {
-        await notifier.init();
-      },
-    );
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
