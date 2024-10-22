@@ -6,14 +6,16 @@ import '../../../global/widgets/dialogs/dialogs_gw.dart';
 import '../../contacts/utils/get_contacts.dart';
 import '../controller/contact_controller.dart';
 
-void updateContact(BuildContext context) async {
+void updateContact(
+  BuildContext context,
+  ContactController contactController,
+) async {
   final loaderGC = loaderGlobalProvider.read();
 
   try {
     loaderGC.showLoader(
       loading: true,
     );
-    final contactController = contactProvider.read();
     final result = await contactController.updateContact();
 
     loaderGC.showLoader(

@@ -81,4 +81,23 @@ class ContactsRepositoryImpl extends ContactsRepository {
       },
     );
   }
+
+  @override
+  FutureEither<ContactsFailure, ContactResponse> create(
+    ContactResponse contact,
+  ) async {
+    final result = await _contactsProvider.create(contact);
+
+    return result.when(
+      left: (ContactsFailure value) => Either.left(value),
+      right: (ContactResponse contactResp) async {
+        await _storeProvider.createRecord(
+          contactResp.toJson(),
+        );
+        return Either.right(
+          contactResp,
+        );
+      },
+    );
+  }
 }

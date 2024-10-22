@@ -17,6 +17,49 @@ class ContactsProvider {
   })  : _http = http,
         _deviceUtilProvider = deviceUtilProvider;
 
+  FutureEither<ContactsFailure, ContactResponse> create(
+    ContactResponse contact,
+  ) async {
+    final accessToken = await _deviceUtilProvider.accessToken;
+    final result = await _http.request(
+      'user/',
+      method: HttpMethod.POST,
+      bearerToken: accessToken,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      data: contactResponseToJson(contact),
+    );
+
+    return result.when(
+      success: (statusCode, data) {
+        final user = contactSimpleResponseFromJson(data);
+        return Either.right(user.data);
+      },
+      networkError: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+      timeOut: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.timeOut(),
+        );
+      },
+      unhandledError: (statusCode, stackTrace) {
+        return const Either.left(
+          ContactsFailure.unhandledException(),
+        );
+      },
+      internetConnection: () {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+    );
+  }
+
   FutureEither<ContactsFailure, ContactsResponse> getAll() async {
     final accessToken = await _deviceUtilProvider.accessToken;
 

@@ -51,12 +51,13 @@ String contactResponseToJson(ContactResponse data) =>
 @freezed
 class ContactResponse with _$ContactResponse {
   const factory ContactResponse({
-    @JsonKey(name: "id") required String id,
-    @JsonKey(name: "names") required String names,
-    @JsonKey(name: "lastName") required String lastName,
-    @JsonKey(name: "phoneNumber") required String phoneNumber,
-    @JsonKey(name: "cellPhoneNumber") required String cellPhoneNumber,
-    @JsonKey(name: "profileImage") required String profileImage,
+    @JsonKey(name: "id") String? id,
+    @JsonKey(name: "names") String? names,
+    @JsonKey(name: "lastName") String? lastName,
+    @JsonKey(name: "role") String? role,
+    @JsonKey(name: "phoneNumber") String? phoneNumber,
+    @JsonKey(name: "cellPhoneNumber") String? cellPhoneNumber,
+    @JsonKey(name: "profileImage") String? profileImage,
   }) = _ContactResponse;
 
   factory ContactResponse.fromJson(Map<String, dynamic> json) =>

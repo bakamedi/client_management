@@ -73,6 +73,18 @@ class ContactController extends StateNotifier<ContactState> {
     );
   }
 
+  FutureEither<ContactsFailure, ContactResponse> createContact() async {
+    final createContact = ContactResponse(
+      names: textNamesEditingController?.text ?? '',
+      role: 'USER',
+      lastName: textLastNameEditingController?.text ?? '',
+      phoneNumber: textPhoneNumberEditingController?.text ?? '',
+      cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+    );
+
+    return await _contactsRepository.create(createContact);
+  }
+
   FutureEither<ContactsFailure, ContactResponse> updateContact() async {
     final updatedContact = state.contact!.copyWith(
       names: textNamesEditingController?.text ?? '',
@@ -85,6 +97,6 @@ class ContactController extends StateNotifier<ContactState> {
   }
 
   FutureEither<ContactsFailure, ContactsSuccess> deleteContact() async {
-    return await _contactsRepository.delete(state.contact!.id);
+    return await _contactsRepository.delete(state.contact!.id!);
   }
 }

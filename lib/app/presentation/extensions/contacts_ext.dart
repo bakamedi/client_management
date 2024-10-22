@@ -7,8 +7,8 @@ extension ContactsExt on ContactResponse {
 
   // Función para obtener las primeras letras de cada uno
   String get initials {
-    String firstLetterOfName = names.isNotEmpty ? names[0] : '';
-    String firstLetterOfLastName = lastName.isNotEmpty ? lastName[0] : '';
+    String firstLetterOfName = names!.isNotEmpty ? names![0] : '';
+    String firstLetterOfLastName = lastName!.isNotEmpty ? lastName![0] : '';
     return '$firstLetterOfName$firstLetterOfLastName'.toUpperCase();
   }
 }

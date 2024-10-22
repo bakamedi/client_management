@@ -67,7 +67,7 @@ class ContactsW extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         CustomTextGW.text(
-                          contact.cellPhoneNumber,
+                          contact.cellPhoneNumber!,
                           adaptativeScreen: adaptativeScreen,
                           fontSize: adaptativeScreen.dp(1.3),
                           color: AppColors.grey400,
