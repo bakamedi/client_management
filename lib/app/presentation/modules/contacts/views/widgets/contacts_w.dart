@@ -13,10 +13,12 @@ import '../../utils/open_edit_contact.dart';
 
 class ContactsW extends StatelessWidget {
   final List<ContactResponse> contacts;
+  final bool internet;
 
   const ContactsW({
     super.key,
     required this.contacts,
+    required this.internet,
   });
 
   @override
@@ -24,6 +26,22 @@ class ContactsW extends StatelessWidget {
     final AdaptativeScreen adaptativeScreen = AdaptativeScreen(context);
     return CustomScrollView(
       slivers: <Widget>[
+        internet
+            ? SizedBox(
+                width: adaptativeScreen.bwh(100),
+                child: ColoredBox(
+                  color: AppColors.grey400.withOpacity(0.7),
+                  child: CustomTextGW.text(
+                    'Sin conexión',
+                    adaptativeScreen: adaptativeScreen,
+                    fontSize: adaptativeScreen.dp(1.5),
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.white,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ).center.sliverBox
+            : 1.h.sliverBox,
         contacts.isEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,17 +104,27 @@ class ContactsW extends StatelessWidget {
     ContactResponse contact,
     AdaptativeScreen adaptativeScreen,
   ) {
-    return contact.profileImage!.isEmpty
-        ? CircleAvatar(
-            child: CustomTextGW.text(
-              contact.initials,
-              adaptativeScreen: adaptativeScreen,
-            ),
-          )
-        : CircleAvatar(
-            backgroundImage: NetworkImage(
-              contact.profileImage!.getUrlProfile,
-            ),
-          );
+    if (contact.profileImage!.isEmpty) {
+      return CircleAvatar(
+        child: CustomTextGW.text(
+          contact.initials,
+          adaptativeScreen: adaptativeScreen,
+        ),
+      );
+    } else {
+      return CircleAvatar(
+        backgroundImage: internet
+            ? null
+            : NetworkImage(
+                contact.profileImage!.getUrlProfile,
+              ),
+        child: internet
+            ? CustomTextGW.text(
+                contact.initials,
+                adaptativeScreen: adaptativeScreen,
+              )
+            : null,
+      );
+    }
   }
 }

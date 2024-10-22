@@ -116,4 +116,16 @@ class ContactsRepositoryImpl extends ContactsRepository {
       },
     );
   }
+
+  @override
+  FutureEither<void, List<ContactResponse>> localGetAll() async {
+    final records = await _storeProvider.getAllRecords();
+    final contacts = <ContactResponse>[];
+    for (final record in records) {
+      contacts.add(
+        ContactResponse.fromJson(record.value),
+      );
+    }
+    return Either.right(contacts);
+  }
 }

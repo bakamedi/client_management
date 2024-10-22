@@ -8,6 +8,8 @@ abstract class ContactsRepository {
     ContactResponse contact,
   );
   FutureEither<ContactsFailure, List<ContactResponse>> getAll();
+  FutureEither<void, List<ContactResponse>> localGetAll();
+
   FutureEither<ContactsFailure, ContactResponse> update(
     ContactResponse contact,
   );

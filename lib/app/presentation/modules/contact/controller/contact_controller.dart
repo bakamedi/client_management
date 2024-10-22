@@ -38,6 +38,7 @@ class ContactController extends StateNotifier<ContactState> {
   TextEditingController? get textCellPhoneEditingController =>
       state.textCellPhoneEditingController;
   ContactMode get contactMode => state.contactMode;
+  ContactResponse? get contact => state.contact;
   String get urlProfile => state.contact?.profileImage ?? '';
   String get urlCreateProfile => state.urlCreateProfile;
   File? get fileProfile => state.fileProfile;

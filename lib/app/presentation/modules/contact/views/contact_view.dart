@@ -8,6 +8,8 @@ import 'package:flutter_meedu/consumer/consumer_widget.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../extensions/widgets_ext.dart';
+import '../../../extensions/strings_ext.dart';
+import '../../../extensions/contacts_ext.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
 import '../../../global/widgets/gestures/picker_image_gesture_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
@@ -110,16 +112,16 @@ class ContactView extends ConsumerWidget {
       children: [
         contactController.urlProfile.isNotEmpty
             ? ExtendedImage.network(
-                'url',
-                width: adaptativeScreen.bwh(10),
-                height: adaptativeScreen.bwh(10),
+                contactController.contact!.profileImage!.getUrlProfile,
+                width: adaptativeScreen.bwh(40),
+                height: adaptativeScreen.bwh(40),
                 fit: BoxFit.cover,
                 shape: BoxShape.circle,
               )
             : CircleAvatar(
                 radius: adaptativeScreen.dp(4),
                 child: CustomTextGW.text(
-                  'CH',
+                  contactController.contact!.initials,
                   adaptativeScreen: adaptativeScreen,
                   fontSize: adaptativeScreen.dp(3.5),
                   fontWeight: FontWeight.bold,
@@ -127,7 +129,6 @@ class ContactView extends ConsumerWidget {
               ),
         PickerImageGestureGW(
           onImageSelected: (filePath) {
-            print(filePath);
             contactController.changeFileProfile(filePath);
           },
           child: Positioned(

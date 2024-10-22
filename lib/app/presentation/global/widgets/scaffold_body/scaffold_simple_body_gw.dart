@@ -17,6 +17,7 @@ abstract class ScaffoldSimpleBodyGW {
       onTap: () => CustomUtilsGU.unFocusKeyboard(),
       child: Scaffold(
         appBar: appBar,
+        resizeToAvoidBottomInset: false,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

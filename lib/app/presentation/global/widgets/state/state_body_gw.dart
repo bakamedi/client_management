@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../utils/state_gu.dart';
 import 'error_gw.dart';
-import 'internet_gw.dart';
 import 'shimmer_gw.dart';
 import 'timeout_gw.dart';
 
@@ -29,9 +28,8 @@ class StateBodyGW extends StatelessWidget {
           onPressed: () {},
         );
       case StateGU.internet:
-        return InternetGW(
-          onPressed: onPressedRetry,
-        );
+        return child;
+
       case StateGU.timeout:
         return TimeoutGW(
           onPressed: onPressedRetry,

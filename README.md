@@ -9,7 +9,9 @@
 - El archivo .env puede usar el .env.example para tener una idea de como se lo puede crear y llenar los campos:
 
     ```bash
-    API_BASE_URL=
+    # EXAMPLE
+    API_BASE_URL="http://localhost:3000/v1/api/"
+    BASE_URL_IMAGE="http://localhost:3000/upload/"
     ```
 
 

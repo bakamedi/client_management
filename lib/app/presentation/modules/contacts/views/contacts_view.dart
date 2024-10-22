@@ -3,6 +3,7 @@ import 'package:flutter_meedu/consumer.dart';
 
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../global/controllers/session/session_gc.dart';
+import '../../../global/utils/state_gu.dart';
 import '../../../global/widgets/appbar/custom_appbar_gw.dart';
 import '../../../global/widgets/scaffold_body/scaffold_simple_body_gw.dart';
 import '../../../global/widgets/state/state_body_gw.dart';
@@ -34,6 +35,7 @@ class ContactsView extends ConsumerWidget {
         stateGU: controller.stategu,
         child: ContactsW(
           contacts: controller.contacts,
+          internet: controller.stategu == StateGU.internet,
         ),
       ),
     );

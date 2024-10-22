@@ -38,9 +38,22 @@ class ContactsController extends StateNotifier<ContactsState> {
     result.when(
       left: (value) {
         value.when(
-          network: () => _changeStateGU(
-            StateGU.internet,
-          ),
+          network: () async {
+            final result = await _contactsRepository.localGetAll();
+            result.when(
+              left: (_) => _changeStateGU(
+                StateGU.error,
+              ),
+              right: (value) {
+                onlyUpdate(
+                  state = state.copyWith(
+                    contacts: [...value],
+                    stategu: StateGU.internet,
+                  ),
+                );
+              },
+            );
+          },
           timeOut: () => _changeStateGU(
             StateGU.timeout,
           ),
