@@ -43,6 +43,7 @@ class ContactController extends StateNotifier<ContactState> {
   String get urlCreateProfile => state.urlCreateProfile;
   File? get fileProfile => state.fileProfile;
   bool get internet => state.internet;
+  bool get isFormValid => state.isFormValid;
 
   void initForm() {
     onlyUpdate(
@@ -134,6 +135,17 @@ class ContactController extends StateNotifier<ContactState> {
   FutureEither<ContactsFailure, String> uploadImageContact() async {
     return await _contactsRepository.uploadImage(
       fileProfile!.path,
+    );
+  }
+
+  void validateForm() {
+    onlyUpdate(
+      state = state.copyWith(
+        isFormValid: textNamesEditingController!.text.isNotEmpty &&
+            textLastNameEditingController!.text.isNotEmpty &&
+            textPhoneNumberEditingController!.text.isNotEmpty &&
+            textCellPhoneEditingController!.text.isNotEmpty,
+      ),
     );
   }
 }

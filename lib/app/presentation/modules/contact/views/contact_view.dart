@@ -42,11 +42,15 @@ class ContactView extends ConsumerWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: () => selectMode(context),
+            onTap: contactController.isFormValid
+                ? () => selectMode(context)
+                : null,
             child: CustomTextGW.text(
               'Guardar',
               adaptativeScreen: adaptativeScreen,
-              color: AppColors.primary,
+              color: contactController.isFormValid
+                  ? AppColors.primary
+                  : AppColors.grey300,
               fontWeight: FontWeight.bold,
             ).padding(
               EdgeInsets.only(
@@ -64,24 +68,28 @@ class ContactView extends ConsumerWidget {
             hint: 'Escriba los nombres',
             keyboardType: TextInputType.name,
             controller: contactController.textNamesEditingController,
+            contactController: contactController,
           ),
           _buildInputField(
             label: 'Apellidos',
             hint: 'Escriba los apellidos',
             keyboardType: TextInputType.name,
             controller: contactController.textLastNameEditingController,
+            contactController: contactController,
           ),
           _buildInputField(
             label: 'Número de teléfono',
             hint: 'Escriba el Teléfono',
             keyboardType: TextInputType.phone,
             controller: contactController.textPhoneNumberEditingController,
+            contactController: contactController,
           ),
           _buildInputField(
             label: 'Número de celular',
             hint: 'Escriba el celular',
             keyboardType: TextInputType.phone,
             controller: contactController.textCellPhoneEditingController,
+            contactController: contactController,
           ),
           contactController.contactMode == ContactMode.edit
               ? CustomBtnGW.secondary(
@@ -107,31 +115,28 @@ class ContactView extends ConsumerWidget {
   }
 
   Widget _buildHeading(ContactController contactController) {
-    return Stack(
-      alignment: Alignment.center,
+    return Column(
       children: [
         _buildImage(contactController),
         PickerImageGestureGW(
           onImageSelected: (filePath) {
             contactController.changeFileProfile(filePath);
           },
-          child: Positioned(
-            top: 55,
-            bottom: 0,
-            right: 0,
-            left: adaptativeScreen.bwh(15),
+          child: SizedBox(
+            height: 30,
+            width: 50,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: AppColors.primary, // Color del fondo del icono
-                shape: BoxShape.circle,
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
-                EvaIcons.edit, // Icono de lápiz
-                color: AppColors.white, // Color del icono
-                size: adaptativeScreen.dp(1.5),
+                Icons.image,
+                color: AppColors.white,
+                size: adaptativeScreen.dp(1.7),
               ),
             ),
-          ),
+          ).padding(EdgeInsets.only(top: adaptativeScreen.bhp(1))),
         ),
       ],
     ).sliverBox.sliverPadding(
@@ -153,7 +158,7 @@ class ContactView extends ConsumerWidget {
             shape: BoxShape.circle,
           )
         : CircleAvatar(
-            radius: adaptativeScreen.dp(4),
+            radius: adaptativeScreen.dp(5),
             child: CustomTextGW.text(
               contactController.contact!.initials,
               adaptativeScreen: adaptativeScreen,
@@ -169,7 +174,7 @@ class ContactView extends ConsumerWidget {
         contactController.changeFileProfile(filePath);
       },
       child: CircleAvatar(
-        radius: adaptativeScreen.dp(10),
+        radius: adaptativeScreen.dp(5),
         backgroundImage: contactController.fileProfile != null
             ? FileImage(
                 File(contactController.fileProfile!.path),
@@ -196,9 +201,10 @@ class ContactView extends ConsumerWidget {
     required String hint,
     required TextInputType keyboardType,
     required TextEditingController? controller,
+    required ContactController contactController,
   }) {
     return InputTextFieldGW(
-      onChanged: (value) {},
+      onChanged: (value) => contactController.validateForm(),
       labelTxt: label,
       backgroundLabel: hint,
       autovalidateMode: AutovalidateMode.onUserInteraction,

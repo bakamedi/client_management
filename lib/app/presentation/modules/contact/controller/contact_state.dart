@@ -23,6 +23,7 @@ class ContactState with _$ContactState {
     TextEditingController? textCellPhoneEditingController,
     ContactResponse? contact,
     @Default(ContactMode.create) ContactMode contactMode,
+    @Default(false) isFormValid,
     File? fileProfile,
   }) = _ContactState;
 
@@ -34,5 +35,6 @@ class ContactState with _$ContactState {
         textPhoneNumberEditingController: TextEditingController(text: ''),
         urlCreateProfile: '',
         internet: false,
+        isFormValid: false,
       );
 }

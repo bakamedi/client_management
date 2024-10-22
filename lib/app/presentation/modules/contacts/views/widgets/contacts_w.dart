@@ -105,13 +105,13 @@ class ContactsW extends StatelessWidget {
     AdaptativeScreen adaptativeScreen,
   ) {
     final initials = contact.initials;
-    final profileImage = contact.profileImage?.getUrlProfile;
+    final profileImage = contact.profileImage?.getUrlProfile ?? '';
 
     return CircleAvatar(
-      backgroundImage: (profileImage != null && !internet)
+      backgroundImage: (profileImage.isNotEmpty && !internet)
           ? NetworkImage(profileImage)
           : null,
-      child: (profileImage == null || internet)
+      child: (profileImage.isEmpty || internet)
           ? CustomTextGW.text(
               initials,
               adaptativeScreen: adaptativeScreen,

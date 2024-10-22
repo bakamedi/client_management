@@ -1,6 +1,5 @@
 import 'package:client_management/app/presentation/extensions/widgets_ext.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -89,34 +88,6 @@ abstract class CustomAppbarGW {
       leading: IconButton(
         icon: Row(
           children: [
-            url.isEmpty
-                ? DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(
-                        adaptativeScreen.dp(10),
-                      ),
-                      border: Border.all(
-                        color: AppColors.primary,
-                        width: 1,
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: onPressed,
-                      icon: Icon(
-                        EvaIcons.personOutline,
-                        size: adaptativeScreen.dp(2),
-                        color: AppColors.black100,
-                      ),
-                    ),
-                  )
-                : ExtendedImage.network(
-                    url,
-                    width: adaptativeScreen.bwh(10),
-                    height: adaptativeScreen.bwh(10),
-                    fit: BoxFit.cover,
-                    shape: BoxShape.circle,
-                  ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
