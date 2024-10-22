@@ -29,6 +29,16 @@ class StoreProvider {
     }
   }
 
+  Future<RecordSnapshotJson> getRecordById({
+    Finder? finder,
+  }) async {
+    final records = await _store.find(
+      _dbProvider.db,
+      finder: finder,
+    );
+    return records.first;
+  }
+
   Future<List<RecordSnapshotJson>> getAllRecords({
     Finder? finder,
   }) async {

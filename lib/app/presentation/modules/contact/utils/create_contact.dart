@@ -12,9 +12,41 @@ void createContact(
 ) async {
   final loaderGC = loaderGlobalProvider.read();
   loaderGC.showLoader(loading: true);
+  if (contactController.fileProfile == null) {
+    await crateAfterUploadImage(
+      context: context,
+      contactController: contactController,
+      loaderGC: loaderGC,
+    );
+  } else {
+    final uploadResult = await contactController.uploadImageContact();
+
+    uploadResult.when(
+      left: (value) {
+        loaderGC.showLoader(loading: false);
+        print(value);
+      },
+      right: (urlProfile) async {
+        await crateAfterUploadImage(
+          context: context,
+          contactController: contactController,
+          loaderGC: loaderGC,
+          urlProfile: urlProfile,
+        );
+      },
+    );
+  }
+}
+
+Future<void> crateAfterUploadImage({
+  required BuildContext context,
+  required ContactController contactController,
+  required LoaderGC loaderGC,
+  String urlProfile = '',
+}) async {
+  contactController.changeUrlCreateProfile(urlProfile);
   final result = await contactController.createContact();
   loaderGC.showLoader(loading: false);
-
   result.when(
     left: (value) {
       value.when(
@@ -39,10 +71,13 @@ void createContact(
       );
     },
     right: (value) {
+      loaderGC.showLoader(loading: false);
+
       DialogsGW.simple(
         context,
         title: 'Usuario Creado',
-        content: 'El usuario se creo exitosamente',
+        type: DialogType.success,
+        content: 'El usuario se creó exitosamente',
         onFunctionAfterOk: () {
           getContacts();
           context.pop();

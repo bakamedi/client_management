@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,12 +15,14 @@ class ContactState with _$ContactState {
 
   const factory ContactState({
     @Default(StateGU.internet) StateGU stategu,
+    @Default('') String urlCreateProfile,
     TextEditingController? textNamesEditingController,
     TextEditingController? textLastNameEditingController,
     TextEditingController? textPhoneNumberEditingController,
     TextEditingController? textCellPhoneEditingController,
     ContactResponse? contact,
     @Default(ContactMode.create) ContactMode contactMode,
+    File? fileProfile,
   }) = _ContactState;
 
   static ContactState get initialState => ContactState(
@@ -27,5 +31,6 @@ class ContactState with _$ContactState {
         textLastNameEditingController: TextEditingController(text: ''),
         textNamesEditingController: TextEditingController(text: ''),
         textPhoneNumberEditingController: TextEditingController(text: ''),
+        urlCreateProfile: '',
       );
 }

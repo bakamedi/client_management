@@ -6,6 +6,8 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../extensions/contacts_ext.dart';
 import '../../../../extensions/widgets_ext.dart';
+import '../../../../extensions/strings_ext.dart';
+
 import '../../../../global/widgets/text/custom_text_gw.dart';
 import '../../utils/open_edit_contact.dart';
 
@@ -51,12 +53,7 @@ class ContactsW extends StatelessWidget {
                   final ContactResponse contact = contacts[index];
                   return ListTile(
                     onTap: () => openEditContact(context, contact),
-                    leading: CircleAvatar(
-                      child: CustomTextGW.text(
-                        contact.initials,
-                        adaptativeScreen: adaptativeScreen,
-                      ),
-                    ),
+                    leading: _buildHeader(contact, adaptativeScreen),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -83,5 +80,23 @@ class ContactsW extends StatelessWidget {
               ),
       ],
     );
+  }
+
+  Widget _buildHeader(
+    ContactResponse contact,
+    AdaptativeScreen adaptativeScreen,
+  ) {
+    return contact.profileImage!.isEmpty
+        ? CircleAvatar(
+            child: CustomTextGW.text(
+              contact.initials,
+              adaptativeScreen: adaptativeScreen,
+            ),
+          )
+        : CircleAvatar(
+            backgroundImage: NetworkImage(
+              contact.profileImage!.getUrlProfile,
+            ),
+          );
   }
 }

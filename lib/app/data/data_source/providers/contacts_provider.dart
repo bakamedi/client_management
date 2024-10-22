@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
+import 'package:path/path.dart';
+
 import '../../../domain/either.dart';
 import '../../../domain/models/contacts/failure/contacts_failure.dart';
 import '../../../domain/models/contacts/success/contacts_success.dart';
 import '../../../domain/responses/contacts/contacts_response.dart';
+import '../../../domain/responses/contacts/upload/upload_contact_response.dart';
 import '../../../domain/typedefs.dart';
 import '../../helpers/http/http_helper.dart';
 import '../../helpers/http/http_method.dart';
@@ -162,6 +166,60 @@ class ContactsProvider {
     return result.when(
       success: (statusCode, data) {
         return const Either.right(ContactsSuccess.ok());
+      },
+      networkError: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+      timeOut: (stackTrace) {
+        return const Either.left(
+          ContactsFailure.timeOut(),
+        );
+      },
+      unhandledError: (statusCode, stackTrace) {
+        return const Either.left(
+          ContactsFailure.unhandledException(),
+        );
+      },
+      internetConnection: () {
+        return const Either.left(
+          ContactsFailure.network(),
+        );
+      },
+    );
+  }
+
+  FutureEither<ContactsFailure, String> uploadImage(
+    String pathImage,
+  ) async {
+    final accessToken = await _deviceUtilProvider.accessToken;
+
+    String fileName = basename(pathImage); // Obtener el nombre del archivo
+
+    // Crear el formulario multipart para enviar el archivo
+    FormData formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(
+        pathImage,
+        filename: fileName, // Nombre del archivo en el servidor
+      ),
+    });
+
+    // Hacer la solicitud POST a tu servidor
+    final result = await _http.request(
+      'user/upload/',
+      method: HttpMethod.POST,
+      data: formData,
+      bearerToken: accessToken,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    );
+
+    return result.when(
+      success: (statusCode, data) {
+        final urlData = uploadContactResponseFromJson(data);
+        return Either.right(urlData.data.url);
       },
       networkError: (stackTrace) {
         return const Either.left(

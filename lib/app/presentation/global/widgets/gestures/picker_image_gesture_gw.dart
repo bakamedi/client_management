@@ -16,7 +16,7 @@ class PickerImageGestureGW extends StatelessWidget {
   Widget build(BuildContext context) {
     final PickerImageController pickerImageController =
         pickerImageProvider.read();
-    return InkWell(
+    return GestureDetector(
       onTap: () async {
         final filePath = await pickerImageController.pickerImage();
         if (filePath == null) {

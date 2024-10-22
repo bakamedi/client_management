@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 extension StringExt on String {
   bool get isValidEmail {
     return RegExp(
@@ -90,5 +92,10 @@ extension StringExt on String {
   String get capitalizeFirstLetter {
     if (isEmpty) return this;
     return this[0].toUpperCase() + substring(1).toLowerCase();
+  }
+
+  String get getUrlProfile {
+    if (isEmpty) return this;
+    return dotenv.env['BASE_URL_IMAGE']! + this;
   }
 }

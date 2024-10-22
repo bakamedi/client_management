@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
@@ -7,6 +9,7 @@ import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../extensions/widgets_ext.dart';
 import '../../../global/widgets/btns/custom_btn_gw.dart';
+import '../../../global/widgets/gestures/picker_image_gesture_gw.dart';
 import '../../../global/widgets/inputs/input_text_field_gw.dart';
 import '../../../global/widgets/text/custom_text_gw.dart';
 import '../controller/contact_controller.dart';
@@ -122,15 +125,16 @@ class ContactView extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-        Positioned(
-          top: 55,
-          bottom: 0,
-          right: 0,
-          left: adaptativeScreen.bwh(15),
-          child: InkWell(
-            onTap: () {
-              // Acción al presionar el botón de editar
-            },
+        PickerImageGestureGW(
+          onImageSelected: (filePath) {
+            print(filePath);
+            contactController.changeFileProfile(filePath);
+          },
+          child: Positioned(
+            top: 55,
+            bottom: 0,
+            right: 0,
+            left: adaptativeScreen.bwh(15),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: AppColors.primary, // Color del fondo del icono
@@ -154,24 +158,24 @@ class ContactView extends ConsumerWidget {
   }
 
   Widget _buildAvatar(ContactController contactController) {
-    return GestureDetector(
-      onTap: () {
-        // Acción al presionar el botón de editar
+    return PickerImageGestureGW(
+      onImageSelected: (filePath) {
+        contactController.changeFileProfile(filePath);
       },
-      child: SizedBox(
-        height: adaptativeScreen.bhp(10),
-        width: adaptativeScreen.bwh(10),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.primary, // Color del fondo del icono
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            EvaIcons.imageOutline, // Icono de lápiz
-            color: AppColors.white, // Color del icono
-            size: adaptativeScreen.dp(5),
-          ),
-        ),
+      child: CircleAvatar(
+        radius: adaptativeScreen.dp(10),
+        backgroundImage: contactController.fileProfile != null
+            ? FileImage(
+                File(contactController.fileProfile!.path),
+              )
+            : null,
+        child: contactController.fileProfile == null
+            ? Icon(
+                EvaIcons.imageOutline,
+                color: AppColors.white,
+                size: adaptativeScreen.dp(3.5),
+              )
+            : null,
       ),
     ).sliverBox.sliverPadding(
           EdgeInsets.only(

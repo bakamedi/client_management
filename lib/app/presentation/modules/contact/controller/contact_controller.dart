@@ -1,4 +1,5 @@
-import 'package:client_management/app/domain/typedefs.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
@@ -7,6 +8,7 @@ import '../../../../domain/models/contacts/failure/contacts_failure.dart';
 import '../../../../domain/models/contacts/success/contacts_success.dart';
 import '../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../domain/respositories/contacts_repository.dart';
+import '../../../../domain/typedefs.dart';
 import '../../../../injection_providers.dart';
 import '../utils/contact_mode.dart';
 import 'contact_state.dart';
@@ -37,6 +39,8 @@ class ContactController extends StateNotifier<ContactState> {
       state.textCellPhoneEditingController;
   ContactMode get contactMode => state.contactMode;
   String get urlProfile => state.contact?.profileImage ?? '';
+  String get urlCreateProfile => state.urlCreateProfile;
+  File? get fileProfile => state.fileProfile;
 
   void initForm() {
     onlyUpdate(
@@ -53,6 +57,22 @@ class ContactController extends StateNotifier<ContactState> {
         textCellPhoneEditingController: TextEditingController(
           text: state.contact?.cellPhoneNumber,
         ),
+      ),
+    );
+  }
+
+  void changeFileProfile(String pathProfile) {
+    onlyUpdate(
+      state = state.copyWith(
+        fileProfile: File(pathProfile),
+      ),
+    );
+  }
+
+  void changeUrlCreateProfile(String urlProfile) {
+    onlyUpdate(
+      state = state.copyWith(
+        urlCreateProfile: urlProfile,
       ),
     );
   }
@@ -80,6 +100,7 @@ class ContactController extends StateNotifier<ContactState> {
       lastName: textLastNameEditingController?.text ?? '',
       phoneNumber: textPhoneNumberEditingController?.text ?? '',
       cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+      profileImage: urlCreateProfile,
     );
 
     return await _contactsRepository.create(createContact);
@@ -98,5 +119,11 @@ class ContactController extends StateNotifier<ContactState> {
 
   FutureEither<ContactsFailure, ContactsSuccess> deleteContact() async {
     return await _contactsRepository.delete(state.contact!.id!);
+  }
+
+  FutureEither<ContactsFailure, String> uploadImageContact() async {
+    return await _contactsRepository.uploadImage(
+      fileProfile!.path,
+    );
   }
 }

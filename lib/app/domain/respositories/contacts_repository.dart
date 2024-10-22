@@ -14,4 +14,7 @@ abstract class ContactsRepository {
   FutureEither<ContactsFailure, ContactsSuccess> delete(
     String id,
   );
+  FutureEither<ContactsFailure, String> uploadImage(
+    String pathImage,
+  );
 }

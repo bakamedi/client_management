@@ -1,11 +1,11 @@
-import 'package:client_management/app/domain/models/contacts/success/contacts_success.dart';
-import 'package:client_management/app/domain/typedefs.dart';
 import 'package:sembast/sembast.dart';
 
 import '../../domain/either.dart';
 import '../../domain/models/contacts/failure/contacts_failure.dart';
+import '../../domain/models/contacts/success/contacts_success.dart';
 import '../../domain/responses/contacts/contacts_response.dart';
 import '../../domain/respositories/contacts_repository.dart';
+import '../../domain/typedefs.dart';
 import '../data_source/providers/contacts_provider.dart';
 import '../data_source/providers/store_provider.dart';
 
@@ -96,6 +96,22 @@ class ContactsRepositoryImpl extends ContactsRepository {
         );
         return Either.right(
           contactResp,
+        );
+      },
+    );
+  }
+
+  @override
+  FutureEither<ContactsFailure, String> uploadImage(
+    String pathImage,
+  ) async {
+    final result = await _contactsProvider.uploadImage(pathImage);
+
+    return result.when(
+      left: (ContactsFailure value) => Either.left(value),
+      right: (String urlProfile) async {
+        return Either.right(
+          urlProfile,
         );
       },
     );
