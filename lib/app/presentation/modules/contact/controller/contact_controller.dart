@@ -42,6 +42,7 @@ class ContactController extends StateNotifier<ContactState> {
   String get urlProfile => state.contact?.profileImage ?? '';
   String get urlCreateProfile => state.urlCreateProfile;
   File? get fileProfile => state.fileProfile;
+  bool get internet => state.internet;
 
   void initForm() {
     onlyUpdate(
@@ -82,6 +83,14 @@ class ContactController extends StateNotifier<ContactState> {
     onlyUpdate(
       state = state.copyWith(
         contactMode: mode,
+      ),
+    );
+  }
+
+  void changeNoInternet(bool noInternet) {
+    onlyUpdate(
+      state = state.copyWith(
+        internet: noInternet,
       ),
     );
   }

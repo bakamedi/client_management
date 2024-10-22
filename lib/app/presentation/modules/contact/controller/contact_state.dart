@@ -14,6 +14,7 @@ class ContactState with _$ContactState {
   const ContactState._();
 
   const factory ContactState({
+    @Default(false) bool internet,
     @Default(StateGU.internet) StateGU stategu,
     @Default('') String urlCreateProfile,
     TextEditingController? textNamesEditingController,
@@ -32,5 +33,6 @@ class ContactState with _$ContactState {
         textNamesEditingController: TextEditingController(text: ''),
         textPhoneNumberEditingController: TextEditingController(text: ''),
         urlCreateProfile: '',
+        internet: false,
       );
 }

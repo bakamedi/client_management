@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../domain/responses/contacts/contacts_response.dart';
+import '../../../global/utils/state_gu.dart';
 import '../../../router/app_routes/contact_route.dart';
 import '../../contact/controller/contact_controller.dart';
 import '../../contact/utils/contact_mode.dart';
@@ -12,6 +13,9 @@ void openEditContact(
 ) {
   final contactController = contactProvider.read();
   contactController.setContact(contact);
+  contactController.changeNoInternet(
+    contactController.state.stategu == StateGU.internet,
+  );
   contactController.initForm();
   contactController.changeMode(ContactMode.edit);
 

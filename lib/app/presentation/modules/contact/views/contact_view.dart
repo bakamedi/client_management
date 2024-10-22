@@ -110,23 +110,7 @@ class ContactView extends ConsumerWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        contactController.urlProfile.isNotEmpty
-            ? ExtendedImage.network(
-                contactController.contact!.profileImage!.getUrlProfile,
-                width: adaptativeScreen.bwh(40),
-                height: adaptativeScreen.bwh(40),
-                fit: BoxFit.cover,
-                shape: BoxShape.circle,
-              )
-            : CircleAvatar(
-                radius: adaptativeScreen.dp(4),
-                child: CustomTextGW.text(
-                  contactController.contact!.initials,
-                  adaptativeScreen: adaptativeScreen,
-                  fontSize: adaptativeScreen.dp(3.5),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        _buildImage(contactController),
         PickerImageGestureGW(
           onImageSelected: (filePath) {
             contactController.changeFileProfile(filePath);
@@ -156,6 +140,27 @@ class ContactView extends ConsumerWidget {
             bottom: adaptativeScreen.bhp(8),
           ),
         );
+  }
+
+  Widget _buildImage(ContactController contactController) {
+    return contactController.urlProfile.isNotEmpty &&
+            !contactController.internet
+        ? ExtendedImage.network(
+            contactController.contact!.profileImage!.getUrlProfile,
+            width: adaptativeScreen.bwh(40),
+            height: adaptativeScreen.bwh(40),
+            fit: BoxFit.cover,
+            shape: BoxShape.circle,
+          )
+        : CircleAvatar(
+            radius: adaptativeScreen.dp(4),
+            child: CustomTextGW.text(
+              contactController.contact!.initials,
+              adaptativeScreen: adaptativeScreen,
+              fontSize: adaptativeScreen.dp(3.5),
+              fontWeight: FontWeight.bold,
+            ),
+          );
   }
 
   Widget _buildAvatar(ContactController contactController) {
