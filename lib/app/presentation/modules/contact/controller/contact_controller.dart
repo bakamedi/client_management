@@ -22,6 +22,7 @@ final contactProvider = Provider.state<ContactController, ContactState>(
 
 class ContactController extends StateNotifier<ContactState> {
   final ContactsRepository _contactsRepository;
+
   ContactController(
     super.initialState, {
     required ContactsRepository contactsRepository,
@@ -62,6 +63,7 @@ class ContactController extends StateNotifier<ContactState> {
         ),
       ),
     );
+    validateForm();
   }
 
   void changeFileProfile(String pathProfile) {

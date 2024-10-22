@@ -13,14 +13,9 @@ void updateContact(
   final loaderGC = loaderGlobalProvider.read();
 
   try {
-    loaderGC.showLoader(
-      loading: true,
-    );
+    loaderGC.showLoader(loading: true);
     final result = await contactController.updateContact();
-
-    loaderGC.showLoader(
-      loading: false,
-    );
+    loaderGC.showLoader(loading: false);
     result.when(
       left: (value) {
         value.when(
@@ -58,8 +53,6 @@ void updateContact(
       },
     );
   } catch (_) {
-    loaderGC.showLoader(
-      loading: false,
-    );
+    loaderGC.showLoader(loading: false);
   }
 }

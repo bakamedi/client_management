@@ -148,6 +148,26 @@ class ContactView extends ConsumerWidget {
   }
 
   Widget _buildImage(ContactController contactController) {
+    if (contactController.urlProfile.isNotEmpty) {
+      if (contactController.internet) {
+        return CircleAvatar(
+          radius: adaptativeScreen.dp(5),
+          child: CustomTextGW.text(
+            contactController.contact!.initials,
+            adaptativeScreen: adaptativeScreen,
+            fontSize: adaptativeScreen.dp(3.5),
+            fontWeight: FontWeight.bold,
+          ),
+        );
+      }
+      return ExtendedImage.network(
+        contactController.contact!.profileImage!.getUrlProfile,
+        width: adaptativeScreen.bwh(40),
+        height: adaptativeScreen.bwh(40),
+        fit: BoxFit.cover,
+        shape: BoxShape.circle,
+      );
+    }
     return contactController.urlProfile.isNotEmpty &&
             !contactController.internet
         ? ExtendedImage.network(

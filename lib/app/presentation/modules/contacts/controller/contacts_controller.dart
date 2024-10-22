@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_meedu/notifiers.dart';
 import 'package:flutter_meedu/providers.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../domain/respositories/contacts_repository.dart';
@@ -14,13 +18,36 @@ final contactsProvider = Provider.state<ContactsController, ContactsState>(
   ),
 );
 
-class ContactsController extends StateNotifier<ContactsState> {
+class ContactsController extends StateNotifier<ContactsState>
+    with WidgetsBindingObserver {
   final ContactsRepository _contactsRepository;
+  late StreamSubscription<InternetStatus> listener;
+
   ContactsController(
     super.initialState, {
     required ContactsRepository contactsRepository,
   }) : _contactsRepository = contactsRepository {
     init();
+
+    listener =
+        InternetConnection().onStatusChange.listen((InternetStatus status) {
+      switch (status) {
+        case InternetStatus.connected:
+          onlyUpdate(
+            state = state.copyWith(
+              stategu: StateGU.success,
+            ),
+          );
+          break;
+        case InternetStatus.disconnected:
+          onlyUpdate(
+            state = state.copyWith(
+              stategu: StateGU.internet,
+            ),
+          );
+          break;
+      }
+    });
   }
 
   StateGU get stategu => state.stategu;
@@ -47,7 +74,7 @@ class ContactsController extends StateNotifier<ContactsState> {
               right: (value) {
                 onlyUpdate(
                   state = state.copyWith(
-                    contacts: [...value],
+                    contacts: value,
                     stategu: StateGU.internet,
                   ),
                 );
@@ -79,5 +106,11 @@ class ContactsController extends StateNotifier<ContactsState> {
         stategu: stateGU,
       ),
     );
+  }
+
+  @override
+  FutureOr<void> dispose() {
+    listener.cancel();
+    return super.dispose();
   }
 }
