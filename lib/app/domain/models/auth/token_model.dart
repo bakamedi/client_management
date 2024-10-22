@@ -24,6 +24,9 @@ class TokenModel with _$TokenModel {
 @freezed
 class DataTokenModel with _$DataTokenModel {
   const factory DataTokenModel({
+    @JsonKey(name: "names") String? names,
+    @JsonKey(name: "lastName") String? lastName,
+    @JsonKey(name: "profileImage") String? profileImage,
     @JsonKey(name: "access_token") required String accessToken,
     @JsonKey(name: "refresh_token") required String refreshToken,
   }) = _DataTokenModel;

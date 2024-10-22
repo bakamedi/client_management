@@ -47,7 +47,6 @@ abstract class CustomAppbarGW {
     required BuildContext context,
     required String url,
     required String names,
-    required int contactsLength,
     required void Function()? onPressed,
   }) {
     final adaptativeScreen = AdaptativeScreen(context);
@@ -82,28 +81,49 @@ abstract class CustomAppbarGW {
       leading: IconButton(
         icon: Row(
           children: [
-            ExtendedImage.network(
-              url,
-              width: adaptativeScreen.bwh(10),
-              height: adaptativeScreen.bwh(10),
-              fit: BoxFit.cover,
-              shape: BoxShape.circle,
-            ),
+            url.isEmpty
+                ? DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(
+                        adaptativeScreen.dp(10),
+                      ),
+                      border: Border.all(
+                        color: AppColors.primary,
+                        width: 1,
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: onPressed,
+                      icon: Icon(
+                        EvaIcons.personOutline,
+                        size: adaptativeScreen.dp(2),
+                        color: AppColors.black100,
+                      ),
+                    ),
+                  )
+                : ExtendedImage.network(
+                    url,
+                    width: adaptativeScreen.bwh(10),
+                    height: adaptativeScreen.bwh(10),
+                    fit: BoxFit.cover,
+                    shape: BoxShape.circle,
+                  ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextGW.text(
-                  names,
+                  'Bienvenido a CliPro',
                   adaptativeScreen: adaptativeScreen,
                   fontSize: adaptativeScreen.dp(1.7),
                   fontWeight: FontWeight.bold,
                 ),
                 CustomTextGW.text(
-                  '$contactsLength contactos',
+                  names,
                   adaptativeScreen: adaptativeScreen,
-                  fontSize: adaptativeScreen.dp(1.4),
+                  fontSize: adaptativeScreen.dp(1.2),
                   fontWeight: FontWeight.bold,
-                  color: AppColors.grey300,
+                  color: AppColors.grey400.withOpacity(0.8),
                 ),
               ],
             ).padding(

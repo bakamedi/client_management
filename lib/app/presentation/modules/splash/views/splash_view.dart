@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../extensions/widgets_ext.dart';
 import '../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../global/controllers/session/session_gc.dart';
 import '../controller/splash_controller.dart';
 
 class SplashView extends ConsumerWidget {
@@ -26,6 +27,13 @@ class SplashView extends ConsumerWidget {
             controller.routeName,
           );
         }
+      },
+    );
+
+    ref.listen(
+      sessionGP,
+      callback: (notifier) async {
+        await notifier.init();
       },
     );
     return Scaffold(

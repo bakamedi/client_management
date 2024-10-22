@@ -6,4 +6,7 @@ class GlobalNameStorageKeyUtils {
   static String ACCESS_TOKEN = 'ACCESS_TOKEN';
   static String REFRESH_TOKEN = 'REFRESH_TOKEN';
   static String FIRST_LOAD = 'FIRST_LOAD';
+  static String NAMES = 'NAMES';
+  static String LAST_NAME = 'LAST_NAME';
+  static String PROFILE_IMAGE = 'PROFILE_IMAGE';
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../domain/models/auth/failure/sign_in_failure.dart';
 import '../../../global/controllers/loader/loader_gc.dart';
+import '../../../global/controllers/session/session_gc.dart';
 import '../../../global/utils/custom_utils_gu.dart';
 import '../../../global/widgets/dialogs/dialogs_gw.dart';
 import '../../../router/app_routes/contacts_route.dart';
@@ -40,7 +41,10 @@ void login(BuildContext context) async {
         );
       }
     },
-    right: (success) {
+    right: (success) async {
+      final SessionGC sessionGC = sessionGP.read();
+      await sessionGC.init();
+
       loaderGC.showLoader(loading: false);
       context.pushReplacement(
         ContactsRoute.path,

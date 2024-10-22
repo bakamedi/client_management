@@ -39,6 +39,15 @@ class AuthProvider {
         await _deviceUtilProvider.setRefreshToken(
           response.data.refreshToken,
         );
+        await _deviceUtilProvider.setNames(
+          response.data.names ?? '',
+        );
+        await _deviceUtilProvider.setLastName(
+          response.data.lastName ?? '',
+        );
+        await _deviceUtilProvider.setProfileImage(
+          response.data.profileImage ?? '',
+        );
         return Either.right(response);
       },
       networkError: (stackTrace) {

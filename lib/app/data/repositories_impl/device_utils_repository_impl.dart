@@ -17,4 +17,13 @@ class DeviceUtilsRepositoryImpl implements DeviceUtilsRepository {
   Future<void> setAccessToken(String token) async {
     await _deviceUtilHelper.setAccessToken(token);
   }
+
+  @override
+  Future<String> get names async => await _deviceUtilHelper.names;
+
+  @override
+  Future<String> get lastName async => await _deviceUtilHelper.lastName;
+
+  @override
+  Future<String> get profileImage async => await _deviceUtilHelper.profileImage;
 }

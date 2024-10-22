@@ -52,6 +52,18 @@ class DeviceUtilProvider {
         GlobalNameStorageKeyUtils.REFRESH_TOKEN,
       );
 
+  Future<String> get names async => await _readValue(
+        GlobalNameStorageKeyUtils.NAMES,
+      );
+
+  Future<String> get lastName async => await _readValue(
+        GlobalNameStorageKeyUtils.LAST_NAME,
+      );
+
+  Future<String> get profileImage async => await _readValue(
+        GlobalNameStorageKeyUtils.PROFILE_IMAGE,
+      );
+
   Future<void> setInitialRouteName(String routename) async {
     await _writeValue(
       GlobalNameStorageKeyUtils.INITIAL_ROUTE_NAME,
@@ -63,6 +75,27 @@ class DeviceUtilProvider {
     await _writeValue(
       GlobalNameStorageKeyUtils.ACCESS_TOKEN,
       token,
+    );
+  }
+
+  Future<void> setNames(String names) async {
+    await _writeValue(
+      GlobalNameStorageKeyUtils.NAMES,
+      names,
+    );
+  }
+
+  Future<void> setLastName(String lastName) async {
+    await _writeValue(
+      GlobalNameStorageKeyUtils.LAST_NAME,
+      lastName,
+    );
+  }
+
+  Future<void> setProfileImage(String urlProfileImage) async {
+    await _writeValue(
+      GlobalNameStorageKeyUtils.PROFILE_IMAGE,
+      urlProfileImage,
     );
   }
 
