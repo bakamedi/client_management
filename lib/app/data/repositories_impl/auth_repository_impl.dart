@@ -29,4 +29,27 @@ class AuthRepositoryImpl implements AuthRepository {
       },
     );
   }
+
+  @override
+  FutureEither<SignInFailure, SignInSuccess> signUp({
+    required String names,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    final result = await _authProvider.signUp(
+      names: names,
+      lastName: lastName,
+      email: email,
+      password: password,
+    );
+    return result.when(
+      left: (SignInFailure value) => Either.left(value),
+      right: (TokenModel token) {
+        return const Either.right(
+          SignInSuccess.ok(),
+        );
+      },
+    );
+  }
 }

@@ -7,4 +7,11 @@ abstract class AuthRepository {
     String userName,
     String password,
   );
+
+  FutureEither<SignInFailure, SignInSuccess> signUp({
+    required String names,
+    required String lastName,
+    required String email,
+    required String password,
+  });
 }
