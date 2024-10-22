@@ -61,6 +61,7 @@ class SignUpView extends ConsumerWidget {
           ),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: UserValidator.validatePassword,
           keyboardType: TextInputType.visiblePassword,
           obscureText: !signUpController.showPassword,
@@ -81,6 +82,7 @@ class SignUpView extends ConsumerWidget {
           ),
           labelTxt: 'Confirme su Contraseña',
           backgroundLabel: 'Vuelva a escribir su contraseña',
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => UserValidator.confirmPassword(
             signUpController.password,
             signUpController.confirmPassword,
