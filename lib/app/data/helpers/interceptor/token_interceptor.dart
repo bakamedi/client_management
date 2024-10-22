@@ -28,7 +28,6 @@ class TokenInterceptor extends Interceptor {
         }
       } catch (e) {
         // Manejar el error de refresco de token
-        print('Error al refrescar el token: $e');
       }
     }
 
@@ -51,7 +50,6 @@ class TokenInterceptor extends Interceptor {
       // Obtener el nuevo token de la respuesta
       return response.data['access_token'];
     } catch (e) {
-      print('Error al refrescar el token: $e');
       return null;
     }
   }

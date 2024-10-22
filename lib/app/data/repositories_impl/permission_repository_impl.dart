@@ -20,17 +20,17 @@ class PermissionRepositoryImpl extends PermissionRepository {
     final status = await _permissionLocal.request(permission);
     switch (status) {
       case PermissionStatus.granted:
-        return Either.right(PermissionSuccess.isGranted());
+        return const Either.right(PermissionSuccess.isGranted());
       case PermissionStatus.denied:
-        return Either.left(PermissionFailure.denied());
+        return const Either.left(PermissionFailure.denied());
       case PermissionStatus.permanentlyDenied:
-        return Either.left(PermissionFailure.permanentlyDenied());
+        return const Either.left(PermissionFailure.permanentlyDenied());
       case PermissionStatus.limited:
-        return Either.left(PermissionFailure.limited());
+        return const Either.left(PermissionFailure.limited());
       case PermissionStatus.provisional:
-        return Either.left(PermissionFailure.provisional());
+        return const Either.left(PermissionFailure.provisional());
       default:
-        return Either.left(PermissionFailure.isUnknown());
+        return const Either.left(PermissionFailure.isUnknown());
     }
   }
 }

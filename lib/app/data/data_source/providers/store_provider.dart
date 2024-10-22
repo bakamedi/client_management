@@ -24,9 +24,7 @@ class StoreProvider {
         _dbProvider.db,
         value,
       );
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 
   Future<RecordSnapshotJson> getRecordById({

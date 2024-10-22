@@ -24,7 +24,6 @@ void createContact(
     uploadResult.when(
       left: (value) {
         loaderGC.showLoader(loading: false);
-        print(value);
       },
       right: (urlProfile) async {
         await crateAfterUploadImage(

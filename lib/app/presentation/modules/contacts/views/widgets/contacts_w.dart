@@ -1,5 +1,5 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import '../../../../../core/adaptative_screen/adaptative_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -29,6 +29,7 @@ class ContactsW extends StatelessWidget {
         internet
             ? SizedBox(
                 width: adaptativeScreen.bwh(100),
+                height: adaptativeScreen.bhp(3.5),
                 child: ColoredBox(
                   color: AppColors.grey400.withOpacity(0.7),
                   child: CustomTextGW.text(
@@ -37,8 +38,7 @@ class ContactsW extends StatelessWidget {
                     fontSize: adaptativeScreen.dp(1.5),
                     fontWeight: FontWeight.bold,
                     color: AppColors.white,
-                    textAlign: TextAlign.center,
-                  ),
+                  ).center,
                 ),
               ).center.sliverBox
             : 1.h.sliverBox,
@@ -104,27 +104,19 @@ class ContactsW extends StatelessWidget {
     ContactResponse contact,
     AdaptativeScreen adaptativeScreen,
   ) {
-    if (contact.profileImage!.isEmpty) {
-      return CircleAvatar(
-        child: CustomTextGW.text(
-          contact.initials,
-          adaptativeScreen: adaptativeScreen,
-        ),
-      );
-    } else {
-      return CircleAvatar(
-        backgroundImage: internet
-            ? null
-            : NetworkImage(
-                contact.profileImage!.getUrlProfile,
-              ),
-        child: internet
-            ? CustomTextGW.text(
-                contact.initials,
-                adaptativeScreen: adaptativeScreen,
-              )
-            : null,
-      );
-    }
+    final initials = contact.initials;
+    final profileImage = contact.profileImage?.getUrlProfile;
+
+    return CircleAvatar(
+      backgroundImage: (profileImage != null && !internet)
+          ? NetworkImage(profileImage)
+          : null,
+      child: (profileImage == null || internet)
+          ? CustomTextGW.text(
+              initials,
+              adaptativeScreen: adaptativeScreen,
+            )
+          : null,
+    );
   }
 }

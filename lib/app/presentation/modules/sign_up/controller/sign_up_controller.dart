@@ -48,19 +48,15 @@ class SignUpController extends StateNotifier<SignUpState> {
     switch (field) {
       case CreateFieldGU.names:
         onlyUpdate(state = state.copyWith(names: value ?? ''));
-        print(state.names);
 
       case CreateFieldGU.lastName:
         onlyUpdate(state = state.copyWith(lastName: value ?? ''));
-        print(state.lastName);
 
       case CreateFieldGU.email:
         onlyUpdate(state = state.copyWith(email: value ?? ''));
-        print(state.email);
 
       case CreateFieldGU.password:
         onlyUpdate(state = state.copyWith(password: value ?? ''));
-        print(state.password);
 
       case CreateFieldGU.confirmPassword:
         onlyUpdate(state = state.copyWith(confirmPassword: value ?? ''));
