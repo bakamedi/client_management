@@ -6,15 +6,50 @@ import '../../../global/widgets/dialogs/dialogs_gw.dart';
 import '../../contacts/utils/get_contacts.dart';
 import '../controller/contact_controller.dart';
 
-void updateContact(
+void updateUploadImage(
   BuildContext context,
   ContactController contactController,
 ) async {
   final loaderGC = loaderGlobalProvider.read();
+  loaderGC.showLoader(loading: true);
+  if (contactController.fileProfile == null) {
+    await updateAfterUploadImage(
+      context: context,
+      contactController: contactController,
+      loaderGC: loaderGC,
+    );
+  } else {
+    final uploadResult = await contactController.uploadImageContact();
+
+    uploadResult.when(
+      left: (value) {
+        loaderGC.showLoader(loading: false);
+      },
+      right: (urlProfile) async {
+        await updateAfterUploadImage(
+          context: context,
+          contactController: contactController,
+          loaderGC: loaderGC,
+          urlProfile: urlProfile,
+        );
+      },
+    );
+  }
+}
+
+Future<void> updateAfterUploadImage({
+  required BuildContext context,
+  required ContactController contactController,
+  required LoaderGC loaderGC,
+  String urlProfile = '',
+}) async {
+  final loaderGC = loaderGlobalProvider.read();
 
   try {
     loaderGC.showLoader(loading: true);
-    final result = await contactController.updateContact();
+    final result = await contactController.updateContact(
+      urlCreateProfile: urlProfile,
+    );
     loaderGC.showLoader(loading: false);
     result.when(
       left: (value) {

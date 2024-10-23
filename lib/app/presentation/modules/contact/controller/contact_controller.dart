@@ -119,12 +119,16 @@ class ContactController extends StateNotifier<ContactState> {
     return await _contactsRepository.create(createContact);
   }
 
-  FutureEither<ContactsFailure, ContactResponse> updateContact() async {
+  FutureEither<ContactsFailure, ContactResponse> updateContact({
+    String urlCreateProfile = '',
+  }) async {
     final updatedContact = state.contact!.copyWith(
       names: textNamesEditingController?.text ?? '',
+      role: 'USER',
       lastName: textLastNameEditingController?.text ?? '',
       phoneNumber: textPhoneNumberEditingController?.text ?? '',
       cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+      profileImage: urlCreateProfile,
     );
 
     return await _contactsRepository.update(updatedContact);

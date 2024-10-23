@@ -12,7 +12,7 @@ void selectMode(BuildContext context) {
     case ContactMode.create:
       createContact(context, contactController);
     case ContactMode.edit:
-      updateContact(context, contactController);
+      updateUploadImage(context, contactController);
     default:
   }
 }

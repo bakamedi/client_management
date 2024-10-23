@@ -149,6 +149,15 @@ class ContactView extends ConsumerWidget {
 
   Widget _buildImage(ContactController contactController) {
     if (contactController.urlProfile.isNotEmpty) {
+      if (contactController.fileProfile != null) {
+        return ExtendedImage.file(
+          contactController.fileProfile!,
+          width: adaptativeScreen.bwh(40),
+          height: adaptativeScreen.bwh(40),
+          fit: BoxFit.cover,
+          shape: BoxShape.circle,
+        );
+      }
       if (contactController.internet) {
         return CircleAvatar(
           radius: adaptativeScreen.dp(5),
@@ -162,6 +171,15 @@ class ContactView extends ConsumerWidget {
       }
       return ExtendedImage.network(
         contactController.contact!.profileImage!.getUrlProfile,
+        width: adaptativeScreen.bwh(40),
+        height: adaptativeScreen.bwh(40),
+        fit: BoxFit.cover,
+        shape: BoxShape.circle,
+      );
+    }
+    if (contactController.fileProfile != null) {
+      return ExtendedImage.file(
+        contactController.fileProfile!,
         width: adaptativeScreen.bwh(40),
         height: adaptativeScreen.bwh(40),
         fit: BoxFit.cover,
