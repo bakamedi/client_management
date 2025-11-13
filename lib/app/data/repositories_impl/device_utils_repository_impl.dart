@@ -4,11 +4,9 @@ import '../../domain/respositories/device_utils_repository.dart';
 import '../data_source/providers/device_provider.dart';
 
 class DeviceUtilsRepositoryImpl implements DeviceUtilsRepository {
+  DeviceUtilsRepositoryImpl({required DeviceUtilProvider deviceUtilHelper})
+    : _deviceUtilHelper = deviceUtilHelper;
   final DeviceUtilProvider _deviceUtilHelper;
-
-  DeviceUtilsRepositoryImpl({
-    required DeviceUtilProvider deviceUtilHelper,
-  }) : _deviceUtilHelper = deviceUtilHelper;
 
   @override
   Future<String> get accessToken async => await _deviceUtilHelper.accessToken;

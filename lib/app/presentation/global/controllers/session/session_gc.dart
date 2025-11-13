@@ -16,11 +16,11 @@ final sessionGP = Provider.state<SessionGC, SessionState>(
 );
 
 class SessionGC extends StateNotifier<SessionState> {
-  final DeviceUtilsRepository _deviceUtilsRepository;
   SessionGC(
     super.initialState, {
     required DeviceUtilsRepository deviceUtilsRepository,
   }) : _deviceUtilsRepository = deviceUtilsRepository;
+  final DeviceUtilsRepository _deviceUtilsRepository;
 
   String get names => state.names ?? '';
   String get lastName => state.lastName ?? '';

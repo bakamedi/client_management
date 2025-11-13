@@ -19,12 +19,9 @@ final signInProvider = Provider.state<SignInController, SignInState>(
 );
 
 class SignInController extends StateNotifier<SignInState> {
+  SignInController(super.initialState, {required AuthRepository authRepository})
+    : _authRepository = authRepository;
   final AuthRepository _authRepository;
-
-  SignInController(
-    super.initialState, {
-    required AuthRepository authRepository,
-  }) : _authRepository = authRepository;
 
   String get email => state.email;
   String get password => state.password;
@@ -32,11 +29,7 @@ class SignInController extends StateNotifier<SignInState> {
   bool get showPassword => state.showPassword;
 
   void togglePasswordVisibility() {
-    onlyUpdate(
-      state = state.copyWith(
-        showPassword: !state.showPassword,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(showPassword: !state.showPassword));
   }
 
   void onChangeFormValid() {
@@ -47,33 +40,19 @@ class SignInController extends StateNotifier<SignInState> {
     );
   }
 
-  void onChangeField(
-    UpdateFieldGU field, {
-    String? value,
-  }) {
+  void onChangeField(UpdateFieldGU field, {String? value}) {
     switch (field) {
       case UpdateFieldGU.email:
-        onlyUpdate(
-          state = state.copyWith(
-            email: value ?? '',
-          ),
-        );
+        onlyUpdate(state = state.copyWith(email: value ?? ''));
         break;
       case UpdateFieldGU.password:
-        onlyUpdate(
-          state = state.copyWith(
-            password: value ?? '',
-          ),
-        );
+        onlyUpdate(state = state.copyWith(password: value ?? ''));
         break;
     }
     onChangeFormValid();
   }
 
   FutureEither<SignInFailure, SignInSuccess> signIn() async {
-    return await _authRepository.signIn(
-      email,
-      password,
-    );
+    return await _authRepository.signIn(email, password);
   }
 }

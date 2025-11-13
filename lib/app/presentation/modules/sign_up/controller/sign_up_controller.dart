@@ -19,12 +19,9 @@ final signUpProvider = Provider.state<SignUpController, SignUpState>(
 );
 
 class SignUpController extends StateNotifier<SignUpState> {
+  SignUpController(super.initialState, {required AuthRepository authRepository})
+    : _authRepository = authRepository;
   final AuthRepository _authRepository;
-
-  SignUpController(
-    super.initialState, {
-    required AuthRepository authRepository,
-  }) : _authRepository = authRepository;
 
   String get names => state.names;
 
@@ -40,10 +37,7 @@ class SignUpController extends StateNotifier<SignUpState> {
 
   bool get showPassword => state.showPassword;
 
-  void onChangeField(
-    CreateFieldGU field, {
-    String? value,
-  }) {
+  void onChangeField(CreateFieldGU field, {String? value}) {
     onChangeFormValid();
     switch (field) {
       case CreateFieldGU.names:
@@ -66,7 +60,8 @@ class SignUpController extends StateNotifier<SignUpState> {
   void onChangeFormValid() {
     onlyUpdate(
       state = state.copyWith(
-        isFormValid: names.isNotEmpty &&
+        isFormValid:
+            names.isNotEmpty &&
             lastName.isNotEmpty &&
             password.isNotEmpty &&
             confirmPassword.isNotEmpty &&
@@ -76,11 +71,7 @@ class SignUpController extends StateNotifier<SignUpState> {
   }
 
   void togglePasswordVisibility() {
-    onlyUpdate(
-      state = state.copyWith(
-        showPassword: !state.showPassword,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(showPassword: !state.showPassword));
   }
 
   FutureEither<SignInFailure, SignInSuccess> signUp() async {

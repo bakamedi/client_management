@@ -8,10 +8,9 @@ import '../../domain/typedefs.dart';
 import '../data_source/local/permission_local.dart';
 
 class PermissionRepositoryImpl extends PermissionRepository {
+  PermissionRepositoryImpl({required PermissionLocal permissionLocal})
+    : _permissionLocal = permissionLocal;
   final PermissionLocal _permissionLocal;
-  PermissionRepositoryImpl({
-    required PermissionLocal permissionLocal,
-  }) : _permissionLocal = permissionLocal;
 
   @override
   FutureEither<PermissionFailure, PermissionSuccess> requestPermission(

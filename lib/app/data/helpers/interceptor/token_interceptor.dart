@@ -4,10 +4,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../core/utils/global_names_key_storage_utils.dart';
 
 class TokenInterceptor extends Interceptor {
+  TokenInterceptor(this.dio, this.storage);
   final Dio dio;
   final FlutterSecureStorage storage;
-
-  TokenInterceptor(this.dio, this.storage);
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
@@ -43,9 +42,10 @@ class TokenInterceptor extends Interceptor {
       );
 
       // Supongamos que tienes un endpoint para refrescar el token
-      final response = await dio.post('/auth/refresh', data: {
-        'refresh_token': refreshToken,
-      });
+      final response = await dio.post(
+        '/auth/refresh',
+        data: {'refresh_token': refreshToken},
+      );
 
       // Obtener el nuevo token de la respuesta
       return response.data['access_token'];

@@ -21,14 +21,13 @@ final contactProvider = Provider.state<ContactController, ContactState>(
 );
 
 class ContactController extends StateNotifier<ContactState> {
-  final ContactsRepository _contactsRepository;
-
   ContactController(
     super.initialState, {
     required ContactsRepository contactsRepository,
   }) : _contactsRepository = contactsRepository {
     initForm();
   }
+  final ContactsRepository _contactsRepository;
 
   TextEditingController? get textNamesEditingController =>
       state.textNamesEditingController;
@@ -67,43 +66,23 @@ class ContactController extends StateNotifier<ContactState> {
   }
 
   void changeFileProfile(String pathProfile) {
-    onlyUpdate(
-      state = state.copyWith(
-        fileProfile: File(pathProfile),
-      ),
-    );
+    onlyUpdate(state = state.copyWith(fileProfile: File(pathProfile)));
   }
 
   void changeUrlCreateProfile(String urlProfile) {
-    onlyUpdate(
-      state = state.copyWith(
-        urlCreateProfile: urlProfile,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(urlCreateProfile: urlProfile));
   }
 
   void changeMode(ContactMode mode) {
-    onlyUpdate(
-      state = state.copyWith(
-        contactMode: mode,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(contactMode: mode));
   }
 
   void changeNoInternet(bool noInternet) {
-    onlyUpdate(
-      state = state.copyWith(
-        internet: noInternet,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(internet: noInternet));
   }
 
   void setContact(ContactResponse? contact) {
-    onlyUpdate(
-      state = state.copyWith(
-        contact: contact,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(contact: contact));
   }
 
   FutureEither<ContactsFailure, ContactResponse> createContact() async {
@@ -139,15 +118,14 @@ class ContactController extends StateNotifier<ContactState> {
   }
 
   FutureEither<ContactsFailure, String> uploadImageContact() async {
-    return await _contactsRepository.uploadImage(
-      fileProfile!.path,
-    );
+    return await _contactsRepository.uploadImage(fileProfile!.path);
   }
 
   void validateForm() {
     onlyUpdate(
       state = state.copyWith(
-        isFormValid: textNamesEditingController!.text.isNotEmpty &&
+        isFormValid:
+            textNamesEditingController!.text.isNotEmpty &&
             textLastNameEditingController!.text.isNotEmpty &&
             textPhoneNumberEditingController!.text.isNotEmpty &&
             textCellPhoneEditingController!.text.isNotEmpty,

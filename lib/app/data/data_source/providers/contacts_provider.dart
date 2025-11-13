@@ -12,14 +12,13 @@ import '../../helpers/http/http_method.dart';
 import 'device_provider.dart';
 
 class ContactsProvider {
-  final HttpHelper _http;
-  final DeviceUtilProvider _deviceUtilProvider;
-
   ContactsProvider({
     required HttpHelper http,
     required DeviceUtilProvider deviceUtilProvider,
-  })  : _http = http,
-        _deviceUtilProvider = deviceUtilProvider;
+  }) : _http = http,
+       _deviceUtilProvider = deviceUtilProvider;
+  final HttpHelper _http;
+  final DeviceUtilProvider _deviceUtilProvider;
 
   FutureEither<ContactsFailure, ContactResponse> create(
     ContactResponse contact,
@@ -42,24 +41,16 @@ class ContactsProvider {
         return Either.right(user.data);
       },
       networkError: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
       timeOut: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.timeOut(),
-        );
+        return const Either.left(ContactsFailure.timeOut());
       },
       unhandledError: (statusCode, stackTrace) {
-        return const Either.left(
-          ContactsFailure.unhandledException(),
-        );
+        return const Either.left(ContactsFailure.unhandledException());
       },
       internetConnection: () {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
     );
   }
@@ -82,24 +73,16 @@ class ContactsProvider {
         return Either.right(user);
       },
       networkError: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
       timeOut: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.timeOut(),
-        );
+        return const Either.left(ContactsFailure.timeOut());
       },
       unhandledError: (statusCode, stackTrace) {
-        return const Either.left(
-          ContactsFailure.unhandledException(),
-        );
+        return const Either.left(ContactsFailure.unhandledException());
       },
       internetConnection: () {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
     );
   }
@@ -126,31 +109,21 @@ class ContactsProvider {
         return Either.right(user.data);
       },
       networkError: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
       timeOut: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.timeOut(),
-        );
+        return const Either.left(ContactsFailure.timeOut());
       },
       unhandledError: (statusCode, stackTrace) {
-        return const Either.left(
-          ContactsFailure.unhandledException(),
-        );
+        return const Either.left(ContactsFailure.unhandledException());
       },
       internetConnection: () {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
     );
   }
 
-  FutureEither<ContactsFailure, ContactsSuccess> delete(
-    String id,
-  ) async {
+  FutureEither<ContactsFailure, ContactsSuccess> delete(String id) async {
     final accessToken = await _deviceUtilProvider.accessToken;
 
     final result = await _http.request(
@@ -168,31 +141,21 @@ class ContactsProvider {
         return const Either.right(ContactsSuccess.ok());
       },
       networkError: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
       timeOut: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.timeOut(),
-        );
+        return const Either.left(ContactsFailure.timeOut());
       },
       unhandledError: (statusCode, stackTrace) {
-        return const Either.left(
-          ContactsFailure.unhandledException(),
-        );
+        return const Either.left(ContactsFailure.unhandledException());
       },
       internetConnection: () {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
     );
   }
 
-  FutureEither<ContactsFailure, String> uploadImage(
-    String pathImage,
-  ) async {
+  FutureEither<ContactsFailure, String> uploadImage(String pathImage) async {
     final accessToken = await _deviceUtilProvider.accessToken;
 
     String fileName = basename(pathImage); // Obtener el nombre del archivo
@@ -211,9 +174,7 @@ class ContactsProvider {
       method: HttpMethod.POST,
       data: formData,
       bearerToken: accessToken,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: {'Content-Type': 'multipart/form-data'},
     );
 
     return result.when(
@@ -222,24 +183,16 @@ class ContactsProvider {
         return Either.right(urlData.data.url);
       },
       networkError: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
       timeOut: (stackTrace) {
-        return const Either.left(
-          ContactsFailure.timeOut(),
-        );
+        return const Either.left(ContactsFailure.timeOut());
       },
       unhandledError: (statusCode, stackTrace) {
-        return const Either.left(
-          ContactsFailure.unhandledException(),
-        );
+        return const Either.left(ContactsFailure.unhandledException());
       },
       internetConnection: () {
-        return const Either.left(
-          ContactsFailure.network(),
-        );
+        return const Either.left(ContactsFailure.network());
       },
     );
   }

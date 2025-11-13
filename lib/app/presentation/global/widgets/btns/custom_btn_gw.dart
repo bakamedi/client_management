@@ -56,29 +56,29 @@ abstract class CustomBtnGW {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          minimumSize: WidgetStateProperty.resolveWith<Size>(
-            (Set<WidgetState> states) {
-              return const Size(100, 50);
-            },
-          ),
-          shadowColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) {
-              return AppColors.white; // Defer to the widget's default.
-            },
-          ),
-          backgroundColor: WidgetStateProperty.resolveWith<Color>(
-            (Set<WidgetState> states) {
-              if (states.contains(WidgetState.disabled)) {
-                return AppColors.grey400;
-              }
-              return AppColors.white; // Use the component's default.
-            },
-          ),
+          minimumSize: WidgetStateProperty.resolveWith<Size>((
+            Set<WidgetState> states,
+          ) {
+            return const Size(100, 50);
+          }),
+          shadowColor: WidgetStateProperty.resolveWith<Color?>((
+            Set<WidgetState> states,
+          ) {
+            return AppColors.white; // Defer to the widget's default.
+          }),
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.disabled)) {
+              return AppColors.grey400;
+            }
+            return AppColors.white; // Use the component's default.
+          }),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
               side: BorderSide(
-                color: Colors.red.withOpacity(0.8),
+                color: Colors.red.withValues(alpha: 0.8),
                 width: 1.0,
               ),
             ),
@@ -86,7 +86,7 @@ abstract class CustomBtnGW {
         ),
         child: CustomTextGW.text(
           label,
-          color: Colors.red.withOpacity(0.8),
+          color: Colors.red.withValues(alpha: .8),
           adaptativeScreen: adaptativeScreen,
           fontSize: fontSizeResponsive,
           fontWeight: FontWeight.bold,

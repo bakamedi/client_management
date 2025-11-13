@@ -8,7 +8,6 @@ import '../../../../core/theme/app_colors.dart';
 /// requerido por FashionPark
 /// si falta algun parametro que se desee utilizar en el [TextFormField]
 /// se lo puede añadir como un [final] si es obligatorio el campo
-/// se utiliza el [required] en el constructor sino se utiliza
 /// el simbolo [?] despues del tipo de dato a utilizar
 ///
 /// Ejemplo1: final String? datoNoObligatorio
@@ -17,33 +16,6 @@ final radius = BorderRadius.circular(10.0);
 
 ///
 class InputTextFieldGW extends StatelessWidget {
-  final EdgeInsetsGeometry? margin;
-  final EdgeInsetsGeometry? padding;
-  final bool autofocus;
-  final bool? enabled;
-  final Widget? prefixInput;
-  final Widget? suffixInput;
-  final TextDirection? textDirection;
-  final AutovalidateMode? autovalidateMode;
-  final FocusNode? focusNode;
-  final int? maxLength;
-  final bool? obscureText;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextEditingController? controller;
-  final TextInputType? keyboardType;
-  final String backgroundLabel;
-  final TextInputAction? textInputAction;
-  final int? maxLines;
-  final String obscuringCharacter;
-  final TextAlign textAlign;
-  final bool readOnly;
-  final void Function(PointerDownEvent)? onTapOutside;
-  final void Function()? onFieldSubmitted;
-  final void Function(String) onChanged;
-  final void Function()? onTap;
-  final String? Function(String?)? validator;
-  final String? initialValue;
-  final String labelTxt;
   const InputTextFieldGW({
     super.key,
     this.autofocus = false,
@@ -74,12 +46,37 @@ class InputTextFieldGW extends StatelessWidget {
     this.initialValue,
     required this.labelTxt,
   });
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final bool autofocus;
+  final bool? enabled;
+  final Widget? prefixInput;
+  final Widget? suffixInput;
+  final TextDirection? textDirection;
+  final AutovalidateMode? autovalidateMode;
+  final FocusNode? focusNode;
+  final int? maxLength;
+  final bool? obscureText;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final String backgroundLabel;
+  final TextInputAction? textInputAction;
+  final int? maxLines;
+  final String obscuringCharacter;
+  final TextAlign textAlign;
+  final bool readOnly;
+  final void Function(PointerDownEvent)? onTapOutside;
+  final void Function()? onFieldSubmitted;
+  final void Function(String) onChanged;
+  final void Function()? onTap;
+  final String? Function(String?)? validator;
+  final String? initialValue;
+  final String labelTxt;
 
   @override
   Widget build(BuildContext context) {
-    final adaptativeScreen = AdaptativeScreen(
-      context,
-    );
+    final adaptativeScreen = AdaptativeScreen(context);
 
     return Container(
       margin: margin,
@@ -139,9 +136,7 @@ class InputTextFieldGW extends StatelessWidget {
 /// En donde se da el color blanco de fondo y los bordes redondeados
 /// Con la sombra de atras
 BoxDecoration _decorationTextFormField() {
-  return BoxDecoration(
-    borderRadius: radius,
-  );
+  return BoxDecoration(borderRadius: radius);
 }
 
 /// Diseño global para el [TextFormField]
@@ -167,7 +162,7 @@ InputDecoration _simpleInput(
     counterText: '',
     isDense: true,
     filled: true,
-    fillColor: AppColors.grey100.withOpacity(0.4),
+    fillColor: AppColors.grey100.withValues(alpha: .4),
     hintText: hintText,
     labelStyle: TextStyle(
       fontFamily: 'Inter',
@@ -183,30 +178,18 @@ InputDecoration _simpleInput(
       wordSpacing: 0.5,
       letterSpacing: 0.5,
     ),
-    suffixIconConstraints: const BoxConstraints(
-      minWidth: 2,
-      minHeight: 2,
-    ),
+    suffixIconConstraints: const BoxConstraints(minWidth: 2, minHeight: 2),
     enabledBorder: OutlineInputBorder(
       borderRadius: radius,
-      borderSide: BorderSide(
-        color: AppColors.grey100,
-        width: 1.0,
-      ),
+      borderSide: BorderSide(color: AppColors.grey100, width: 1.0),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: radius,
-      borderSide: const BorderSide(
-        color: Colors.red,
-        width: 2.0,
-      ),
+      borderSide: const BorderSide(color: Colors.red, width: 2.0),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: radius,
-      borderSide: BorderSide(
-        color: AppColors.primary,
-        width: 2.0,
-      ),
+      borderSide: BorderSide(color: AppColors.primary, width: 2.0),
     ),
   );
 }

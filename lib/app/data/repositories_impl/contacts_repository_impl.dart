@@ -10,14 +10,13 @@ import '../data_source/providers/contacts_provider.dart';
 import '../data_source/providers/store_provider.dart';
 
 class ContactsRepositoryImpl extends ContactsRepository {
-  final ContactsProvider _contactsProvider;
-  final StoreProvider _storeProvider;
-
   ContactsRepositoryImpl({
     required ContactsProvider contactsProvider,
     required StoreProvider storeProvider,
-  })  : _contactsProvider = contactsProvider,
-        _storeProvider = storeProvider;
+  }) : _contactsProvider = contactsProvider,
+       _storeProvider = storeProvider;
+  final ContactsProvider _contactsProvider;
+  final StoreProvider _storeProvider;
 
   @override
   FutureEither<ContactsFailure, List<ContactResponse>> getAll() async {
@@ -32,9 +31,7 @@ class ContactsRepositoryImpl extends ContactsRepository {
           }
         }
 
-        return Either.right(
-          contactsResponse.data,
-        );
+        return Either.right(contactsResponse.data);
       },
     );
   }
@@ -54,30 +51,20 @@ class ContactsRepositoryImpl extends ContactsRepository {
           value: contactResp.toJson(),
           finder: finder,
         );
-        return Either.right(
-          contactResp,
-        );
+        return Either.right(contactResp);
       },
     );
   }
 
   @override
-  FutureEither<ContactsFailure, ContactsSuccess> delete(
-    String id,
-  ) async {
+  FutureEither<ContactsFailure, ContactsSuccess> delete(String id) async {
     final result = await _contactsProvider.delete(id);
     return result.when(
       left: (ContactsFailure value) => Either.left(value),
       right: (ContactsSuccess contactResp) async {
-        final Finder finder = Finder(
-          filter: Filter.equals('id', id),
-        );
-        await _storeProvider.removeRecord(
-          finder: finder,
-        );
-        return Either.right(
-          contactResp,
-        );
+        final Finder finder = Finder(filter: Filter.equals('id', id));
+        await _storeProvider.removeRecord(finder: finder);
+        return Either.right(contactResp);
       },
     );
   }
@@ -91,28 +78,20 @@ class ContactsRepositoryImpl extends ContactsRepository {
     return result.when(
       left: (ContactsFailure value) => Either.left(value),
       right: (ContactResponse contactResp) async {
-        await _storeProvider.createRecord(
-          contactResp.toJson(),
-        );
-        return Either.right(
-          contactResp,
-        );
+        await _storeProvider.createRecord(contactResp.toJson());
+        return Either.right(contactResp);
       },
     );
   }
 
   @override
-  FutureEither<ContactsFailure, String> uploadImage(
-    String pathImage,
-  ) async {
+  FutureEither<ContactsFailure, String> uploadImage(String pathImage) async {
     final result = await _contactsProvider.uploadImage(pathImage);
 
     return result.when(
       left: (ContactsFailure value) => Either.left(value),
       right: (String urlProfile) async {
-        return Either.right(
-          urlProfile,
-        );
+        return Either.right(urlProfile);
       },
     );
   }
@@ -122,9 +101,7 @@ class ContactsRepositoryImpl extends ContactsRepository {
     final records = await _storeProvider.getAllRecords();
     final contacts = <ContactResponse>[];
     for (final record in records) {
-      contacts.add(
-        ContactResponse.fromJson(record.value),
-      );
+      contacts.add(ContactResponse.fromJson(record.value));
     }
     return Either.right(contacts);
   }

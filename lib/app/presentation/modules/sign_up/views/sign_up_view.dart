@@ -11,11 +11,8 @@ import '../controller/sign_up_controller.dart';
 import '../utils/register.dart';
 
 class SignUpView extends ConsumerWidget {
+  const SignUpView({super.key, required this.adaptativeScreen});
   final AdaptativeScreen adaptativeScreen;
-  const SignUpView({
-    super.key,
-    required this.adaptativeScreen,
-  });
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -23,10 +20,8 @@ class SignUpView extends ConsumerWidget {
     return Column(
       children: [
         InputTextFieldGW(
-          onChanged: (value) => signUpController.onChangeField(
-            CreateFieldGU.names,
-            value: value,
-          ),
+          onChanged: (value) =>
+              signUpController.onChangeField(CreateFieldGU.names, value: value),
           padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
           labelTxt: 'Nombres',
           backgroundLabel: 'Escriba su nombre',
@@ -41,10 +36,8 @@ class SignUpView extends ConsumerWidget {
           backgroundLabel: 'Escriba su apellido',
         ),
         InputTextFieldGW(
-          onChanged: (value) => signUpController.onChangeField(
-            CreateFieldGU.email,
-            value: value,
-          ),
+          onChanged: (value) =>
+              signUpController.onChangeField(CreateFieldGU.email, value: value),
           padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
           labelTxt: 'Correo',
           backgroundLabel: 'Escriba su correo',
@@ -56,9 +49,7 @@ class SignUpView extends ConsumerWidget {
             CreateFieldGU.password,
             value: value,
           ),
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(2),
-          ),
+          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -67,9 +58,7 @@ class SignUpView extends ConsumerWidget {
           obscureText: !signUpController.showPassword,
           suffixInput: GestureDetector(
             onTap: signUpController.togglePasswordVisibility,
-            child: WidgetGU.showEyeIcon(
-              show: signUpController.showPassword,
-            ),
+            child: WidgetGU.showEyeIcon(show: signUpController.showPassword),
           ),
         ),
         InputTextFieldGW(
@@ -77,9 +66,7 @@ class SignUpView extends ConsumerWidget {
             CreateFieldGU.confirmPassword,
             value: value,
           ),
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(2),
-          ),
+          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
           labelTxt: 'Confirme su Contraseña',
           backgroundLabel: 'Vuelva a escribir su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -91,21 +78,15 @@ class SignUpView extends ConsumerWidget {
           obscureText: !signUpController.showPassword,
           suffixInput: GestureDetector(
             onTap: signUpController.togglePasswordVisibility,
-            child: WidgetGU.showEyeIcon(
-              show: signUpController.showPassword,
-            ),
+            child: WidgetGU.showEyeIcon(show: signUpController.showPassword),
           ),
         ),
         CustomBtnGW.primary(
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(5),
-          ),
+          padding: EdgeInsets.only(top: adaptativeScreen.bhp(5)),
           adaptativeScreen: adaptativeScreen,
           label: 'Registrar',
           onPressed: signUpController.isFormValid
-              ? () => register(
-                    context,
-                  )
+              ? () => register(context)
               : null,
         ),
       ],

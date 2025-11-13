@@ -10,10 +10,7 @@ import '../text/custom_text_gw.dart';
 abstract class CustomAppbarGW {
   CustomAppbarGW._();
 
-  static AppBar simple({
-    required BuildContext context,
-    double? leadingWidth,
-  }) {
+  static AppBar simple({required BuildContext context, double? leadingWidth}) {
     final adaptativeScreen = AdaptativeScreen(context);
 
     return AppBar(
@@ -22,13 +19,8 @@ abstract class CustomAppbarGW {
         icon: Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                left: adaptativeScreen.bwh(1),
-              ),
-              child: Icon(
-                Icons.arrow_back,
-                color: AppColors.grey500,
-              ),
+              padding: EdgeInsets.only(left: adaptativeScreen.bwh(1)),
+              child: Icon(Icons.arrow_back, color: AppColors.grey500),
             ),
             CustomTextGW.text(
               'Atrás',
@@ -59,29 +51,30 @@ abstract class CustomAppbarGW {
           child: SizedBox(
             height: 50,
             width: 50,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  adaptativeScreen.dp(10),
+            child:
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      adaptativeScreen.dp(10),
+                    ),
+                    border: Border.all(
+                      color: AppColors.grey300.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: IconButton(
+                    onPressed: onPressed,
+                    icon: Icon(
+                      EvaIcons.personAddOutline,
+                      size: adaptativeScreen.dp(2),
+                    ),
+                  ),
+                ).padding(
+                  EdgeInsets.only(
+                    top: 1,
+                    bottom: 10,
+                    right: adaptativeScreen.dp(1),
+                  ),
                 ),
-                border: Border.all(
-                  color: AppColors.grey300.withOpacity(0.3),
-                ),
-              ),
-              child: IconButton(
-                onPressed: onPressed,
-                icon: Icon(
-                  EvaIcons.personAddOutline,
-                  size: adaptativeScreen.dp(2),
-                ),
-              ),
-            ).padding(
-              EdgeInsets.only(
-                top: 1,
-                bottom: 10,
-                right: adaptativeScreen.dp(1),
-              ),
-            ),
           ),
         ),
       ],
@@ -102,20 +95,12 @@ abstract class CustomAppbarGW {
                   adaptativeScreen: adaptativeScreen,
                   fontSize: adaptativeScreen.dp(1.2),
                   fontWeight: FontWeight.bold,
-                  color: AppColors.grey400.withOpacity(0.8),
+                  color: AppColors.grey400.withValues(alpha: 0.8),
                 ),
               ],
-            ).padding(
-              EdgeInsets.only(
-                left: adaptativeScreen.bwh(2),
-              ),
-            ),
+            ).padding(EdgeInsets.only(left: adaptativeScreen.bwh(2))),
           ],
-        ).padding(
-          EdgeInsets.only(
-            left: adaptativeScreen.bwh(3),
-          ),
-        ),
+        ).padding(EdgeInsets.only(left: adaptativeScreen.bwh(3))),
         onPressed: () {},
       ),
     );

@@ -2,11 +2,8 @@ import '../../domain/respositories/db_repository.dart';
 import '../data_source/providers/db_provider.dart';
 
 class DbRepositoryImpl extends DbRepository {
+  DbRepositoryImpl({required DbProvider dbProvider}) : _dbProvider = dbProvider;
   final DbProvider _dbProvider;
-
-  DbRepositoryImpl({
-    required DbProvider dbProvider,
-  }) : _dbProvider = dbProvider;
 
   @override
   Future<void> close() async {

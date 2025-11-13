@@ -18,17 +18,16 @@ final splashProvider = Provider.state<SplashController, SplashState>(
 );
 
 class SplashController extends StateNotifier<SplashState> {
-  final DeviceUtilsRepository _deviceUtilsRepository;
-  final DbRepository _dbRepository;
-
   SplashController(
     super.initialState, {
     required DeviceUtilsRepository deviceUtilsRepository,
     required DbRepository dbRepository,
-  })  : _deviceUtilsRepository = deviceUtilsRepository,
-        _dbRepository = dbRepository {
+  }) : _deviceUtilsRepository = deviceUtilsRepository,
+       _dbRepository = dbRepository {
     init();
   }
+  final DeviceUtilsRepository _deviceUtilsRepository;
+  final DbRepository _dbRepository;
 
   void init() async {
     await _dbRepository.connect();
@@ -36,16 +35,13 @@ class SplashController extends StateNotifier<SplashState> {
     final validToken = accessToken.isJwtToken && !accessToken.isJwtExpired;
     final route = validToken ? ContactsRoute.path : SignInRoute.path;
 
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        onlyUpdate(
-          state = state.copyWith(
-            isJwtToken: accessToken.isJwtToken,
-            routeName: route,
-          ),
-        );
-      },
-    );
+    Future.delayed(const Duration(seconds: 2), () {
+      onlyUpdate(
+        state = state.copyWith(
+          isJwtToken: accessToken.isJwtToken,
+          routeName: route,
+        ),
+      );
+    });
   }
 }

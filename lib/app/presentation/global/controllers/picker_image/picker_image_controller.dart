@@ -17,12 +17,11 @@ final pickerImageProvider =
     );
 
 class PickerImageController extends StateNotifier<PickerImageState> {
-  final PermissionRepository _permissionRepository;
-
   PickerImageController(
     super.initialState, {
     required PermissionRepository permissionRepository,
   }) : _permissionRepository = permissionRepository;
+  final PermissionRepository _permissionRepository;
 
   Future<String?> pickerImage() async {
     final resultPermission = await _permissionRepository.requestPermission(

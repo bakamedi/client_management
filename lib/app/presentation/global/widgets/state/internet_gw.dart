@@ -6,21 +6,14 @@ import '../btns/custom_btn_gw.dart';
 import '../text/custom_text_gw.dart';
 
 class InternetGW extends StatelessWidget {
+  const InternetGW({super.key, required this.onPressed});
   final void Function()? onPressed;
-  const InternetGW({
-    super.key,
-    required this.onPressed,
-  });
 
   @override
   Widget build(BuildContext context) {
-    final adaptativeScreen = AdaptativeScreen(
-      context,
-    );
+    final adaptativeScreen = AdaptativeScreen(context);
     return Padding(
-      padding: EdgeInsets.only(
-        top: adaptativeScreen.bhp(4),
-      ),
+      padding: EdgeInsets.only(top: adaptativeScreen.bhp(4)),
       child: Column(
         children: [
           Icon(
@@ -29,9 +22,7 @@ class InternetGW extends StatelessWidget {
             size: adaptativeScreen.dp(9),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: adaptativeScreen.bhp(5),
-            ),
+            padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(5)),
             child: CustomTextGW.text(
               'no hay internet',
               adaptativeScreen: adaptativeScreen,

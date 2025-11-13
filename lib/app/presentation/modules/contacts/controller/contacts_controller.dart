@@ -22,9 +22,6 @@ final contactsProvider = Provider.state<ContactsController, ContactsState>(
 
 class ContactsController extends StateNotifier<ContactsState>
     with WidgetsBindingObserver {
-  final ContactsRepository _contactsRepository;
-  late StreamSubscription<InternetStatus> listener;
-
   ContactsController(
     super.initialState, {
     required ContactsRepository contactsRepository,
@@ -44,6 +41,8 @@ class ContactsController extends StateNotifier<ContactsState>
       }
     });
   }
+  final ContactsRepository _contactsRepository;
+  late StreamSubscription<InternetStatus> listener;
 
   StateGU get stategu => state.stategu;
   List<ContactResponse> get contacts => state.contacts;

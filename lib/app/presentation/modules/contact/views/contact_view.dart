@@ -20,18 +20,12 @@ import '../utils/delete_contact.dart';
 import '../utils/select_mode.dart';
 
 class ContactView extends ConsumerWidget {
+  const ContactView({super.key, required this.adaptativeScreen});
   final AdaptativeScreen adaptativeScreen;
-
-  const ContactView({
-    super.key,
-    required this.adaptativeScreen,
-  });
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
-    final ContactController contactController = ref.watch(
-      contactProvider,
-    );
+    final ContactController contactController = ref.watch(contactProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,11 +46,7 @@ class ContactView extends ConsumerWidget {
                   ? AppColors.primary
                   : AppColors.grey300,
               fontWeight: FontWeight.bold,
-            ).padding(
-              EdgeInsets.only(
-                right: adaptativeScreen.bwh(6),
-              ),
-            ),
+            ).padding(EdgeInsets.only(right: adaptativeScreen.bwh(6))),
           ),
         ],
       ),
@@ -140,11 +130,11 @@ class ContactView extends ConsumerWidget {
         ),
       ],
     ).sliverBox.sliverPadding(
-          EdgeInsets.only(
-            top: adaptativeScreen.bhp(5),
-            bottom: adaptativeScreen.bhp(8),
-          ),
-        );
+      EdgeInsets.only(
+        top: adaptativeScreen.bhp(5),
+        bottom: adaptativeScreen.bhp(8),
+      ),
+    );
   }
 
   Widget _buildImage(ContactController contactController) {
@@ -214,9 +204,7 @@ class ContactView extends ConsumerWidget {
       child: CircleAvatar(
         radius: adaptativeScreen.dp(5),
         backgroundImage: contactController.fileProfile != null
-            ? FileImage(
-                File(contactController.fileProfile!.path),
-              )
+            ? FileImage(File(contactController.fileProfile!.path))
             : null,
         child: contactController.fileProfile == null
             ? Icon(
@@ -227,11 +215,11 @@ class ContactView extends ConsumerWidget {
             : null,
       ),
     ).sliverBox.sliverPadding(
-          EdgeInsets.only(
-            top: adaptativeScreen.bhp(5),
-            bottom: adaptativeScreen.bhp(8),
-          ),
-        );
+      EdgeInsets.only(
+        top: adaptativeScreen.bhp(5),
+        bottom: adaptativeScreen.bhp(8),
+      ),
+    );
   }
 
   Widget _buildInputField({
@@ -249,10 +237,10 @@ class ContactView extends ConsumerWidget {
       controller: controller,
       keyboardType: keyboardType,
     ).sliverBox.sliverPadding(
-          EdgeInsets.symmetric(
-            horizontal: adaptativeScreen.bwh(10),
-            vertical: adaptativeScreen.bhp(1),
-          ),
-        );
+      EdgeInsets.symmetric(
+        horizontal: adaptativeScreen.bwh(10),
+        vertical: adaptativeScreen.bhp(1),
+      ),
+    );
   }
 }

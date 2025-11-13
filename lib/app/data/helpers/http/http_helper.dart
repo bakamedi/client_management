@@ -7,9 +7,8 @@ import 'http_method.dart';
 part 'http_helper.freezed.dart';
 
 class HttpHelper {
-  final Dio _dio;
-
   HttpHelper({required Dio dio}) : _dio = dio;
+  final Dio _dio;
 
   Future<RequestResult<T>> request<T>(
     String pathOrUrl, {
@@ -45,10 +44,7 @@ class HttpHelper {
 
       final response = await _dio.request(
         pathOrUrl,
-        options: Options(
-          method: method.name,
-          headers: finalHeaders,
-        ),
+        options: Options(method: method.name, headers: finalHeaders),
         queryParameters: queryParameters,
         data: data,
       );
@@ -90,10 +86,7 @@ class HttpHelper {
 
       return RequestResult.networkError(stackTrace: s);
     } catch (e, s) {
-      return RequestResult.unhandledError(
-        exception: e,
-        stackTrace: s,
-      );
+      return RequestResult.unhandledError(exception: e, stackTrace: s);
     }
   }
 }
@@ -105,15 +98,13 @@ class RequestResult<T> with _$RequestResult<T> {
     required T data,
   }) = _Success<T>;
 
-  const factory RequestResult.networkError({
-    required StackTrace stackTrace,
-  }) = _NetworkError<T>;
+  const factory RequestResult.networkError({required StackTrace stackTrace}) =
+      _NetworkError<T>;
 
   const factory RequestResult.internetConnection() = _InternetConnection<T>;
 
-  const factory RequestResult.timeOut({
-    required StackTrace stackTrace,
-  }) = _TimeOut<T>;
+  const factory RequestResult.timeOut({required StackTrace stackTrace}) =
+      _TimeOut<T>;
 
   const factory RequestResult.unhandledError({
     required Object exception,

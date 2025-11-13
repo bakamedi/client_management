@@ -12,14 +12,9 @@ import '../../../../global/widgets/text/custom_text_gw.dart';
 import '../../utils/open_edit_contact.dart';
 
 class ContactsW extends StatelessWidget {
+  const ContactsW({super.key, required this.contacts, required this.internet});
   final List<ContactResponse> contacts;
   final bool internet;
-
-  const ContactsW({
-    super.key,
-    required this.contacts,
-    required this.internet,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +26,7 @@ class ContactsW extends StatelessWidget {
                 width: adaptativeScreen.bwh(100),
                 height: adaptativeScreen.bhp(3.5),
                 child: ColoredBox(
-                  color: AppColors.grey400.withOpacity(0.7),
+                  color: AppColors.grey400.withValues(alpha: .7),
                   child: CustomTextGW.text(
                     'Sin conexión',
                     adaptativeScreen: adaptativeScreen,
@@ -50,21 +45,19 @@ class ContactsW extends StatelessWidget {
                   Icon(
                     EvaIcons.peopleOutline,
                     size: adaptativeScreen.dp(20),
-                    color: AppColors.grey400.withOpacity(0.4),
+                    color: AppColors.grey400.withValues(alpha: 0.4),
                   ),
                   CustomTextGW.text(
                     'No hay contactos ',
                     adaptativeScreen: adaptativeScreen,
                     fontSize: adaptativeScreen.dp(1.5),
                     fontWeight: FontWeight.bold,
-                    color: AppColors.grey400.withOpacity(0.4),
+                    color: AppColors.grey400.withValues(alpha: 0.4),
                   ),
                 ],
               ).center.sliverBox.sliverPadding(
-                  EdgeInsets.only(
-                    top: adaptativeScreen.bhp(20),
-                  ),
-                )
+                EdgeInsets.only(top: adaptativeScreen.bhp(20)),
+              )
             : SliverList.builder(
                 itemCount: contacts.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -92,9 +85,7 @@ class ContactsW extends StatelessWidget {
                   );
                 },
               ).sliverPadding(
-                EdgeInsets.symmetric(
-                  horizontal: adaptativeScreen.bwh(2),
-                ),
+                EdgeInsets.symmetric(horizontal: adaptativeScreen.bwh(2)),
               ),
       ],
     );
@@ -112,10 +103,7 @@ class ContactsW extends StatelessWidget {
           ? NetworkImage(profileImage)
           : null,
       child: (profileImage.isEmpty || internet)
-          ? CustomTextGW.text(
-              initials,
-              adaptativeScreen: adaptativeScreen,
-            )
+          ? CustomTextGW.text(initials, adaptativeScreen: adaptativeScreen)
           : null,
     );
   }

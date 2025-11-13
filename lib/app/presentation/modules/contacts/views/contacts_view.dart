@@ -12,11 +12,8 @@ import '../utils/open_create_contact.dart';
 import 'widgets/contacts_w.dart';
 
 class ContactsView extends ConsumerWidget {
+  const ContactsView({super.key, required this.adaptativeScreen});
   final AdaptativeScreen adaptativeScreen;
-  const ContactsView({
-    super.key,
-    required this.adaptativeScreen,
-  });
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {

@@ -16,11 +16,8 @@ import '../controller/sign_in_controller.dart';
 import '../utils/login.dart';
 
 class SignInView extends ConsumerWidget {
+  const SignInView({super.key, required this.adaptativeScreen});
   final AdaptativeScreen adaptativeScreen;
-  const SignInView({
-    super.key,
-    required this.adaptativeScreen,
-  });
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -29,10 +26,8 @@ class SignInView extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InputTextFieldGW(
-          onChanged: (value) => signInController.onChangeField(
-            UpdateFieldGU.email,
-            value: value,
-          ),
+          onChanged: (value) =>
+              signInController.onChangeField(UpdateFieldGU.email, value: value),
           labelTxt: 'Correo',
           backgroundLabel: 'Escriba su correo',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -44,9 +39,7 @@ class SignInView extends ConsumerWidget {
             UpdateFieldGU.password,
             value: value,
           ),
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(2),
-          ),
+          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -55,22 +48,14 @@ class SignInView extends ConsumerWidget {
           obscureText: !signInController.showPassword,
           suffixInput: GestureDetector(
             onTap: signInController.togglePasswordVisibility,
-            child: WidgetGU.showEyeIcon(
-              show: signInController.showPassword,
-            ),
+            child: WidgetGU.showEyeIcon(show: signInController.showPassword),
           ),
         ),
         CustomBtnGW.primary(
-          padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(3),
-          ),
+          padding: EdgeInsets.only(top: adaptativeScreen.bhp(3)),
           adaptativeScreen: adaptativeScreen,
           label: 'Ingresar',
-          onPressed: signInController.isFormValid
-              ? () => login(
-                    context,
-                  )
-              : null,
+          onPressed: signInController.isFormValid ? () => login(context) : null,
         ),
         CustomTextGW.richText(
           padding: EdgeInsets.only(

@@ -10,12 +10,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../controllers/loader/loader_gc.dart';
 
 class LoaderGW extends ConsumerWidget {
+  const LoaderGW({super.key, required this.adaptativeScreen});
   final AdaptativeScreen adaptativeScreen;
-
-  const LoaderGW({
-    super.key,
-    required this.adaptativeScreen,
-  });
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -31,12 +27,9 @@ class LoaderGW extends ConsumerWidget {
                 child: Stack(
                   children: [
                     BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 5,
-                        sigmaY: 5,
-                      ),
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                       child: Container(
-                        color: AppColors.black100.withOpacity(0.4),
+                        color: AppColors.black100.withValues(alpha: .4),
                       ),
                     ),
                     LoadingAnimationWidget.inkDrop(
@@ -48,9 +41,6 @@ class LoaderGW extends ConsumerWidget {
               ),
             ),
           )
-        : const SizedBox(
-            width: 0,
-            height: 0,
-          );
+        : const SizedBox(width: 0, height: 0);
   }
 }

@@ -7,15 +7,15 @@ import '../../domain/typedefs.dart';
 import '../data_source/providers/auth_provider.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
+  AuthRepositoryImpl({required AuthProvider authProvider})
+    : _authProvider = authProvider;
   final AuthProvider _authProvider;
-
-  AuthRepositoryImpl({
-    required AuthProvider authProvider,
-  }) : _authProvider = authProvider;
 
   @override
   FutureEither<SignInFailure, SignInSuccess> signIn(
-      String userName, String password) async {
+    String userName,
+    String password,
+  ) async {
     final result = await _authProvider.signIn(
       email: userName,
       password: password,
@@ -23,9 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
     return result.when(
       left: (SignInFailure value) => Either.left(value),
       right: (TokenModel token) {
-        return const Either.right(
-          SignInSuccess.ok(),
-        );
+        return const Either.right(SignInSuccess.ok());
       },
     );
   }
@@ -46,9 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
     return result.when(
       left: (SignInFailure value) => Either.left(value),
       right: (TokenModel token) {
-        return const Either.right(
-          SignInSuccess.ok(),
-        );
+        return const Either.right(SignInSuccess.ok());
       },
     );
   }
