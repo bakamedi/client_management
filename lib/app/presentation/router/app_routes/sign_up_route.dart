@@ -17,11 +17,9 @@ class SignUpRoute {
         return ScaffoldSimpleBodyGW.simple(
           adaptiveScreen: adaptiveScreen,
           appBar: CustomAppbarGW.simple(context: context),
-          top: 5,
-          title: 'Registrate',
-          body: SignUpView(
-            adaptiveScreen: adaptiveScreen,
-          ),
+          top: 2,
+          title: '',
+          body: SignUpView(adaptiveScreen: adaptiveScreen),
         );
       },
     );
