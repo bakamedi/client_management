@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_meedu/consumer/consumer_widget.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/utils/create_field_gu.dart';
 import '../../../../core/utils/user_validators_gu.dart';
 import '../../../../core/utils/widget_gu.dart';
@@ -11,8 +11,8 @@ import '../controller/sign_up_controller.dart';
 import '../utils/register.dart';
 
 class SignUpView extends ConsumerWidget {
-  const SignUpView({super.key, required this.adaptativeScreen});
-  final AdaptativeScreen adaptativeScreen;
+  const SignUpView({super.key, required this.adaptiveScreen});
+  final AdaptiveScreen adaptiveScreen;
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -22,7 +22,7 @@ class SignUpView extends ConsumerWidget {
         InputTextFieldGW(
           onChanged: (value) =>
               signUpController.onChangeField(CreateFieldGU.names, value: value),
-          padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
+          padding: EdgeInsets.symmetric(vertical: adaptiveScreen.bhp(1)),
           labelTxt: 'Nombres',
           backgroundLabel: 'Escriba su nombre',
         ),
@@ -31,14 +31,14 @@ class SignUpView extends ConsumerWidget {
             CreateFieldGU.lastName,
             value: value,
           ),
-          padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
+          padding: EdgeInsets.symmetric(vertical: adaptiveScreen.bhp(1)),
           labelTxt: 'Apellidos',
           backgroundLabel: 'Escriba su apellido',
         ),
         InputTextFieldGW(
           onChanged: (value) =>
               signUpController.onChangeField(CreateFieldGU.email, value: value),
-          padding: EdgeInsets.symmetric(vertical: adaptativeScreen.bhp(1)),
+          padding: EdgeInsets.symmetric(vertical: adaptiveScreen.bhp(1)),
           labelTxt: 'Correo',
           backgroundLabel: 'Escriba su correo',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -49,7 +49,7 @@ class SignUpView extends ConsumerWidget {
             CreateFieldGU.password,
             value: value,
           ),
-          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
+          padding: EdgeInsets.only(top: adaptiveScreen.bhp(2)),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -66,7 +66,7 @@ class SignUpView extends ConsumerWidget {
             CreateFieldGU.confirmPassword,
             value: value,
           ),
-          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
+          padding: EdgeInsets.only(top: adaptiveScreen.bhp(2)),
           labelTxt: 'Confirme su Contraseña',
           backgroundLabel: 'Vuelva a escribir su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -82,8 +82,8 @@ class SignUpView extends ConsumerWidget {
           ),
         ),
         CustomBtnGW.primary(
-          padding: EdgeInsets.only(top: adaptativeScreen.bhp(5)),
-          adaptativeScreen: adaptativeScreen,
+          padding: EdgeInsets.only(top: adaptiveScreen.bhp(5)),
+          adaptiveScreen: adaptiveScreen,
           label: 'Registrar',
           onPressed: signUpController.isFormValid
               ? () => register(context)

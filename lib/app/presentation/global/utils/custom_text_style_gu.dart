@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../core/theme/app_colors.dart';
 
 abstract class CustomTextStyleGU {
@@ -27,37 +27,37 @@ abstract class CustomTextStyleGU {
     );
   }
 
-  static TextStyle mainTitle(AdaptativeScreen adaptativeScreen) {
+  static TextStyle mainTitle(AdaptiveScreen adaptiveScreen) {
     return _baseTextStyle(
       color: AppColors.black100,
       fontWeight: FontWeight.w800,
-      fontSize: adaptativeScreen.dp(2.5),
+      fontSize: adaptiveScreen.dp(2.5),
     );
   }
 
-  static TextStyle title(AdaptativeScreen adaptativeScreen) {
+  static TextStyle title(AdaptiveScreen adaptiveScreen) {
     return _baseTextStyle(
       color: AppColors.black100,
       fontWeight: FontWeight.w600,
-      fontSize: adaptativeScreen.dp(2),
+      fontSize: adaptiveScreen.dp(2),
     );
   }
 
   static TextStyle subtitle(
-    AdaptativeScreen adaptativeScreen, {
+    AdaptiveScreen adaptiveScreen, {
     Color? color,
     TextDecoration? decoration,
   }) {
     return _baseTextStyle(
       color: color ?? AppColors.black100,
       fontWeight: FontWeight.w700,
-      fontSize: adaptativeScreen.dp(1.8),
+      fontSize: adaptiveScreen.dp(1.8),
       decoration: decoration,
     );
   }
 
   static TextStyle thirdTitle(
-    AdaptativeScreen adaptativeScreen, {
+    AdaptiveScreen adaptiveScreen, {
     TextDecoration? decoration,
     FontWeight? fontWeight,
     Color? color,
@@ -65,13 +65,13 @@ abstract class CustomTextStyleGU {
     return _baseTextStyle(
       color: color ?? AppColors.grey500,
       fontWeight: fontWeight ?? FontWeight.w400,
-      fontSize: adaptativeScreen.dp(1.3),
+      fontSize: adaptiveScreen.dp(1.3),
       decoration: decoration,
     );
   }
 
   static TextStyle content(
-    AdaptativeScreen adaptativeScreen, {
+    AdaptiveScreen adaptiveScreen, {
     TextDecoration? decoration,
     FontWeight? fontWeight,
     Color? color,
@@ -80,7 +80,7 @@ abstract class CustomTextStyleGU {
     return _baseTextStyle(
       color: color ?? AppColors.black100,
       fontWeight: fontWeight ?? FontWeight.w400,
-      fontSize: fontSize ?? adaptativeScreen.dp(1.5),
+      fontSize: fontSize ?? adaptiveScreen.dp(1.5),
       decoration: decoration,
     );
   }

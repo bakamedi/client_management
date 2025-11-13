@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'core/adaptative_screen/adaptative_screen.dart';
+import 'core/adaptative_screen/adaptive_screen.dart';
 import 'core/theme/theme_app_data.dart';
 import 'presentation/global/widgets/loader/loader_gw.dart';
 import 'presentation/router/router_provider.dart';
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final adaptativeScreen = AdaptativeScreen(context);
+    final adaptiveScreen = AdaptiveScreen(context);
 
     return Stack(
       alignment: Alignment.center,
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: _getLocalizationsDelegate(),
         ),
         LoaderGW(
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
         ),
       ],
     );

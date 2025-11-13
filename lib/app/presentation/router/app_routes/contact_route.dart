@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import '../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../modules/contact/views/contact_view.dart';
 
 class ContactRoute {
@@ -10,10 +10,10 @@ class ContactRoute {
       path: path,
       name: path,
       builder: (context, __) {
-        final adaptativeScreen = AdaptativeScreen(context);
+        final adaptiveScreen = AdaptiveScreen(context);
 
         return ContactView(
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
         );
       },
     );

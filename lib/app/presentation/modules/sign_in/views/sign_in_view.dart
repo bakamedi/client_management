@@ -4,7 +4,7 @@ import 'package:flutter_meedu/consumer/consumer_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/utils/update_field_gu.dart';
 import '../../../../core/utils/widget_gu.dart';
 import '../../../global/utils/user_validators_gu.dart';
@@ -16,8 +16,8 @@ import '../controller/sign_in_controller.dart';
 import '../utils/login.dart';
 
 class SignInView extends ConsumerWidget {
-  const SignInView({super.key, required this.adaptativeScreen});
-  final AdaptativeScreen adaptativeScreen;
+  const SignInView({super.key, required this.adaptiveScreen});
+  final AdaptiveScreen adaptiveScreen;
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -39,7 +39,7 @@ class SignInView extends ConsumerWidget {
             UpdateFieldGU.password,
             value: value,
           ),
-          padding: EdgeInsets.only(top: adaptativeScreen.bhp(2)),
+          padding: EdgeInsets.only(top: adaptiveScreen.bhp(2)),
           labelTxt: 'Contraseña',
           backgroundLabel: 'Escriba su contraseña',
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -52,17 +52,17 @@ class SignInView extends ConsumerWidget {
           ),
         ),
         CustomBtnGW.primary(
-          padding: EdgeInsets.only(top: adaptativeScreen.bhp(3)),
-          adaptativeScreen: adaptativeScreen,
+          padding: EdgeInsets.only(top: adaptiveScreen.bhp(3)),
+          adaptiveScreen: adaptiveScreen,
           label: 'Ingresar',
           onPressed: signInController.isFormValid ? () => login(context) : null,
         ),
         CustomTextGW.richText(
           padding: EdgeInsets.only(
-            top: adaptativeScreen.bhp(40),
-            bottom: adaptativeScreen.bhp(5),
+            top: adaptiveScreen.bhp(40),
+            bottom: adaptiveScreen.bhp(5),
           ),
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           firstText: 'Si no posee una cuenta ',
           color: AppColors.black100,
           children: [

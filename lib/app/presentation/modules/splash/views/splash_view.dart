@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../extensions/widgets_ext.dart';
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../global/controllers/session/session_gc.dart';
 import '../controller/splash_controller.dart';
@@ -34,7 +34,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    final adaptativeScreen = AdaptativeScreen(context);
+    final adaptiveScreen = AdaptiveScreen(context);
 
     ref.listen(
       splashProvider,
@@ -54,11 +54,11 @@ class _SplashViewState extends ConsumerState<SplashView> {
         children: [
           Icon(
             EvaIcons.briefcase,
-            size: adaptativeScreen.dp(6),
+            size: adaptiveScreen.dp(6),
           ),
           LoadingAnimationWidget.progressiveDots(
             color: AppColors.black100,
-            size: adaptativeScreen.dp(5),
+            size: adaptiveScreen.dp(5),
           )
         ],
       ).center,

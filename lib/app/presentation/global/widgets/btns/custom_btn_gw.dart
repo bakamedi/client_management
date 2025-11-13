@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../text/custom_text_gw.dart';
 
@@ -8,7 +8,7 @@ abstract class CustomBtnGW {
   CustomBtnGW._();
 
   static Widget primary({
-    required AdaptativeScreen adaptativeScreen,
+    required AdaptiveScreen adaptiveScreen,
     EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
     required String label,
@@ -17,7 +17,7 @@ abstract class CustomBtnGW {
     ButtonStyle? style,
     void Function()? onPressed,
   }) {
-    final fontSizeResponsive = adaptativeScreen.dp(1.5);
+    final fontSizeResponsive = adaptiveScreen.dp(1.5);
 
     return Container(
       margin: margin,
@@ -29,7 +29,7 @@ abstract class CustomBtnGW {
         child: CustomTextGW.text(
           label,
           color: AppColors.white,
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           fontSize: fontSizeResponsive,
           fontWeight: FontWeight.bold,
         ),
@@ -38,7 +38,7 @@ abstract class CustomBtnGW {
   }
 
   static Widget secondary({
-    required AdaptativeScreen adaptativeScreen,
+    required AdaptiveScreen adaptiveScreen,
     EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
     required String label,
@@ -47,7 +47,7 @@ abstract class CustomBtnGW {
     ButtonStyle? style,
     void Function()? onPressed,
   }) {
-    final fontSizeResponsive = adaptativeScreen.dp(1.5);
+    final fontSizeResponsive = adaptiveScreen.dp(1.5);
 
     return Container(
       margin: margin,
@@ -87,7 +87,7 @@ abstract class CustomBtnGW {
         child: CustomTextGW.text(
           label,
           color: Colors.red.withValues(alpha: .8),
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           fontSize: fontSizeResponsive,
           fontWeight: FontWeight.bold,
         ),

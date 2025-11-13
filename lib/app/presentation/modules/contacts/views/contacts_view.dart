@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_meedu/consumer.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../global/controllers/session/session_gc.dart';
 import '../../../global/utils/state_gu.dart';
 import '../../../global/widgets/appbar/custom_appbar_gw.dart';
@@ -12,8 +12,8 @@ import '../utils/open_create_contact.dart';
 import 'widgets/contacts_w.dart';
 
 class ContactsView extends ConsumerWidget {
-  const ContactsView({super.key, required this.adaptativeScreen});
-  final AdaptativeScreen adaptativeScreen;
+  const ContactsView({super.key, required this.adaptiveScreen});
+  final AdaptiveScreen adaptiveScreen;
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -21,7 +21,7 @@ class ContactsView extends ConsumerWidget {
     final SessionGC sessionGC = ref.watch(sessionGP);
 
     return ScaffoldSimpleBodyGW.home(
-      adaptativeScreen: adaptativeScreen,
+      adaptiveScreen: adaptiveScreen,
       appBar: CustomAppbarGW.home(
         context: context,
         names: '${sessionGC.names} ${sessionGC.lastName}',

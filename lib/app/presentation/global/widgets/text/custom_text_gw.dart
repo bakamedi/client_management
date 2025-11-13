@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 
 abstract class CustomTextGW {
   CustomTextGW._();
 
   static Widget text(
     String data, {
-    required AdaptativeScreen adaptativeScreen,
+    required AdaptiveScreen adaptiveScreen,
     double fontSize = 0,
     Color? color,
     TextAlign? textAlign,
@@ -17,7 +17,7 @@ abstract class CustomTextGW {
     EdgeInsetsGeometry? padding,
     int? maxLines,
   }) {
-    final fontSizeLocal = fontSize == 0 ? adaptativeScreen.dp(1.7) : fontSize;
+    final fontSizeLocal = fontSize == 0 ? adaptiveScreen.dp(1.7) : fontSize;
     return Container(
       margin: margin,
       padding: padding,
@@ -40,7 +40,7 @@ abstract class CustomTextGW {
   }
 
   static Widget richText({
-    required AdaptativeScreen adaptativeScreen,
+    required AdaptiveScreen adaptiveScreen,
     required String firstText,
     double? fontSize,
     Color? color,
@@ -51,7 +51,7 @@ abstract class CustomTextGW {
     EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
   }) {
-    final fontSizeLocal = fontSize ?? adaptativeScreen.dp(1.7);
+    final fontSizeLocal = fontSize ?? adaptiveScreen.dp(1.7);
     return Container(
       margin: margin,
       padding: padding,

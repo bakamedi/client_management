@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import '../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../global/widgets/scaffold_body/scaffold_simple_body_gw.dart';
 import '../../modules/contacts/views/contacts_view.dart';
 
@@ -11,12 +11,12 @@ class ContactsRoute {
       path: path,
       name: path,
       builder: (context, __) {
-        final adaptativeScreen = AdaptativeScreen(context);
+        final adaptiveScreen = AdaptiveScreen(context);
 
         return ScaffoldSimpleBodyGW.home(
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           body: ContactsView(
-            adaptativeScreen: adaptativeScreen,
+            adaptiveScreen: adaptiveScreen,
           ),
         );
       },

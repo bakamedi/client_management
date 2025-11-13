@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
-import '../../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../domain/responses/contacts/contacts_response.dart';
 import '../../../../extensions/contacts_ext.dart';
@@ -18,19 +18,19 @@ class ContactsW extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AdaptativeScreen adaptativeScreen = AdaptativeScreen(context);
+    final AdaptiveScreen adaptiveScreen = AdaptiveScreen(context);
     return CustomScrollView(
       slivers: <Widget>[
         internet
             ? SizedBox(
-                width: adaptativeScreen.bwh(100),
-                height: adaptativeScreen.bhp(3.5),
+                width: adaptiveScreen.bwh(100),
+                height: adaptiveScreen.bhp(3.5),
                 child: ColoredBox(
                   color: AppColors.grey400.withValues(alpha: .7),
                   child: CustomTextGW.text(
                     'Sin conexión',
-                    adaptativeScreen: adaptativeScreen,
-                    fontSize: adaptativeScreen.dp(1.5),
+                    adaptiveScreen: adaptiveScreen,
+                    fontSize: adaptiveScreen.dp(1.5),
                     fontWeight: FontWeight.bold,
                     color: AppColors.white,
                   ).center,
@@ -44,19 +44,19 @@ class ContactsW extends StatelessWidget {
                 children: [
                   Icon(
                     EvaIcons.peopleOutline,
-                    size: adaptativeScreen.dp(20),
+                    size: adaptiveScreen.dp(20),
                     color: AppColors.grey400.withValues(alpha: 0.4),
                   ),
                   CustomTextGW.text(
                     'No hay contactos ',
-                    adaptativeScreen: adaptativeScreen,
-                    fontSize: adaptativeScreen.dp(1.5),
+                    adaptiveScreen: adaptiveScreen,
+                    fontSize: adaptiveScreen.dp(1.5),
                     fontWeight: FontWeight.bold,
                     color: AppColors.grey400.withValues(alpha: 0.4),
                   ),
                 ],
               ).center.sliverBox.sliverPadding(
-                EdgeInsets.only(top: adaptativeScreen.bhp(20)),
+                EdgeInsets.only(top: adaptiveScreen.bhp(20)),
               )
             : SliverList.builder(
                 itemCount: contacts.length,
@@ -64,20 +64,20 @@ class ContactsW extends StatelessWidget {
                   final ContactResponse contact = contacts[index];
                   return ListTile(
                     onTap: () => openEditContact(context, contact),
-                    leading: _buildHeader(contact, adaptativeScreen),
+                    leading: _buildHeader(contact, adaptiveScreen),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextGW.text(
                           contact.fullName,
-                          adaptativeScreen: adaptativeScreen,
-                          fontSize: adaptativeScreen.dp(1.5),
+                          adaptiveScreen: adaptiveScreen,
+                          fontSize: adaptiveScreen.dp(1.5),
                           fontWeight: FontWeight.bold,
                         ),
                         CustomTextGW.text(
                           contact.cellPhoneNumber!,
-                          adaptativeScreen: adaptativeScreen,
-                          fontSize: adaptativeScreen.dp(1.3),
+                          adaptiveScreen: adaptiveScreen,
+                          fontSize: adaptiveScreen.dp(1.3),
                           color: AppColors.grey400,
                         ),
                       ],
@@ -85,7 +85,7 @@ class ContactsW extends StatelessWidget {
                   );
                 },
               ).sliverPadding(
-                EdgeInsets.symmetric(horizontal: adaptativeScreen.bwh(2)),
+                EdgeInsets.symmetric(horizontal: adaptiveScreen.bwh(2)),
               ),
       ],
     );
@@ -93,7 +93,7 @@ class ContactsW extends StatelessWidget {
 
   Widget _buildHeader(
     ContactResponse contact,
-    AdaptativeScreen adaptativeScreen,
+    AdaptiveScreen adaptiveScreen,
   ) {
     final initials = contact.initials;
     final profileImage = contact.profileImage?.getUrlProfile ?? '';
@@ -103,7 +103,7 @@ class ContactsW extends StatelessWidget {
           ? NetworkImage(profileImage)
           : null,
       child: (profileImage.isEmpty || internet)
-          ? CustomTextGW.text(initials, adaptativeScreen: adaptativeScreen)
+          ? CustomTextGW.text(initials, adaptiveScreen: adaptiveScreen)
           : null,
     );
   }

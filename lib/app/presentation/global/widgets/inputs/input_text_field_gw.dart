@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 
 /// clase Global para el [TextFormField] con el diseño
@@ -76,7 +76,7 @@ class InputTextFieldGW extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final adaptativeScreen = AdaptativeScreen(context);
+    final adaptiveScreen = AdaptiveScreen(context);
 
     return Container(
       margin: margin,
@@ -114,7 +114,7 @@ class InputTextFieldGW extends StatelessWidget {
         onTapOutside: onTapOutside,
         decoration: _simpleInput(
           context,
-          adaptativeScreen,
+          adaptiveScreen,
           labelTxt,
           backgroundLabel,
           prefix: prefixInput,
@@ -144,7 +144,7 @@ BoxDecoration _decorationTextFormField() {
 /// dependiendo de la altura de la pantalla
 InputDecoration _simpleInput(
   BuildContext context,
-  AdaptativeScreen adaptativeScreen,
+  AdaptiveScreen adaptiveScreen,
   String labelTxt,
   String hintText, {
   Widget? suffix,
@@ -166,14 +166,14 @@ InputDecoration _simpleInput(
     hintText: hintText,
     labelStyle: TextStyle(
       fontFamily: 'Inter',
-      fontSize: adaptativeScreen.dp(1.5),
+      fontSize: adaptiveScreen.dp(1.5),
       color: AppColors.grey500,
       wordSpacing: 0.5,
       letterSpacing: 0.5,
     ),
     hintStyle: TextStyle(
       fontFamily: 'Inter',
-      fontSize: adaptativeScreen.dp(1.5),
+      fontSize: adaptiveScreen.dp(1.5),
       color: AppColors.grey300,
       wordSpacing: 0.5,
       letterSpacing: 0.5,

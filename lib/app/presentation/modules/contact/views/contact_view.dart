@@ -5,7 +5,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_meedu/consumer/consumer_widget.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../extensions/widgets_ext.dart';
 import '../../../extensions/strings_ext.dart';
@@ -20,8 +20,8 @@ import '../utils/delete_contact.dart';
 import '../utils/select_mode.dart';
 
 class ContactView extends ConsumerWidget {
-  const ContactView({super.key, required this.adaptativeScreen});
-  final AdaptativeScreen adaptativeScreen;
+  const ContactView({super.key, required this.adaptiveScreen});
+  final AdaptiveScreen adaptiveScreen;
 
   @override
   Widget build(BuildContext context, BuilderRef ref) {
@@ -31,7 +31,7 @@ class ContactView extends ConsumerWidget {
       appBar: AppBar(
         title: CustomTextGW.text(
           '',
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           fontWeight: FontWeight.w500,
         ),
         actions: [
@@ -41,12 +41,12 @@ class ContactView extends ConsumerWidget {
                 : null,
             child: CustomTextGW.text(
               'Guardar',
-              adaptativeScreen: adaptativeScreen,
+              adaptiveScreen: adaptiveScreen,
               color: contactController.isFormValid
                   ? AppColors.primary
                   : AppColors.grey300,
               fontWeight: FontWeight.bold,
-            ).padding(EdgeInsets.only(right: adaptativeScreen.bwh(6))),
+            ).padding(EdgeInsets.only(right: adaptiveScreen.bwh(6))),
           ),
         ],
       ),
@@ -85,11 +85,11 @@ class ContactView extends ConsumerWidget {
               ? CustomBtnGW.secondary(
                   onPressed: () => deleteContact(context),
                   margin: EdgeInsets.only(
-                    top: adaptativeScreen.bhp(26),
-                    left: adaptativeScreen.bwh(10),
-                    right: adaptativeScreen.bwh(10),
+                    top: adaptiveScreen.bhp(26),
+                    left: adaptiveScreen.bwh(10),
+                    right: adaptiveScreen.bwh(10),
                   ),
-                  adaptativeScreen: adaptativeScreen,
+                  adaptiveScreen: adaptiveScreen,
                   label: 'Eliminar',
                 ).sliverBox
               : 1.h.sliverBox,
@@ -123,16 +123,16 @@ class ContactView extends ConsumerWidget {
               child: Icon(
                 Icons.image,
                 color: AppColors.white,
-                size: adaptativeScreen.dp(1.7),
+                size: adaptiveScreen.dp(1.7),
               ),
             ),
-          ).padding(EdgeInsets.only(top: adaptativeScreen.bhp(1))),
+          ).padding(EdgeInsets.only(top: adaptiveScreen.bhp(1))),
         ),
       ],
     ).sliverBox.sliverPadding(
       EdgeInsets.only(
-        top: adaptativeScreen.bhp(5),
-        bottom: adaptativeScreen.bhp(8),
+        top: adaptiveScreen.bhp(5),
+        bottom: adaptiveScreen.bhp(8),
       ),
     );
   }
@@ -142,27 +142,27 @@ class ContactView extends ConsumerWidget {
       if (contactController.fileProfile != null) {
         return ExtendedImage.file(
           contactController.fileProfile!,
-          width: adaptativeScreen.bwh(40),
-          height: adaptativeScreen.bwh(40),
+          width: adaptiveScreen.bwh(40),
+          height: adaptiveScreen.bwh(40),
           fit: BoxFit.cover,
           shape: BoxShape.circle,
         );
       }
       if (contactController.internet) {
         return CircleAvatar(
-          radius: adaptativeScreen.dp(5),
+          radius: adaptiveScreen.dp(5),
           child: CustomTextGW.text(
             contactController.contact!.initials,
-            adaptativeScreen: adaptativeScreen,
-            fontSize: adaptativeScreen.dp(3.5),
+            adaptiveScreen: adaptiveScreen,
+            fontSize: adaptiveScreen.dp(3.5),
             fontWeight: FontWeight.bold,
           ),
         );
       }
       return ExtendedImage.network(
         contactController.contact!.profileImage!.getUrlProfile,
-        width: adaptativeScreen.bwh(40),
-        height: adaptativeScreen.bwh(40),
+        width: adaptiveScreen.bwh(40),
+        height: adaptiveScreen.bwh(40),
         fit: BoxFit.cover,
         shape: BoxShape.circle,
       );
@@ -170,8 +170,8 @@ class ContactView extends ConsumerWidget {
     if (contactController.fileProfile != null) {
       return ExtendedImage.file(
         contactController.fileProfile!,
-        width: adaptativeScreen.bwh(40),
-        height: adaptativeScreen.bwh(40),
+        width: adaptiveScreen.bwh(40),
+        height: adaptiveScreen.bwh(40),
         fit: BoxFit.cover,
         shape: BoxShape.circle,
       );
@@ -180,17 +180,17 @@ class ContactView extends ConsumerWidget {
             !contactController.internet
         ? ExtendedImage.network(
             contactController.contact!.profileImage!.getUrlProfile,
-            width: adaptativeScreen.bwh(40),
-            height: adaptativeScreen.bwh(40),
+            width: adaptiveScreen.bwh(40),
+            height: adaptiveScreen.bwh(40),
             fit: BoxFit.cover,
             shape: BoxShape.circle,
           )
         : CircleAvatar(
-            radius: adaptativeScreen.dp(5),
+            radius: adaptiveScreen.dp(5),
             child: CustomTextGW.text(
               contactController.contact!.initials,
-              adaptativeScreen: adaptativeScreen,
-              fontSize: adaptativeScreen.dp(3.5),
+              adaptiveScreen: adaptiveScreen,
+              fontSize: adaptiveScreen.dp(3.5),
               fontWeight: FontWeight.bold,
             ),
           );
@@ -202,7 +202,7 @@ class ContactView extends ConsumerWidget {
         contactController.changeFileProfile(filePath);
       },
       child: CircleAvatar(
-        radius: adaptativeScreen.dp(5),
+        radius: adaptiveScreen.dp(5),
         backgroundImage: contactController.fileProfile != null
             ? FileImage(File(contactController.fileProfile!.path))
             : null,
@@ -210,14 +210,14 @@ class ContactView extends ConsumerWidget {
             ? Icon(
                 EvaIcons.imageOutline,
                 color: AppColors.white,
-                size: adaptativeScreen.dp(3.5),
+                size: adaptiveScreen.dp(3.5),
               )
             : null,
       ),
     ).sliverBox.sliverPadding(
       EdgeInsets.only(
-        top: adaptativeScreen.bhp(5),
-        bottom: adaptativeScreen.bhp(8),
+        top: adaptiveScreen.bhp(5),
+        bottom: adaptiveScreen.bhp(8),
       ),
     );
   }
@@ -238,8 +238,8 @@ class ContactView extends ConsumerWidget {
       keyboardType: keyboardType,
     ).sliverBox.sliverPadding(
       EdgeInsets.symmetric(
-        horizontal: adaptativeScreen.bwh(10),
-        vertical: adaptativeScreen.bhp(1),
+        horizontal: adaptiveScreen.bwh(10),
+        vertical: adaptiveScreen.bhp(1),
       ),
     );
   }

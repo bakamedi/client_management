@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class AdaptativeScreen {
-  AdaptativeScreen(BuildContext context) {
+class AdaptiveScreen {
+  AdaptiveScreen(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
     final size = mediaQueryData.size;
 
@@ -27,7 +27,7 @@ class AdaptativeScreen {
   late final double safeBlockHorizontal;
   late final double safeBlockVertical;
 
-  static AdaptativeScreen of(BuildContext context) => AdaptativeScreen(context);
+  static AdaptiveScreen of(BuildContext context) => AdaptiveScreen(context);
 
   double wp(double percent) => width * percent / 100;
   double hp(double percent) => height * percent / 100;

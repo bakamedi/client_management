@@ -1,7 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../../core/adaptative_screen/adaptive_screen.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../btns/custom_btn_gw.dart';
@@ -43,7 +43,7 @@ abstract class DialogsGW {
     IconData? iconData,
     Function()? onFunctionAfterOk,
   }) {
-    final adaptativeScreen = AdaptativeScreen(
+    final adaptiveScreen = AdaptiveScreen(
       context,
     );
 
@@ -63,14 +63,14 @@ abstract class DialogsGW {
           title: Column(
             children: [
               _iconDialogType(
-                adaptativeScreen,
+                adaptiveScreen,
                 type ?? DialogType.success,
                 iconData,
               ),
               CustomTextGW.text(
                 title,
                 textAlign: TextAlign.center,
-                adaptativeScreen: adaptativeScreen,
+                adaptiveScreen: adaptiveScreen,
               ),
             ],
           ).center,
@@ -86,7 +86,7 @@ abstract class DialogsGW {
                 child: CustomTextGW.text(
                   content,
                   textAlign: TextAlign.center,
-                  adaptativeScreen: adaptativeScreen,
+                  adaptiveScreen: adaptiveScreen,
                 ),
               ).expanded,
             ],
@@ -94,11 +94,11 @@ abstract class DialogsGW {
           actions: <Widget>[
             CustomBtnGW.primary(
               label: 'ok',
-              adaptativeScreen: adaptativeScreen,
-              fontSize: adaptativeScreen.dp(1.1),
+              adaptiveScreen: adaptiveScreen,
+              fontSize: adaptiveScreen.dp(1.1),
               margin: EdgeInsets.symmetric(
-                horizontal: adaptativeScreen.bwh(10),
-                vertical: adaptativeScreen.bhp(1),
+                horizontal: adaptiveScreen.bwh(10),
+                vertical: adaptiveScreen.bhp(1),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -115,34 +115,34 @@ abstract class DialogsGW {
 
   /// Icono dependiendo de la clase [DialogType]
   static Widget _iconDialogType(
-    AdaptativeScreen adaptativeScreen,
+    AdaptiveScreen adaptiveScreen,
     DialogType type,
     IconData? iconData,
   ) {
     switch (type) {
       case DialogType.success:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           EvaIcons.checkmarkCircle2Outline,
         );
       case DialogType.info:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           EvaIcons.infoOutline,
         );
       case DialogType.internet:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           EvaIcons.wifiOffOutline,
         );
       case DialogType.error:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           EvaIcons.closeCircleOutline,
         );
       case DialogType.timeout:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           EvaIcons.clockOutline,
         );
       case DialogType.none:
@@ -152,12 +152,12 @@ abstract class DialogsGW {
         );
       case DialogType.custom:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           iconData,
         );
       default:
         return _icon(
-          adaptativeScreen,
+          adaptiveScreen,
           iconData,
         );
     }
@@ -165,14 +165,14 @@ abstract class DialogsGW {
 
   /// Icono del dialogo
   static Widget _icon(
-    AdaptativeScreen adaptativeScreen,
+    AdaptiveScreen adaptiveScreen,
     IconData? iconData,
   ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Icon(
         iconData,
-        size: adaptativeScreen.dp(5),
+        size: adaptiveScreen.dp(5),
         color: AppColors.black100,
       ),
     );

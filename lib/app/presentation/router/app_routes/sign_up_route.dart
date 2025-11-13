@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import '../../../core/adaptative_screen/adaptative_screen.dart';
+import '../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../global/widgets/appbar/custom_appbar_gw.dart';
 import '../../global/widgets/scaffold_body/scaffold_simple_body_gw.dart';
 import '../../modules/sign_up/views/sign_up_view.dart';
@@ -12,15 +12,15 @@ class SignUpRoute {
       path: path,
       name: path,
       builder: (context, __) {
-        final adaptativeScreen = AdaptativeScreen(context);
+        final adaptiveScreen = AdaptiveScreen(context);
 
         return ScaffoldSimpleBodyGW.simple(
-          adaptativeScreen: adaptativeScreen,
+          adaptiveScreen: adaptiveScreen,
           appBar: CustomAppbarGW.simple(context: context),
           top: 5,
           title: 'Registrate',
           body: SignUpView(
-            adaptativeScreen: adaptativeScreen,
+            adaptiveScreen: adaptiveScreen,
           ),
         );
       },
