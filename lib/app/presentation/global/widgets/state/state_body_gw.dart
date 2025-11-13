@@ -6,17 +6,16 @@ import 'shimmer_gw.dart';
 import 'timeout_gw.dart';
 
 class StateBodyGW extends StatelessWidget {
-  final StateGU stateGU;
-  final void Function()? onPressedRetry;
-
-  final Widget child;
-
   const StateBodyGW({
     super.key,
     required this.child,
     this.onPressedRetry,
     this.stateGU = StateGU.fetching,
   });
+  final StateGU stateGU;
+  final void Function()? onPressedRetry;
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +23,14 @@ class StateBodyGW extends StatelessWidget {
       case StateGU.fetching:
         return const CardShimmer();
       case StateGU.error:
-        return ErrorGW(
-          onPressed: () {},
-        );
+        return ErrorGW(onPressed: () {});
       case StateGU.internet:
         return child;
 
       case StateGU.timeout:
-        return TimeoutGW(
-          onPressed: onPressedRetry,
-        );
+        return TimeoutGW(onPressed: onPressedRetry);
       case StateGU.success:
         return child;
-
-      default:
-        return const CardShimmer();
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:client_management/app/domain/either.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -46,9 +47,7 @@ void login(BuildContext context) async {
       await sessionGC.init();
 
       loaderGC.showLoader(loading: false);
-      context.pushReplacement(
-        ContactsRoute.path,
-      );
+      context.pushReplacement(ContactsRoute.path);
     },
   );
 }

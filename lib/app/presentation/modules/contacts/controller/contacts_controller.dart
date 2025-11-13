@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:client_management/app/domain/either.dart';
+import 'package:client_management/app/domain/models/contacts/failure/contacts_failure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/notifiers.dart';
 import 'package:flutter_meedu/providers.dart';
@@ -29,22 +31,15 @@ class ContactsController extends StateNotifier<ContactsState>
   }) : _contactsRepository = contactsRepository {
     init();
 
-    listener =
-        InternetConnection().onStatusChange.listen((InternetStatus status) {
+    listener = InternetConnection().onStatusChange.listen((
+      InternetStatus status,
+    ) {
       switch (status) {
         case InternetStatus.connected:
-          onlyUpdate(
-            state = state.copyWith(
-              stategu: StateGU.success,
-            ),
-          );
+          onlyUpdate(state = state.copyWith(stategu: StateGU.success));
           break;
         case InternetStatus.disconnected:
-          onlyUpdate(
-            state = state.copyWith(
-              stategu: StateGU.internet,
-            ),
-          );
+          onlyUpdate(state = state.copyWith(stategu: StateGU.internet));
           break;
       }
     });
@@ -55,11 +50,7 @@ class ContactsController extends StateNotifier<ContactsState>
 
   void init({bool retry = false}) async {
     if (retry) {
-      onlyUpdate(
-        state = state.copyWith(
-          stategu: StateGU.fetching,
-        ),
-      );
+      onlyUpdate(state = state.copyWith(stategu: StateGU.fetching));
     }
     final result = await _contactsRepository.getAll();
     result.when(
@@ -68,9 +59,7 @@ class ContactsController extends StateNotifier<ContactsState>
           network: () async {
             final result = await _contactsRepository.localGetAll();
             result.when(
-              left: (_) => _changeStateGU(
-                StateGU.error,
-              ),
+              left: (_) => _changeStateGU(StateGU.error),
               right: (value) {
                 onlyUpdate(
                   state = state.copyWith(
@@ -81,31 +70,19 @@ class ContactsController extends StateNotifier<ContactsState>
               },
             );
           },
-          timeOut: () => _changeStateGU(
-            StateGU.timeout,
-          ),
-          unhandledException: () => _changeStateGU(
-            StateGU.error,
-          ),
+          timeOut: () => _changeStateGU(StateGU.timeout),
+          unhandledException: () => _changeStateGU(StateGU.error),
         );
       },
       right: (value) {
-        onlyUpdate(
-          state = state.copyWith(contacts: value),
-        );
-        _changeStateGU(
-          StateGU.success,
-        );
+        onlyUpdate(state = state.copyWith(contacts: value));
+        _changeStateGU(StateGU.success);
       },
     );
   }
 
   void _changeStateGU(StateGU stateGU) {
-    onlyUpdate(
-      state = state.copyWith(
-        stategu: stateGU,
-      ),
-    );
+    onlyUpdate(state = state.copyWith(stategu: stateGU));
   }
 
   @override

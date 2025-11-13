@@ -12,7 +12,7 @@ TokenModel tokenModelFromJson(String str) =>
 String tokenModelToJson(TokenModel data) => json.encode(data.toJson());
 
 @freezed
-class TokenModel with _$TokenModel {
+abstract class TokenModel with _$TokenModel {
   const factory TokenModel({
     @JsonKey(name: "data") required DataTokenModel data,
   }) = _TokenModel;
@@ -22,7 +22,7 @@ class TokenModel with _$TokenModel {
 }
 
 @freezed
-class DataTokenModel with _$DataTokenModel {
+abstract class DataTokenModel with _$DataTokenModel {
   const factory DataTokenModel({
     @JsonKey(name: "names") String? names,
     @JsonKey(name: "lastName") String? lastName,

@@ -6,7 +6,7 @@ import '../../../global/utils/state_gu.dart';
 part 'contacts_state.freezed.dart';
 
 @freezed
-class ContactsState with _$ContactsState {
+abstract class ContactsState with _$ContactsState {
   const ContactsState._();
 
   const factory ContactsState({
@@ -14,8 +14,6 @@ class ContactsState with _$ContactsState {
     @Default([]) List<ContactResponse> contacts,
   }) = _ContactsState;
 
-  static ContactsState get initialState => const ContactsState(
-        contacts: [],
-        stategu: StateGU.fetching,
-      );
+  static ContactsState get initialState =>
+      const ContactsState(contacts: [], stategu: StateGU.fetching);
 }

@@ -1,3 +1,5 @@
+import 'package:client_management/app/domain/either.dart';
+import 'package:client_management/app/domain/models/auth/failure/sign_in_failure.dart';
 import 'package:client_management/app/presentation/global/widgets/dialogs/dialogs_gw.dart';
 import 'package:client_management/app/presentation/router/app_routes/contacts_route.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -11,15 +13,11 @@ void register(BuildContext context) async {
   final LoaderGC loaderGC = loaderGlobalProvider.read();
   final SignUpController signUpController = signUpProvider.read();
 
-  loaderGC.showLoader(
-    loading: true,
-  );
+  loaderGC.showLoader(loading: true);
 
   final result = await signUpController.signUp();
 
-  loaderGC.showLoader(
-    loading: false,
-  );
+  loaderGC.showLoader(loading: false);
 
   result.when(
     left: (value) {

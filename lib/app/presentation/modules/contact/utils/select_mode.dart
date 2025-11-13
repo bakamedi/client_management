@@ -13,6 +13,5 @@ void selectMode(BuildContext context) {
       createContact(context, contactController);
     case ContactMode.edit:
       updateUploadImage(context, contactController);
-    default:
   }
 }

@@ -17,7 +17,7 @@ String contactsResponseToJson(ContactsResponse data) =>
     json.encode(data.toJson());
 
 @freezed
-class ContactsResponse with _$ContactsResponse {
+abstract class ContactsResponse with _$ContactsResponse {
   const factory ContactsResponse({
     @JsonKey(name: "data") required List<ContactResponse> data,
   }) = _ContactsResponse;
@@ -33,7 +33,7 @@ String contactSimpleResponseToJson(ContactsSingleResponse data) =>
     json.encode(data.toJson());
 
 @freezed
-class ContactsSingleResponse with _$ContactsSingleResponse {
+abstract class ContactsSingleResponse with _$ContactsSingleResponse {
   const factory ContactsSingleResponse({
     @JsonKey(name: "data") required ContactResponse data,
   }) = _ContactsSingleResponse;
@@ -49,7 +49,7 @@ String contactResponseToJson(ContactResponse data) =>
     json.encode(data.toJson());
 
 @freezed
-class ContactResponse with _$ContactResponse {
+abstract class ContactResponse with _$ContactResponse {
   const factory ContactResponse({
     @JsonKey(name: "id") String? id,
     @JsonKey(name: "names") String? names,

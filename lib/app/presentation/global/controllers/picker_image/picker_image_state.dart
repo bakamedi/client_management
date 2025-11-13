@@ -6,7 +6,7 @@ import '../../../../domain/models/permission/success/permission_success.dart';
 part 'picker_image_state.freezed.dart';
 
 @freezed
-class PickerImageState with _$PickerImageState {
+abstract class PickerImageState with _$PickerImageState {
   const PickerImageState._();
 
   const factory PickerImageState({

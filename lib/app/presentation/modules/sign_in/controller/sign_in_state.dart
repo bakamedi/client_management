@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sign_in_state.freezed.dart';
 
 @freezed
-class SignInState with _$SignInState {
+abstract class SignInState with _$SignInState {
   const SignInState._();
   const factory SignInState({
     @Default('') String email,
@@ -13,9 +13,9 @@ class SignInState with _$SignInState {
   }) = _SignInState;
 
   static SignInState get initialState => const SignInState(
-        email: '',
-        password: '',
-        isFormValid: false,
-        showPassword: false,
-      );
+    email: '',
+    password: '',
+    isFormValid: false,
+    showPassword: false,
+  );
 }

@@ -17,7 +17,7 @@ String uploadContactResponseToJson(UploadContactResponse data) =>
     json.encode(data.toJson());
 
 @freezed
-class UploadContactResponse with _$UploadContactResponse {
+abstract class UploadContactResponse with _$UploadContactResponse {
   const factory UploadContactResponse({
     @JsonKey(name: "data") required Data data,
   }) = _UploadContactResponse;
@@ -27,10 +27,8 @@ class UploadContactResponse with _$UploadContactResponse {
 }
 
 @freezed
-class Data with _$Data {
-  const factory Data({
-    @JsonKey(name: "url") required String url,
-  }) = _Data;
+abstract class Data with _$Data {
+  const factory Data({@JsonKey(name: "url") required String url}) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }

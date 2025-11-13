@@ -1,3 +1,5 @@
+import 'package:client_management/app/domain/either.dart';
+import 'package:client_management/app/domain/models/contacts/failure/contacts_failure.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,13 +12,9 @@ void deleteContact(BuildContext context) async {
   final loaderGC = loaderGlobalProvider.read();
   final contactController = contactProvider.read();
 
-  loaderGC.showLoader(
-    loading: true,
-  );
+  loaderGC.showLoader(loading: true);
   final result = await contactController.deleteContact();
-  loaderGC.showLoader(
-    loading: false,
-  );
+  loaderGC.showLoader(loading: false);
   result.when(
     left: (value) {
       value.when(

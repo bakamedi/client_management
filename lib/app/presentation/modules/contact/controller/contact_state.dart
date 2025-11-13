@@ -10,7 +10,7 @@ import '../utils/contact_mode.dart';
 part 'contact_state.freezed.dart';
 
 @freezed
-class ContactState with _$ContactState {
+abstract class ContactState with _$ContactState {
   const ContactState._();
 
   const factory ContactState({
@@ -28,13 +28,13 @@ class ContactState with _$ContactState {
   }) = _ContactState;
 
   static ContactState get initialState => ContactState(
-        contactMode: ContactMode.create,
-        textCellPhoneEditingController: TextEditingController(text: ''),
-        textLastNameEditingController: TextEditingController(text: ''),
-        textNamesEditingController: TextEditingController(text: ''),
-        textPhoneNumberEditingController: TextEditingController(text: ''),
-        urlCreateProfile: '',
-        internet: false,
-        isFormValid: false,
-      );
+    contactMode: ContactMode.create,
+    textCellPhoneEditingController: TextEditingController(text: ''),
+    textLastNameEditingController: TextEditingController(text: ''),
+    textNamesEditingController: TextEditingController(text: ''),
+    textPhoneNumberEditingController: TextEditingController(text: ''),
+    urlCreateProfile: '',
+    internet: false,
+    isFormValid: false,
+  );
 }

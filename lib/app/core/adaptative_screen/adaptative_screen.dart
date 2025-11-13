@@ -2,16 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class AdaptativeScreen {
-  late final double width;
-  late final double height;
-  late final double diagonal;
-  late final double blockSizeHorizontal;
-  late final double blockSizeVertical;
-  late final double safeBlockHorizontal;
-  late final double safeBlockVertical;
-
-  static AdaptativeScreen of(BuildContext context) => AdaptativeScreen(context);
-
   AdaptativeScreen(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
     final size = mediaQueryData.size;
@@ -29,6 +19,15 @@ class AdaptativeScreen {
     safeBlockHorizontal = (width - safeAreaHorizontal) / 100;
     safeBlockVertical = (height - safeAreaVertical) / 100;
   }
+  late final double width;
+  late final double height;
+  late final double diagonal;
+  late final double blockSizeHorizontal;
+  late final double blockSizeVertical;
+  late final double safeBlockHorizontal;
+  late final double safeBlockVertical;
+
+  static AdaptativeScreen of(BuildContext context) => AdaptativeScreen(context);
 
   double wp(double percent) => width * percent / 100;
   double hp(double percent) => height * percent / 100;

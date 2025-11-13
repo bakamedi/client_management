@@ -14,10 +14,9 @@ TokenResponse tokenResponseFromJson(String str) =>
 String tokenResponseToJson(TokenResponse data) => json.encode(data.toJson());
 
 @freezed
-class TokenResponse with _$TokenResponse {
-  const factory TokenResponse({
-    @JsonKey(name: "data") DataToken? data,
-  }) = _TokenResponse;
+abstract class TokenResponse with _$TokenResponse {
+  const factory TokenResponse({@JsonKey(name: "data") DataToken? data}) =
+      _TokenResponse;
 
   factory TokenResponse.fromJson(Map<String, dynamic> json) =>
       _$TokenResponseFromJson(json);

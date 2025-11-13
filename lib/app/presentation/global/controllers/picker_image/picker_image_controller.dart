@@ -1,3 +1,4 @@
+import 'package:client_management/app/domain/either.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,11 +10,11 @@ import 'picker_image_state.dart';
 
 final pickerImageProvider =
     Provider.state<PickerImageController, PickerImageState>(
-  (_) => PickerImageController(
-    PickerImageState.initialState,
-    permissionRepository: Repositories.permissionRep.read(),
-  ),
-);
+      (_) => PickerImageController(
+        PickerImageState.initialState,
+        permissionRepository: Repositories.permissionRep.read(),
+      ),
+    );
 
 class PickerImageController extends StateNotifier<PickerImageState> {
   final PermissionRepository _permissionRepository;

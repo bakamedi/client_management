@@ -7,7 +7,7 @@ part 'data_token_model.g.dart';
 
 /// Clase específica para `data` en TokenResponse
 @freezed
-class DataToken with _$DataToken {
+abstract class DataToken with _$DataToken {
   const factory DataToken({
     @JsonKey(name: "email") String? email,
     @JsonKey(name: "token") String? token,
