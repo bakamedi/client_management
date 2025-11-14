@@ -51,7 +51,7 @@ class AuthProvider {
         return const Either.left(SignInFailure.unhandledException());
       }
       await _deviceUtilProvider.setNames(names);
-      await _deviceUtilProvider.setLastName(names);
+      await _deviceUtilProvider.setLastName(lastName);
       await _deviceUtilProvider.setAccessToken(
         result.session?.accessToken ?? '',
       );

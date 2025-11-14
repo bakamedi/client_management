@@ -11,7 +11,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../extensions/widgets_ext.dart';
 import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../global/controllers/session/session_gc.dart';
 import '../controller/splash_controller.dart';
 
 class SplashView extends ConsumerStatefulWidget {
@@ -25,12 +24,6 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
     super.initState();
-    _initializeSession(); // Método separado para la operación asíncrona
-  }
-
-  Future<void> _initializeSession() async {
-    final SessionGC sessionGC = sessionGP.read();
-    await sessionGC.init();
   }
 
   @override

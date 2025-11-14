@@ -43,65 +43,46 @@ abstract class CustomAppbarGW {
     final adaptiveScreen = AdaptiveScreen(context);
 
     return AppBar(
-      toolbarHeight: adaptiveScreen.bhp(7),
-      leadingWidth: adaptiveScreen.bwh(100),
+      toolbarHeight: adaptiveScreen.bhp(6),
+      leadingWidth: adaptiveScreen.width,
       actions: [
-        GestureDetector(
-          onTap: () {},
-          child: SizedBox(
-            height: 50,
-            width: 50,
-            child:
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(adaptiveScreen.dp(10)),
-                    border: Border.all(
-                      color: AppColors.grey300.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: IconButton(
-                    onPressed: onPressed,
-                    icon: Icon(
-                      EvaIcons.personAddOutline,
-                      size: adaptiveScreen.dp(2),
-                    ),
-                  ),
-                ).padding(
-                  EdgeInsets.only(
-                    top: 1,
-                    bottom: 10,
-                    right: adaptiveScreen.dp(1),
-                  ),
-                ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.white),
           ),
+          child: IconButton(
+            onPressed: onPressed,
+            icon: Icon(EvaIcons.logOut, size: adaptiveScreen.dp(2)),
+          ),
+        ).padding(
+          EdgeInsets.only(top: 1, bottom: 10, right: adaptiveScreen.dp(1)),
         ),
       ],
-      leading: IconButton(
-        icon: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextGW.text(
-                  'Bienvenido a CliPro',
-                  adaptiveScreen: adaptiveScreen,
-                  fontSize: adaptiveScreen.dp(1.7),
-                  color: AppColors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                CustomTextGW.text(
-                  names,
-                  adaptiveScreen: adaptiveScreen,
-                  fontSize: adaptiveScreen.dp(1.2),
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.grey400.withValues(alpha: 0.8),
-                ),
-              ],
-            ).padding(EdgeInsets.only(left: adaptiveScreen.bwh(2))),
-          ],
-        ).padding(EdgeInsets.only(left: adaptiveScreen.bwh(3))),
-        onPressed: () {},
-      ),
+      leading: Row(
+        crossAxisAlignment: .center,
+        children: [
+          Column(
+            crossAxisAlignment: .start,
+            children: [
+              CustomTextGW.text(
+                'Bienvenido a CliPro',
+                adaptiveScreen: adaptiveScreen,
+                fontSize: adaptiveScreen.dp(1.7),
+                color: AppColors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              CustomTextGW.text(
+                names,
+                adaptiveScreen: adaptiveScreen,
+                fontSize: adaptiveScreen.dp(1.2),
+                fontWeight: FontWeight.bold,
+                color: AppColors.white,
+              ),
+            ],
+          ).padding(EdgeInsets.only(left: adaptiveScreen.bwh(2))),
+        ],
+      ).padding(EdgeInsets.only(left: adaptiveScreen.bwh(3))),
     );
   }
 }

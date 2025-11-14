@@ -19,14 +19,16 @@ class SessionGC extends StateNotifier<SessionState> {
   SessionGC(
     super.initialState, {
     required DeviceUtilsRepository deviceUtilsRepository,
-  }) : _deviceUtilsRepository = deviceUtilsRepository;
+  }) : _deviceUtilsRepository = deviceUtilsRepository {
+    _init();
+  }
   final DeviceUtilsRepository _deviceUtilsRepository;
 
   String get names => state.names ?? '';
   String get lastName => state.lastName ?? '';
   String get profileImage => state.profileImage ?? '';
 
-  Future<void> init() async {
+  Future<void> _init() async {
     final names = await _deviceUtilsRepository.names;
     final lastName = await _deviceUtilsRepository.lastName;
     final profileImage = await _deviceUtilsRepository.profileImage;
