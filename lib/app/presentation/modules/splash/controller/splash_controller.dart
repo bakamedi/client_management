@@ -1,3 +1,4 @@
+import 'package:client_management/app/domain/respositories/supabase_repository.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
 
@@ -14,6 +15,7 @@ final splashProvider = Provider.state<SplashController, SplashState>(
     SplashState.initialState,
     deviceUtilsRepository: Repositories.deviceUtilRep.read(),
     dbRepository: Repositories.dbRep.read(),
+    supabaseRepository: Repositories.supabaseRep.read(),
   ),
 );
 
@@ -22,14 +24,18 @@ class SplashController extends StateNotifier<SplashState> {
     super.initialState, {
     required DeviceUtilsRepository deviceUtilsRepository,
     required DbRepository dbRepository,
+    required SupabaseRepository supabaseRepository,
   }) : _deviceUtilsRepository = deviceUtilsRepository,
-       _dbRepository = dbRepository {
-    init();
+       _dbRepository = dbRepository,
+       _supabaseRepository = supabaseRepository {
+    _init();
   }
   final DeviceUtilsRepository _deviceUtilsRepository;
   final DbRepository _dbRepository;
+  final SupabaseRepository _supabaseRepository;
 
-  void init() async {
+  void _init() async {
+    await _supabaseRepository.initialize();
     await _dbRepository.connect();
     final accessToken = await _deviceUtilsRepository.accessToken;
     final validToken = accessToken.isJwtToken && !accessToken.isJwtExpired;

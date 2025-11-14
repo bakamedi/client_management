@@ -1,3 +1,6 @@
+import 'package:client_management/app/core/environment/env_util.dart';
+import 'package:client_management/app/data/data_source/providers/supabase_provider.dart';
+import 'package:client_management/app/data/repositories_impl/supabase_repository_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_meedu/providers.dart';
@@ -24,19 +27,16 @@ Future<void> load() async {
     resetOnError: true,
   );
 
-  const storage = FlutterSecureStorage(
-    aOptions: aO,
-  );
+  const storage = FlutterSecureStorage(aOptions: aO);
 
   _storage = storage;
 
   _dbFactory = databaseFactoryIo;
+  await EnvUtil.loadEnv();
   await verifyInternalData(prefs, _storage);
 }
 
-const httpTimeout = Duration(
-  seconds: 30,
-);
+const httpTimeout = Duration(seconds: 30);
 
 /// Crea instancia de [Dio]
 ///
@@ -59,16 +59,10 @@ final _dbProvider = Provider(
 );
 
 final _deviceUtilProvider = Provider(
-  (ref) => DeviceUtilProvider(
-    secureStorage: _storage,
-  ),
+  (ref) => DeviceUtilProvider(secureStorage: _storage),
 );
 
-final _httpProvider = Provider(
-  (ref) => HttpHelper(
-    dio: _dio,
-  ),
-);
+final _httpProvider = Provider((ref) => HttpHelper(dio: _dio));
 
 final _authProvider = Provider(
   (ref) => AuthProvider(
@@ -91,23 +85,20 @@ final _contactsProvider = Provider(
   ),
 );
 
-final _permissionLocal = Provider(
-  (ref) => PermissionLocal(),
-);
+final _supabaseProvider = Provider((ref) => SupabaseProvider());
+
+final _permissionLocal = Provider((ref) => PermissionLocal());
 
 class Repositories {
   Repositories._();
 
   static final deviceUtilRep = Provider<DeviceUtilsRepository>(
-    (ref) => DeviceUtilsRepositoryImpl(
-      deviceUtilHelper: _deviceUtilProvider.read(),
-    ),
+    (ref) =>
+        DeviceUtilsRepositoryImpl(deviceUtilHelper: _deviceUtilProvider.read()),
   );
 
   static final authRep = Provider<AuthRepository>(
-    (ref) => AuthRepositoryImpl(
-      authProvider: _authProvider.read(),
-    ),
+    (ref) => AuthRepositoryImpl(authProvider: _authProvider.read()),
   );
 
   static final contactsRep = Provider<ContactsRepository>(
@@ -118,14 +109,14 @@ class Repositories {
   );
 
   static final dbRep = Provider<DbRepository>(
-    (ref) => DbRepositoryImpl(
-      dbProvider: _dbProvider.read(),
-    ),
+    (ref) => DbRepositoryImpl(dbProvider: _dbProvider.read()),
   );
 
   static final permissionRep = Provider<PermissionRepository>(
-    (ref) => PermissionRepositoryImpl(
-      permissionLocal: _permissionLocal.read(),
-    ),
+    (ref) => PermissionRepositoryImpl(permissionLocal: _permissionLocal.read()),
+  );
+
+  static final supabaseRep = Provider<SupabaseRepository>(
+    (ref) => SupabaseRepositoryImpl(supabaseProvider: _supabaseProvider.read()),
   );
 }
