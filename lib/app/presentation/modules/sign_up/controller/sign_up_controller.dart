@@ -82,4 +82,8 @@ class SignUpController extends StateNotifier<SignUpState> {
       password: password,
     );
   }
+
+  FutureEither<SignInFailure, Success> logOut() async {
+    return await _authRepository.logOut();
+  }
 }

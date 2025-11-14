@@ -16,4 +16,6 @@ abstract class AuthRepository {
     required String email,
     required String password,
   });
+
+  FutureEither<SignInFailure, Success> logOut();
 }

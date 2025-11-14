@@ -68,4 +68,23 @@ class AuthProvider {
       return const Either.left(SignInFailure.unhandledException());
     }
   }
+
+  FutureEither<SignInFailure, Success> logOut() async {
+    try {
+      await _supabaseProvider.auth.signOut();
+      await _deviceUtilProvider.clearData();
+      await _deviceUtilProvider.setNames('');
+      await _deviceUtilProvider.setLastName('');
+      await _deviceUtilProvider.setAccessToken('');
+      await _deviceUtilProvider.setRefreshToken('');
+      return const Either.right(Success());
+    } on AuthException catch (e) {
+      if (e.message.contains('User already registered')) {
+        return const Either.left(SignInFailure.emailAlreadyExists());
+      }
+      return const Either.left(SignInFailure.unhandledException());
+    } catch (e) {
+      return const Either.left(SignInFailure.unhandledException());
+    }
+  }
 }

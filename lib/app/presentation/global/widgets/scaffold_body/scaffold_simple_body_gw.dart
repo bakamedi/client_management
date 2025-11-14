@@ -18,27 +18,28 @@ abstract class ScaffoldSimpleBodyGW {
       child: Scaffold(
         appBar: appBar,
         resizeToAvoidBottomInset: false,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomTextGW.text(
-              title,
-              adaptiveScreen: adaptiveScreen,
-              padding: EdgeInsets.only(
-                top: adaptiveScreen.bhp(top ?? 25),
-                bottom: adaptiveScreen.bhp(2),
+        body:
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextGW.text(
+                  title,
+                  adaptiveScreen: adaptiveScreen,
+                  padding: EdgeInsets.only(
+                    top: adaptiveScreen.bhp(top ?? 25),
+                    bottom: adaptiveScreen.bhp(2),
+                  ),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ).flexible,
+                body,
+              ],
+            ).padding(
+              EdgeInsets.only(
+                left: adaptiveScreen.bwh(10),
+                right: adaptiveScreen.bwh(10),
               ),
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ).flexible,
-            body
-          ],
-        ).padding(
-          EdgeInsets.only(
-            left: adaptiveScreen.bwh(10),
-            right: adaptiveScreen.bwh(10),
-          ),
-        ),
+            ),
       ),
     );
   }
@@ -47,6 +48,7 @@ abstract class ScaffoldSimpleBodyGW {
     PreferredSizeWidget? appBar,
     required AdaptiveScreen adaptiveScreen,
     required Widget body,
+    Widget? floatingActionButton,
     double? top,
   }) {
     return GestureDetector(
@@ -54,6 +56,7 @@ abstract class ScaffoldSimpleBodyGW {
       child: Scaffold(
         appBar: appBar,
         body: body,
+        floatingActionButton: floatingActionButton,
       ),
     );
   }

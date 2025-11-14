@@ -75,4 +75,17 @@ class DeviceUtilProvider {
       await _secureStorage.deleteAll();
     } catch (_) {}
   }
+
+  Future<void> clearAllData() async {
+    try {
+      await _secureStorage.delete(
+        key: GlobalNameStorageKeyUtils.INITIAL_ROUTE_NAME,
+      );
+      await _secureStorage.delete(key: GlobalNameStorageKeyUtils.ACCESS_TOKEN);
+      await _secureStorage.delete(key: GlobalNameStorageKeyUtils.REFRESH_TOKEN);
+      await _secureStorage.delete(key: GlobalNameStorageKeyUtils.NAMES);
+      await _secureStorage.delete(key: GlobalNameStorageKeyUtils.LAST_NAME);
+      await _secureStorage.delete(key: GlobalNameStorageKeyUtils.PROFILE_IMAGE);
+    } catch (_) {}
+  }
 }

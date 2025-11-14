@@ -44,4 +44,9 @@ class AuthRepositoryImpl implements AuthRepository {
       password: password,
     );
   }
+
+  @override
+  FutureEither<SignInFailure, Success> logOut() async {
+    return await _authProvider.logOut();
+  }
 }
