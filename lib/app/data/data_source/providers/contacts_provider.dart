@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:client_management/app/data/data_source/providers/supabase_provider.dart';
+import 'package:path/path.dart';
 
 import '../../../domain/either.dart';
 import '../../../domain/models/contacts/failure/contacts_failure.dart';
@@ -6,11 +9,9 @@ import '../../../domain/models/contacts/success/contacts_success.dart';
 import '../../../domain/responses/contacts/contacts_response.dart';
 import '../../../domain/typedefs.dart';
 
-
 class ContactsProvider {
-  ContactsProvider({
-    required SupabaseProvider supabaseProvider,
-  }) : _supabaseProvider = supabaseProvider;
+  ContactsProvider({required SupabaseProvider supabaseProvider})
+      : _supabaseProvider = supabaseProvider;
   final SupabaseProvider _supabaseProvider;
 
   FutureEither<ContactsFailure, ContactResponse> create(
@@ -91,4 +92,26 @@ class ContactsProvider {
     }
   }
 
+  FutureEither<ContactsFailure, String> uploadImage(String pathImage) async {
+    try {
+      final file = File(pathImage);
+      final fileName = basename(pathImage);
+      final userId = _supabaseProvider.client.auth.currentUser!.id;
+      final uploadPath = '$userId/$fileName';
+
+      await _supabaseProvider.client.storage.from('uploads').uploadBinary(
+            uploadPath,
+            file.readAsBytesSync(),
+          );
+
+      final imageUrl = _supabaseProvider.client.storage
+          .from('uploads')
+          .getPublicUrl(uploadPath);
+
+      return Either.right(imageUrl);
+    } catch (e) {
+      print('UPLOAD IMAGE ERROR: $e');
+      return const Either.left(ContactsFailure.unhandledException());
+    }
+  }
 }
