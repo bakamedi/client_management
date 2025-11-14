@@ -29,7 +29,7 @@ class SignInView extends ConsumerWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: adaptiveScreen.bwh(2)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             Column(
               crossAxisAlignment: .start,

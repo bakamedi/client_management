@@ -28,8 +28,13 @@ class AuthProvider {
       if (result.user == null && result.session == null) {
         return const Either.left(SignInFailure.notFound());
       }
-      // await _deviceUtilProvider.setNames(result.user);
-      // await _deviceUtilProvider.setLastName(result.user);
+      await _deviceUtilProvider.clearAllData();
+      await _deviceUtilProvider.clearData();
+      final metadata = result.user?.userMetadata ?? {};
+      final names = metadata['names'] as String? ?? '';
+      final lastName = metadata['lastName'] as String? ?? '';
+      await _deviceUtilProvider.setNames(names);
+      await _deviceUtilProvider.setLastName(lastName);
       await _deviceUtilProvider.setAccessToken(
         result.session?.accessToken ?? '',
       );
