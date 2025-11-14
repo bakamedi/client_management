@@ -54,9 +54,7 @@ abstract class CustomAppbarGW {
             child:
                 DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      adaptiveScreen.dp(10),
-                    ),
+                    borderRadius: BorderRadius.circular(adaptiveScreen.dp(10)),
                     border: Border.all(
                       color: AppColors.grey300.withValues(alpha: 0.3),
                     ),
@@ -88,6 +86,7 @@ abstract class CustomAppbarGW {
                   'Bienvenido a CliPro',
                   adaptiveScreen: adaptiveScreen,
                   fontSize: adaptiveScreen.dp(1.7),
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold,
                 ),
                 CustomTextGW.text(

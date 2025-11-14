@@ -1,112 +1,71 @@
-import '../../../core/utils/http_status_code_util.dart';
+import 'package:client_management/app/data/data_source/providers/supabase_provider.dart';
+import 'package:client_management/app/domain/models/success/success.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../../domain/either.dart';
 import '../../../domain/models/auth/failure/sign_in_failure.dart';
 import '../../../domain/models/auth/token_model.dart';
 import '../../../domain/typedefs.dart';
-import '../../helpers/http/http_helper.dart';
-import '../../helpers/http/http_method.dart';
 import 'device_provider.dart';
 
 class AuthProvider {
   AuthProvider({
-    required HttpHelper http,
+    required SupabaseProvider supabaseProvider,
     required DeviceUtilProvider deviceUtilProvider,
-  }) : _http = http,
+  }) : _supabaseProvider = supabaseProvider,
        _deviceUtilProvider = deviceUtilProvider;
-  final HttpHelper _http;
+  final SupabaseProvider _supabaseProvider;
   final DeviceUtilProvider _deviceUtilProvider;
 
   FutureEither<SignInFailure, TokenModel> signIn({
     required String email,
     required String password,
   }) async {
-    final result = await _http.request(
-      'auth/login/',
-      method: HttpMethod.POST,
-      data: {"email": email, "password": password},
-    );
-
-    return result.when(
-      success: (statusCode, data) async {
-        final response = tokenModelFromJson(data);
-        await _deviceUtilProvider.setAccessToken(response.data.accessToken);
-        await _deviceUtilProvider.setRefreshToken(response.data.refreshToken);
-        await _deviceUtilProvider.setNames(response.data.names ?? '');
-        await _deviceUtilProvider.setLastName(response.data.lastName ?? '');
-        await _deviceUtilProvider.setProfileImage(
-          response.data.profileImage ?? '',
-        );
-        return Either.right(response);
-      },
-      networkError: (stackTrace) {
-        return const Either.left(SignInFailure.network());
-      },
-      timeOut: (stackTrace) {
-        return const Either.left(SignInFailure.timeOut());
-      },
-      unhandledError: (statusCode, stackTrace) {
-        if (statusCode == HttpStatusCode.badRequest) {
-          return const Either.left(SignInFailure.notFound());
-        }
-        if (statusCode == HttpStatusCode.forbidden) {
-          return const Either.left(SignInFailure.invalidPassword());
-        }
-        return const Either.left(SignInFailure.unhandledException());
-      },
-      internetConnection: () {
-        return const Either.left(SignInFailure.internetConnection());
-      },
-    );
+    try {
+      return const Either.right(
+        TokenModel(
+          data: DataTokenModel(
+            accessToken: 'accessToken',
+            refreshToken: 'refreshToken',
+          ),
+        ),
+      );
+    } catch (e) {
+      return const Either.left(SignInFailure.unhandledException());
+    }
   }
 
-  FutureEither<SignInFailure, TokenModel> signUp({
+  FutureEither<SignInFailure, Success> signUp({
     required String email,
     required String password,
     required String names,
     required String lastName,
   }) async {
-    final result = await _http.request(
-      'auth/register/',
-      method: HttpMethod.POST,
-      data: {
-        "names": names,
-        "lastName": lastName,
-        "email": email,
-        "password": password,
-        "role": "ADMIN",
-      },
-    );
-
-    return result.when(
-      success: (statusCode, data) async {
-        final response = tokenModelFromJson(data);
-        await _deviceUtilProvider.setAccessToken(response.data.accessToken);
-        await _deviceUtilProvider.setRefreshToken(response.data.refreshToken);
-        await _deviceUtilProvider.setNames(response.data.names ?? '');
-        await _deviceUtilProvider.setLastName(response.data.lastName ?? '');
-        await _deviceUtilProvider.setProfileImage(
-          response.data.profileImage ?? '',
-        );
-        return Either.right(response);
-      },
-      networkError: (stackTrace) {
-        return const Either.left(SignInFailure.network());
-      },
-      timeOut: (stackTrace) {
-        return const Either.left(SignInFailure.timeOut());
-      },
-      unhandledError: (statusCode, stackTrace) {
-        if (statusCode == HttpStatusCode.badRequest) {
-          return const Either.left(SignInFailure.notFound());
-        }
-        if (statusCode == HttpStatusCode.forbidden) {
-          return const Either.left(SignInFailure.invalidPassword());
-        }
+    try {
+      final result = await _supabaseProvider.auth.signUp(
+        email: email,
+        password: password,
+        data: {"names": names, "lastName": lastName},
+      );
+      if (result.user == null && result.session == null) {
         return const Either.left(SignInFailure.unhandledException());
-      },
-      internetConnection: () {
-        return const Either.left(SignInFailure.internetConnection());
-      },
-    );
+      }
+      await _deviceUtilProvider.setNames(names);
+      await _deviceUtilProvider.setLastName(names);
+      await _deviceUtilProvider.setAccessToken(
+        result.session?.accessToken ?? '',
+      );
+      await _deviceUtilProvider.setRefreshToken(
+        result.session?.refreshToken ?? '',
+      );
+      return const Either.right(Success());
+    } on AuthException catch (e) {
+      if (e.message.contains('User already registered')) {
+        return const Either.left(SignInFailure.emailAlreadyExists());
+      }
+      return const Either.left(SignInFailure.unhandledException());
+    } catch (e) {
+      return const Either.left(SignInFailure.unhandledException());
+    }
   }
 }

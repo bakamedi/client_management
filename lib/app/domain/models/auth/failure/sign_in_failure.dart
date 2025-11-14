@@ -9,6 +9,7 @@ class SignInFailure with _$SignInFailure {
   const factory SignInFailure.notFound() = _NotFound;
   const factory SignInFailure.invalidPassword() = _InvalidPassword;
   const factory SignInFailure.error() = _Error;
+  const factory SignInFailure.emailAlreadyExists() = _EmailAlreadyExists;
   const factory SignInFailure.unhandledException() = _UnhandledException;
   const factory SignInFailure.internetConnection() = _InternetConnection;
 }

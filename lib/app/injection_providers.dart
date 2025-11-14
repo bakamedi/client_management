@@ -64,13 +64,6 @@ final _deviceUtilProvider = Provider(
 
 final _httpProvider = Provider((ref) => HttpHelper(dio: _dio));
 
-final _authProvider = Provider(
-  (ref) => AuthProvider(
-    http: _httpProvider.read(),
-    deviceUtilProvider: _deviceUtilProvider.read(),
-  ),
-);
-
 final _storeContactsProvider = Provider(
   (ref) => StoreProvider(
     dbProvider: _dbProvider.read(),
@@ -86,6 +79,13 @@ final _contactsProvider = Provider(
 );
 
 final _supabaseProvider = Provider((ref) => SupabaseProvider());
+
+final _authProvider = Provider(
+  (ref) => AuthProvider(
+    supabaseProvider: _supabaseProvider.read(),
+    deviceUtilProvider: _deviceUtilProvider.read(),
+  ),
+);
 
 final _permissionLocal = Provider((ref) => PermissionLocal());
 

@@ -1,3 +1,5 @@
+import 'package:client_management/app/domain/models/success/success.dart';
+
 import '../../domain/either.dart';
 import '../../domain/models/auth/failure/sign_in_failure.dart';
 import '../../domain/models/auth/success/sign_in_success.dart';
@@ -29,23 +31,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  FutureEither<SignInFailure, SignInSuccess> signUp({
+  FutureEither<SignInFailure, Success> signUp({
     required String names,
     required String lastName,
     required String email,
     required String password,
   }) async {
-    final result = await _authProvider.signUp(
+    return await _authProvider.signUp(
       names: names,
       lastName: lastName,
       email: email,
       password: password,
-    );
-    return result.when(
-      left: (SignInFailure value) => Either.left(value),
-      right: (TokenModel token) {
-        return const Either.right(SignInSuccess.ok());
-      },
     );
   }
 }

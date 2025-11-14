@@ -1,3 +1,4 @@
+import 'package:client_management/app/domain/models/success/success.dart';
 import 'package:client_management/app/presentation/extensions/strings_ext.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_meedu/notifiers.dart';
 import '../../../../core/utils/create_field_gu.dart';
 
 import '../../../../domain/models/auth/failure/sign_in_failure.dart';
-import '../../../../domain/models/auth/success/sign_in_success.dart';
 import '../../../../domain/respositories/auth_repository.dart';
 import '../../../../domain/typedefs.dart';
 import '../../../../injection_providers.dart';
@@ -74,7 +74,7 @@ class SignUpController extends StateNotifier<SignUpState> {
     onlyUpdate(state = state.copyWith(showPassword: !state.showPassword));
   }
 
-  FutureEither<SignInFailure, SignInSuccess> signUp() async {
+  FutureEither<SignInFailure, Success> signUp() async {
     return await _authRepository.signUp(
       names: names,
       lastName: lastName,

@@ -24,47 +24,58 @@ void register(BuildContext context) async {
       value.when(
         network: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Error de conexión',
           type: DialogType.network,
-          content: '',
+          content:
+              'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo nuevamente.',
         ),
         timeOut: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Tiempo agotado',
           type: DialogType.timeout,
-          content: '',
+          content:
+              'La solicitud tardó demasiado. Por favor vuelve a intentarlo en unos segundos.',
         ),
         notFound: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Usuario no encontrado',
           type: DialogType.custom,
           iconData: EvaIcons.personDeleteOutline,
-          content: '',
+          content: 'No hemos encontrado información asociada a este usuario.',
         ),
         invalidPassword: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Contraseña incorrecta',
           type: DialogType.custom,
           iconData: EvaIcons.alertTriangleOutline,
-          content: '',
+          content:
+              'La contraseña ingresada no es válida. Por favor inténtalo de nuevo.',
         ),
         error: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Error inesperado',
           type: DialogType.error,
-          content: '',
+          content: 'Algo salió mal. Por favor intenta nuevamente.',
         ),
         unhandledException: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Error inesperado',
           type: DialogType.error,
-          content: '',
+          content:
+              'Se produjo un problema interno. Estamos trabajando para solucionarlo.',
         ),
         internetConnection: () => DialogsGW.simple(
           context,
-          title: '',
+          title: 'Sin conexión a Internet',
           type: DialogType.internet,
-          content: '',
+          content: 'Verifica tu conexión y vuelve a intentarlo.',
+        ),
+        emailAlreadyExists: () => DialogsGW.simple(
+          context,
+          title: 'El usuario ya existe',
+          type: DialogType.error,
+          content:
+              'El correo electrónico que intentas registrar ya está asociado a otra cuenta.',
         ),
       );
     },

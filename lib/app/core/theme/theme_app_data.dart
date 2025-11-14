@@ -26,7 +26,12 @@ abstract class ThemeAppData {
       outlinedButtonTheme: _outlinedButtonThemeData(),
       textButtonTheme: _textFormFieldThemeData(),
       scaffoldBackgroundColor: AppColors.white,
-      appBarTheme: AppBarTheme(backgroundColor: AppColors.white),
+      appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(color: AppColors.white),
+        foregroundColor: AppColors.white,
+        backgroundColor: AppColors.primary,
+        surfaceTintColor: AppColors.primary,
+      ),
     );
   }
 
