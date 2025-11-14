@@ -11,7 +11,7 @@ import '../../../domain/typedefs.dart';
 
 class ContactsProvider {
   ContactsProvider({required SupabaseProvider supabaseProvider})
-      : _supabaseProvider = supabaseProvider;
+    : _supabaseProvider = supabaseProvider;
   final SupabaseProvider _supabaseProvider;
 
   FutureEither<ContactsFailure, ContactResponse> create(
@@ -45,8 +45,7 @@ class ContactsProvider {
     try {
       final result = await _supabaseProvider.client.from('Contact').select();
 
-      final contacts =
-          result.map((e) => ContactResponse.fromJson(e)).toList();
+      final contacts = result.map((e) => ContactResponse.fromJson(e)).toList();
 
       return Either.right(ContactsResponse(data: contacts));
     } catch (e) {
@@ -69,10 +68,16 @@ class ContactsProvider {
             'url_image': contact.profileImage,
           })
           .eq('id', contact.id)
-          .select()
-          .single();
+          .select();
 
-      final updatedContact = ContactResponse.fromJson(result);
+      if (result.isEmpty) {
+        print(
+          'UPDATE CONTACT ERROR: No contact found with id ${contact.id} or permission denied.',
+        );
+        return const Either.left(ContactsFailure.unhandledException());
+      }
+
+      final updatedContact = ContactResponse.fromJson(result.first);
 
       return Either.right(updatedContact);
     } catch (e) {
@@ -99,10 +104,9 @@ class ContactsProvider {
       final userId = _supabaseProvider.client.auth.currentUser!.id;
       final uploadPath = '$userId/$fileName';
 
-      await _supabaseProvider.client.storage.from('uploads').uploadBinary(
-            uploadPath,
-            file.readAsBytesSync(),
-          );
+      await _supabaseProvider.client.storage
+          .from('uploads')
+          .uploadBinary(uploadPath, file.readAsBytesSync());
 
       final imageUrl = _supabaseProvider.client.storage
           .from('uploads')
