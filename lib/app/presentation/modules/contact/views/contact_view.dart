@@ -1,7 +1,5 @@
-import 'dart:io';
-
+import 'package:client_management/app/presentation/modules/contact/views/widgets/avatar_contact_edit_w.dart';
 import 'package:flutter/material.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_meedu/consumer/consumer_widget.dart';
 
@@ -101,7 +99,10 @@ class ContactView extends ConsumerWidget {
   Widget _buildTitle(ContactController contactController) {
     return contactController.contactMode == ContactMode.edit
         ? _buildHeading(contactController)
-        : _buildAvatar(contactController);
+        : AvatarContactEditW(
+            adaptiveScreen: adaptiveScreen,
+            contactController: contactController,
+          );
   }
 
   Widget _buildHeading(ContactController contactController) {
@@ -194,32 +195,6 @@ class ContactView extends ConsumerWidget {
               fontWeight: FontWeight.bold,
             ),
           );
-  }
-
-  Widget _buildAvatar(ContactController contactController) {
-    return PickerImageGestureGW(
-      onImageSelected: (filePath) {
-        contactController.changeFileProfile(filePath);
-      },
-      child: CircleAvatar(
-        radius: adaptiveScreen.dp(5),
-        backgroundImage: contactController.fileProfile != null
-            ? FileImage(File(contactController.fileProfile!.path))
-            : null,
-        child: contactController.fileProfile == null
-            ? Icon(
-                EvaIcons.imageOutline,
-                color: AppColors.white,
-                size: adaptiveScreen.dp(3.5),
-              )
-            : null,
-      ),
-    ).sliverBox.sliverPadding(
-      EdgeInsets.only(
-        top: adaptiveScreen.bhp(5),
-        bottom: adaptiveScreen.bhp(8),
-      ),
-    );
   }
 
   Widget _buildInputField({
