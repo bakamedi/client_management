@@ -15,16 +15,18 @@ abstract class CustomAppbarGW {
 
     return AppBar(
       leadingWidth: leadingWidth ?? adaptiveScreen.bwh(40),
+      backgroundColor: AppColors.white,
       leading: IconButton(
         icon: Row(
           children: [
             Padding(
               padding: EdgeInsets.only(left: adaptiveScreen.bwh(1)),
-              child: Icon(Icons.arrow_back, color: AppColors.grey500),
+              child: Icon(Icons.arrow_back, color: AppColors.black100),
             ),
             CustomTextGW.text(
               'Atrás',
               adaptiveScreen: adaptiveScreen,
+              color: AppColors.black100,
               fontSize: adaptiveScreen.dp(1.7),
             ),
           ],

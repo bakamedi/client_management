@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../domain/either.dart';
 import '../../../domain/models/auth/failure/sign_in_failure.dart';
-import '../../../domain/models/auth/token_model.dart';
 import '../../../domain/typedefs.dart';
 import 'device_provider.dart';
 
@@ -17,19 +16,35 @@ class AuthProvider {
   final SupabaseProvider _supabaseProvider;
   final DeviceUtilProvider _deviceUtilProvider;
 
-  FutureEither<SignInFailure, TokenModel> signIn({
+  FutureEither<SignInFailure, Success> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      return const Either.right(
-        TokenModel(
-          data: DataTokenModel(
-            accessToken: 'accessToken',
-            refreshToken: 'refreshToken',
-          ),
-        ),
+      final result = await _supabaseProvider.auth.signInWithPassword(
+        email: email,
+        password: password,
       );
+      if (result.user == null && result.session == null) {
+        return const Either.left(SignInFailure.notFound());
+      }
+      // await _deviceUtilProvider.setNames(result.user);
+      // await _deviceUtilProvider.setLastName(result.user);
+      await _deviceUtilProvider.setAccessToken(
+        result.session?.accessToken ?? '',
+      );
+      await _deviceUtilProvider.setRefreshToken(
+        result.session?.refreshToken ?? '',
+      );
+      return const Either.right(Success());
+    } on AuthException catch (e) {
+      if (e.code!.contains('invalid_credentials')) {
+        return const Either.left(SignInFailure.notFound());
+      }
+      if (e.message.contains('User already registered')) {
+        return const Either.left(SignInFailure.emailAlreadyExists());
+      }
+      return const Either.left(SignInFailure.unhandledException());
     } catch (e) {
       return const Either.left(SignInFailure.unhandledException());
     }

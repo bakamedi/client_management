@@ -1,9 +1,9 @@
+import 'package:client_management/app/domain/models/success/success.dart';
 import 'package:flutter_meedu/notifiers.dart';
 import 'package:flutter_meedu/providers.dart';
 
 import '../../../../core/utils/update_field_gu.dart';
 import '../../../../domain/models/auth/failure/sign_in_failure.dart';
-import '../../../../domain/models/auth/success/sign_in_success.dart';
 import '../../../../domain/respositories/auth_repository.dart';
 import '../../../../domain/typedefs.dart';
 import '../../../../injection_providers.dart';
@@ -52,7 +52,7 @@ class SignInController extends StateNotifier<SignInState> {
     onChangeFormValid();
   }
 
-  FutureEither<SignInFailure, SignInSuccess> signIn() async {
+  FutureEither<SignInFailure, Success> signIn() async {
     return await _authRepository.signIn(email, password);
   }
 }
