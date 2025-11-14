@@ -75,7 +75,7 @@ class ContactsW extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         CustomTextGW.text(
-                          contact.cellPhoneNumber!,
+                          contact.cellPhoneNumber.toString(),
                           adaptiveScreen: adaptiveScreen,
                           fontSize: adaptiveScreen.dp(1.3),
                           color: AppColors.grey400,
@@ -91,10 +91,7 @@ class ContactsW extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(
-    ContactResponse contact,
-    AdaptiveScreen adaptiveScreen,
-  ) {
+  Widget _buildHeader(ContactResponse contact, AdaptiveScreen adaptiveScreen) {
     final initials = contact.initials;
     final profileImage = contact.profileImage?.getUrlProfile ?? '';
 

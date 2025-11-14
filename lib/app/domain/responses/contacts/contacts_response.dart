@@ -53,11 +53,10 @@ abstract class ContactResponse with _$ContactResponse {
   const factory ContactResponse({
     @JsonKey(name: "id") String? id,
     @JsonKey(name: "names") String? names,
-    @JsonKey(name: "lastName") String? lastName,
-    @JsonKey(name: "role") String? role,
-    @JsonKey(name: "phoneNumber") String? phoneNumber,
-    @JsonKey(name: "cellPhoneNumber") String? cellPhoneNumber,
-    @JsonKey(name: "profileImage") String? profileImage,
+    @JsonKey(name: "last_names") String? lastName,
+    @JsonKey(name: "phone") int? phoneNumber,
+    @JsonKey(name: "cellphone") int? cellPhoneNumber,
+    @JsonKey(name: "url_image") String? profileImage,
   }) = _ContactResponse;
 
   factory ContactResponse.fromJson(Map<String, dynamic> json) =>

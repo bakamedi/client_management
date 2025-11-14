@@ -1,3 +1,4 @@
+import 'package:client_management/app/data/data_source/providers/supabase_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
 
@@ -14,45 +15,40 @@ import 'device_provider.dart';
 class ContactsProvider {
   ContactsProvider({
     required HttpHelper http,
+    required SupabaseProvider supabaseProvider,
     required DeviceUtilProvider deviceUtilProvider,
   }) : _http = http,
+       _supabaseProvider = supabaseProvider,
        _deviceUtilProvider = deviceUtilProvider;
   final HttpHelper _http;
+  final SupabaseProvider _supabaseProvider;
   final DeviceUtilProvider _deviceUtilProvider;
 
   FutureEither<ContactsFailure, ContactResponse> create(
     ContactResponse contact,
   ) async {
-    final accessToken = await _deviceUtilProvider.accessToken;
-    final result = await _http.request(
-      'user/',
-      method: HttpMethod.POST,
-      bearerToken: accessToken,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      data: contactResponseToJson(contact),
-    );
+    try {
+      final result = await _supabaseProvider.client
+          .from('Contact')
+          .insert({
+            'names': contact.names,
+            'last_names': contact.lastName,
+            'phone': contact.phoneNumber,
+            'cellphone': contact.cellPhoneNumber,
+            'url_image': contact.profileImage,
+            'user_id': _supabaseProvider.client.auth.currentUser!.id,
+          })
+          .select()
+          .single();
 
-    return result.when(
-      success: (statusCode, data) {
-        final user = contactSimpleResponseFromJson(data);
-        return Either.right(user.data);
-      },
-      networkError: (stackTrace) {
-        return const Either.left(ContactsFailure.network());
-      },
-      timeOut: (stackTrace) {
-        return const Either.left(ContactsFailure.timeOut());
-      },
-      unhandledError: (statusCode, stackTrace) {
-        return const Either.left(ContactsFailure.unhandledException());
-      },
-      internetConnection: () {
-        return const Either.left(ContactsFailure.network());
-      },
-    );
+      // El result viene como Map<String, dynamic>
+      final created = ContactResponse.fromJson(result);
+
+      return Either.right(created);
+    } catch (e) {
+      print('CREATE CONTACT ERROR: $e');
+      return const Either.left(ContactsFailure.unhandledException());
+    }
   }
 
   FutureEither<ContactsFailure, ContactsResponse> getAll() async {

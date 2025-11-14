@@ -41,7 +41,7 @@ class ContactView extends ConsumerWidget {
               'Guardar',
               adaptiveScreen: adaptiveScreen,
               color: contactController.isFormValid
-                  ? AppColors.primary
+                  ? AppColors.white
                   : AppColors.grey300,
               fontWeight: FontWeight.bold,
             ).padding(EdgeInsets.only(right: adaptiveScreen.bwh(6))),
@@ -69,6 +69,7 @@ class ContactView extends ConsumerWidget {
             label: 'Número de teléfono',
             hint: 'Escriba el Teléfono',
             keyboardType: TextInputType.phone,
+            maxLength: 10,
             controller: contactController.textPhoneNumberEditingController,
             contactController: contactController,
           ),
@@ -76,6 +77,7 @@ class ContactView extends ConsumerWidget {
             label: 'Número de celular',
             hint: 'Escriba el celular',
             keyboardType: TextInputType.phone,
+            maxLength: 10,
             controller: contactController.textCellPhoneEditingController,
             contactController: contactController,
           ),
@@ -203,6 +205,7 @@ class ContactView extends ConsumerWidget {
     required TextInputType keyboardType,
     required TextEditingController? controller,
     required ContactController contactController,
+    int? maxLength,
   }) {
     return InputTextFieldGW(
       onChanged: (value) => contactController.validateForm(),
@@ -211,6 +214,7 @@ class ContactView extends ConsumerWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       keyboardType: keyboardType,
+      maxLength: maxLength,
     ).sliverBox.sliverPadding(
       EdgeInsets.symmetric(
         horizontal: adaptiveScreen.bwh(10),

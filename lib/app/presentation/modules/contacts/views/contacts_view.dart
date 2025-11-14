@@ -23,7 +23,7 @@ class ContactsView extends ConsumerWidget {
 
     return ScaffoldSimpleBodyGW.home(
       adaptiveScreen: adaptiveScreen,
-      floatingActionButton: CreateContactBtnW(),
+      floatingActionButton: const CreateContactBtnW(),
       appBar: CustomAppbarGW.home(
         context: context,
         names: '${sessionGC.names} ${sessionGC.lastName}',

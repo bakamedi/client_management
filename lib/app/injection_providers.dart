@@ -74,6 +74,7 @@ final _storeContactsProvider = Provider(
 final _contactsProvider = Provider(
   (ref) => ContactsProvider(
     http: _httpProvider.read(),
+    supabaseProvider: _supabaseProvider.read(),
     deviceUtilProvider: _deviceUtilProvider.read(),
   ),
 );

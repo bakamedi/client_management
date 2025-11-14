@@ -4,9 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 extension StringExt on String {
   bool get isValidEmail {
-    return RegExp(
-      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-    ).hasMatch(this);
+    return RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+').hasMatch(this);
   }
 
   bool get isValidName {
@@ -75,8 +73,9 @@ extension StringExt on String {
     }
     List<String> parts = split('.');
     base64Url.decode(base64Url.normalize(parts[1]));
-    String payload =
-        utf8.decode(base64Url.decode(base64Url.normalize(parts[1])));
+    String payload = utf8.decode(
+      base64Url.decode(base64Url.normalize(parts[1])),
+    );
     Map<String, dynamic> decodedPayload = jsonDecode(payload);
     if (decodedPayload.containsKey('exp')) {
       int exp = decodedPayload['exp'];
@@ -97,5 +96,9 @@ extension StringExt on String {
   String get getUrlProfile {
     if (isEmpty) return this;
     return dotenv.env['BASE_URL_IMAGE']! + this;
+  }
+
+  int toInt() {
+    return int.tryParse(this) ?? 0;
   }
 }

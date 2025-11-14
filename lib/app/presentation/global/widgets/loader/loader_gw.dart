@@ -1,10 +1,10 @@
 import 'dart:ui';
+import 'package:client_management/app/presentation/modules/splash/views/widgets/animated_icon_row_w.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/consumer.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../../../presentation/extensions/widgets_ext.dart';
 import '../../../../core/adaptative_screen/adaptive_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../controllers/loader/loader_gc.dart';
@@ -25,6 +25,7 @@ class LoaderGW extends ConsumerWidget {
               child: Material(
                 color: AppColors.transparent,
                 child: Stack(
+                  alignment: AlignmentGeometry.center,
                   children: [
                     BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
@@ -32,10 +33,16 @@ class LoaderGW extends ConsumerWidget {
                         color: AppColors.black100.withValues(alpha: .4),
                       ),
                     ),
-                    LoadingAnimationWidget.inkDrop(
-                      color: AppColors.white,
-                      size: adaptiveScreen.dp(3),
-                    ).center,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedIconsRow(adaptiveScreen: adaptiveScreen),
+                        LoadingAnimationWidget.progressiveDots(
+                          color: Colors.white70,
+                          size: adaptiveScreen.dp(3),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

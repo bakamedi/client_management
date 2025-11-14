@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:client_management/app/presentation/extensions/strings_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/providers.dart';
 import 'package:flutter_meedu/notifiers.dart';
@@ -55,10 +56,10 @@ class ContactController extends StateNotifier<ContactState> {
           text: state.contact?.lastName,
         ),
         textPhoneNumberEditingController: TextEditingController(
-          text: state.contact?.phoneNumber,
+          text: state.contact?.phoneNumber?.toString() ?? '',
         ),
         textCellPhoneEditingController: TextEditingController(
-          text: state.contact?.cellPhoneNumber,
+          text: state.contact?.cellPhoneNumber?.toString() ?? '',
         ),
       ),
     );
@@ -88,10 +89,9 @@ class ContactController extends StateNotifier<ContactState> {
   FutureEither<ContactsFailure, ContactResponse> createContact() async {
     final createContact = ContactResponse(
       names: textNamesEditingController?.text ?? '',
-      role: 'USER',
       lastName: textLastNameEditingController?.text ?? '',
-      phoneNumber: textPhoneNumberEditingController?.text ?? '',
-      cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+      phoneNumber: textPhoneNumberEditingController?.text.toInt() ?? 0,
+      cellPhoneNumber: textCellPhoneEditingController?.text.toInt() ?? 0,
       profileImage: urlCreateProfile,
     );
 
@@ -103,10 +103,9 @@ class ContactController extends StateNotifier<ContactState> {
   }) async {
     final updatedContact = state.contact!.copyWith(
       names: textNamesEditingController?.text ?? '',
-      role: 'USER',
       lastName: textLastNameEditingController?.text ?? '',
-      phoneNumber: textPhoneNumberEditingController?.text ?? '',
-      cellPhoneNumber: textCellPhoneEditingController?.text ?? '',
+      phoneNumber: textPhoneNumberEditingController?.text.toInt() ?? 0,
+      cellPhoneNumber: textCellPhoneEditingController?.text.toInt() ?? 0,
       profileImage: urlCreateProfile,
     );
 
