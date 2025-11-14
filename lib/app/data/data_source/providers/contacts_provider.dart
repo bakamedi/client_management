@@ -36,7 +36,6 @@ class ContactsProvider {
 
       return Either.right(created);
     } catch (e) {
-      print('CREATE CONTACT ERROR: $e');
       return const Either.left(ContactsFailure.unhandledException());
     }
   }
@@ -49,7 +48,6 @@ class ContactsProvider {
 
       return Either.right(ContactsResponse(data: contacts));
     } catch (e) {
-      print('GET ALL CONTACTS ERROR: $e');
       return const Either.left(ContactsFailure.unhandledException());
     }
   }
@@ -67,13 +65,11 @@ class ContactsProvider {
             'cellphone': contact.cellPhoneNumber,
             'url_image': contact.profileImage,
           })
-          .eq('id', contact.id)
+          .eq('id', contact.id ?? '')
+          .eq('user_id', _supabaseProvider.client.auth.currentUser!.id)
           .select();
 
       if (result.isEmpty) {
-        print(
-          'UPDATE CONTACT ERROR: No contact found with id ${contact.id} or permission denied.',
-        );
         return const Either.left(ContactsFailure.unhandledException());
       }
 
@@ -81,7 +77,6 @@ class ContactsProvider {
 
       return Either.right(updatedContact);
     } catch (e) {
-      print('UPDATE CONTACT ERROR: $e');
       return const Either.left(ContactsFailure.unhandledException());
     }
   }
@@ -92,7 +87,6 @@ class ContactsProvider {
 
       return const Either.right(ContactsSuccess.ok());
     } catch (e) {
-      print('DELETE CONTACT ERROR: $e');
       return const Either.left(ContactsFailure.unhandledException());
     }
   }
@@ -114,7 +108,6 @@ class ContactsProvider {
 
       return Either.right(imageUrl);
     } catch (e) {
-      print('UPLOAD IMAGE ERROR: $e');
       return const Either.left(ContactsFailure.unhandledException());
     }
   }
