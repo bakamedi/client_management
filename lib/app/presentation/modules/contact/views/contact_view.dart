@@ -135,7 +135,7 @@ class ContactView extends ConsumerWidget {
     ).sliverBox.sliverPadding(
       EdgeInsets.only(
         top: adaptiveScreen.bhp(5),
-        bottom: adaptiveScreen.bhp(8),
+        bottom: adaptiveScreen.bhp(2),
       ),
     );
   }
