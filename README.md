@@ -4,7 +4,9 @@ Esta aplicación ha sido desarrollada como parte de una prueba técnica, con el 
 
 ## Descripción
 
-CliPro App es una aplicación móvil desarrollada en Flutter que permite el registro de usuarios y por su mantención
+CliPro App es una aplicación móvil desarrollada en Flutter que permite el registro de usuarios y por su mantención. 
+
+Este proyecto se ha actualizado para usar supabase ya que la prueba original es usando un backend propio.
 
 ## Instalación
 
